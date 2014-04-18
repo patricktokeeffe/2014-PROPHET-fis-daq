@@ -1,0 +1,30 @@
+
+
+- Determine whether or not a 120 ohm termination resistor is required at the
+  EC100 terminal blocks 
+    --> characteristic impedance of the Cat5e armored ethernet cable is 100 ohm
+        not 120 [wikipedia]; should different resistor size be used?
+
+    From https://en.wikibooks.org/wiki/Serial_Programming/RS-485 
+
+    "A final note on transmission lines is that the termination resistor should
+    match the characteristic impedance of the cable. If CAT-5 (100 O cable) 
+    cable is used, the termination resistors should be 100 ohm, not the 120 ohm
+    suggested in the standard and the above examples. However, an incorrect 
+    value termination resistor will usually improve the signal quality compared
+    to an unterminated network. A 120 O termination resistor can cause enough 
+    loss with very long cables to stop the network from functioning. In this 
+    case a 500 ohm or even a 1 kohm termination resistor may improve the signal
+    quality with out causing too much signal loss. The value will have to be 
+    determined empirically for the individual network." 
+
+    --> alternately, Schottkey diodes could be used to clamp reflections in
+    place of termination resistors
+        see: http://www.eetimes.com/document.asp?doc_id=1224773 
+
+
+
+- Test whether the `checksum` instruction with 'CSI signature' option is the
+  same as signature algorithm described in EC150 manual (pg 19)
+
+

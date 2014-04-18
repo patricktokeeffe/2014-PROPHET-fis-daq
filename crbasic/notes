@@ -1,0 +1,27 @@
+
+
+EC100 serial output is:
+- most probably fixed-length values
+- values are comma delimited (no spaces)
+- records are delimited by CR+LF
+- a 4-byte hexadecimal checksum is the final value
+
+
+
+
+Data record (in order received):
+    Ux, m/s
+    Uy, m/s
+    Uz, m/s
+    sonic temperature, degC
+    sonic diagnostic bitmap
+    CO2 density, mg/m^3
+    H2O density, g/m^3
+    IRGA diagnostic bitmap
+    air temp, degC
+    air pressure, kPa
+    CO2 signal strength, unity
+    H2O signal strength, unity
+    pressure differential, kPa   <-- disregard for EC150; no value transmitted?
+    counter, arbitrary
+    checksum, arbitrary in hexadecimal

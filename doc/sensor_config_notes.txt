@@ -1,0 +1,18 @@
+
+
+Sonic/IRGA
+==========
+
+- Must connect to the control unit with ECMon or DevConfig software and 
+    * enable unprompted RS-485 output (factory default: disabled)
+    * check baud rate (factory default: 115200)
+    * check output rate (factory default: 10 Hz)
+
+
+RS-232/RS-485 converter
+=======================
+
+- Dip switches must be changed from 2-wire to 4-wire configuration
+- Figure out what "ECHO" dip switches do
+- Do bench tests to determine whether bias/termination options are needed
+
