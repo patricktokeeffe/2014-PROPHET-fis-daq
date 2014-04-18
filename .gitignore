@@ -1,0 +1,9 @@
+
+#ignore thumbnails created by windows
+Thumbs.db
+
+#ignore LibreOffice stuffs
+
+*.ods~
+*.odg~
+.~lock.*
