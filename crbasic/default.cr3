@@ -1,0 +1,106 @@
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' Biogenic VOCs and Secondary Organic Aerosol at PROPHET - WSU 2014
+' 
+' Data acquisition for FIS and associated micrometeorological sensors
+'
+' Laboratory for Atmospheric Research
+' Department of Civil & Environmental Engineering
+' Washington State University
+' 
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
+
+
+'============================== WIRING =======================================
+
+'FIS 
+Const PMT_COM = Com1  'C1 C2    photomuliplier tube (PMT)
+
+
+
+
+'============================== CONSTANTS ====================================
+Const CR = CHR(13) 'carriage return
+
+'Operational configuration
+Const FAST_INTV = 100 'ms = 10 Hz
+
+'FIS
+Const PMT_INTEG = 10  '# of 10ms intervals to sum per reading; = 10 Hz
+Const PMT_BAUD = 9600
+Const PMT_FORMAT = 3  '8/none/1 in "binary" mode (
+Const PMT_BUFF = 10  '4 bytes/reading * 2 + 1
+Const PMT_CMD_SETINTEG = "P" & CHR(PMT_INTEG) & CR  'set integration time
+Const PMT_CMD_SETVOLTAGE = "D" & CR  'set default high voltage
+Const PMT_CMD_START = "C" & CR  'begin continuous read
+Const PMT_CMD_STOP = CR
+
+
+'============================= VARIABLES =====================================
+Dim pmt_record As String * 4
+Dim pmt_bytes
+Dim pmt_convert As Long
+
+Public pmt_overflow As Boolean
+Public pmt_counts
+Units pmt_counts = counts
+
+
+'========================== CUSTOM MENUS =====================================
+'DisplayMenu("FIS DAQ", -1)
+'  DisplayValue("PMT counts", pmt_counts)
+'EndMenu
+
+
+'============================== SUBROUTINES ==================================
+Sub setup()
+  SerialOpen(PMT_COM,PMT_BAUD,PMT_FORMAT,0,PMT_BUFF)
+  Call start_pmt()
+EndSub
+
+Sub start_pmt()
+  'TODO check if a continuous measurement is already in progress!
+  '     if so, send stop command, set integ time & voltage, then restart
+  SerialOut(PMT_COM,PMT_CMD_SETINTEG,"",0,0) 'set integration time
+  SerialOut(PMT_COM,PMT_CMD_SETVOLTAGE,"",0,0) 'enable high voltage
+  SerialOut(PMT_COM,PMT_CMD_START,"",0,0) 'begin continuous readings
+EndSub
+
+Sub stop_pmt()
+  SerialOut(PMT_COM,PMT_CMD_STOP,"",0,0) 'stop continuous readings
+EndSub
+
+'=============================== PROGRAM =====================================
+ShutDownBegin
+  Call stop_pmt()
+ShutDownEnd
+
+BeginProg
+  Call setup()
+  
+  Scan(FAST_INTV,mSec,0,0)
+    SerialInRecord(PMT_COM,pmt_record,0,4,0,pmt_bytes,11)
+    'TODO ensure >2 bytes; if <4 bytes, an error occurred
+    'TODO check MSB; if 1, overflow occurring --> shut off high voltage
+    If (pmt_bytes = 4) Then
+      'check most significant bit of MSB (byte3)
+      pmt_overflow = ASCII(pmt_record(1,1,3)) AND &h80
+      If (pmt_overflow) Then 'check overflow bit
+        pmt_counts = NAN
+      Else
+        MoveBytes(pmt_convert,0,pmt_record,3,1) 'reverse byte order
+        MoveBytes(pmt_convert,1,pmt_record,2,1)
+        MoveBytes(pmt_convert,2,pmt_record,1,1)
+        MoveBytes(pmt_convert,3,pmt_record,0,1)
+        pmt_counts = pmt_convert 'coerce to float
+      EndIf
+    Else
+      pmt_counts = NAN
+      pmt_overflow = False
+    EndIf
+    
+  NextScan
+  
+  'slowsequence goes here
+EndProg
