@@ -9,7 +9,10 @@
 ' 
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-
+'=========================== CONST TABLE SETTINGS ============================
+ConstTable
+  Const UTC_OFFSET = -8  'Pacific Standard Time
+EndConstTable
 
 
 '============================== WIRING =======================================
@@ -50,6 +53,11 @@ Const FIS_FLOW_O2_OFFSET = 0
 Const FIS_FLOW_STD_MULT = (20-0)/(5000-0) '0-20 sccm / 0-5V
 Const FIS_FLOW_STD_OFFSET = 0
 
+'GPS receiver
+Const GPS_COM = Com4
+Const MAX_DIFF = 25 'msec
+Const DAILY_MEDNUM = 480 
+
 
 '============================= VARIABLES =====================================
 Dim pmt_record As String * 4
@@ -74,6 +82,34 @@ Alias fis_state(2) = FIS_state_zero
 Public fis_status(2) As Boolean
 Alias fis_status(1) = FIS_is_calibrating
 Alias fis_status(2) = FIS_is_zeroing
+
+Dim nmea_str As String * 90
+Public gps16x(15)
+Alias gps16x(1)  = lat_deg        '(+)=North, (-)=South
+Alias gps16x(2)  = lat_min
+Alias gps16x(3)  = long_deg       '(+)=East, (-)=West
+Alias gps16x(4)  = long_min
+Alias gps16x(5)  = speed
+Alias gps16x(6)  = course
+Alias gps16x(7)  = mag_var        '(+)=East, (-)=West
+Alias gps16x(8)  = fix_quality
+Alias gps16x(9)  = num_sat
+Alias gps16x(10) = altitude
+Alias gps16x(11) = since_pps
+Alias gps16x(12) = since_gprmc
+Alias gps16x(13) = gps_ready
+Alias gps16x(14) = max_clock_change
+Alias gps16x(15) = num_clock_change
+Units speed = m/s
+Units course = degEofN
+Units mag_var = degEofN
+Units fix_quality = unitless
+Units num_sat = count
+Units altitude = m
+Units since_pps = ms
+Units since_gprmc = s
+Units max_clock_change = ms
+Units num_clock_change = occurrences
 
 Dim just_had_1hz_scan As Boolean
 Dim inbetween_1hz_scan As Boolean
@@ -102,6 +138,32 @@ DataTable(stats,True,-1)
   Average(1,FIS_flow_std,FP2,FIS_flow_std=NAN) 'XXX should the standard only be
   StdDev(1,FIS_flow_std,FP2,FIS_flow_std=NAN)  '    included when active?
 EndTable
+
+DataTable(gps_daily,TRUE,30)
+  DataInterval (0,1,Day,10)
+  'CardOut(0,90)
+  Median(1,(lat_deg + lat_min/60),DAILY_MEDNUM,IEEE4,(lat_deg=NAN OR lat_min=NAN))
+    FieldNames("latitude_Med")
+    Units latitude_Med = degN
+  Median(1,(long_deg + long_min/60),DAILY_MEDNUM,IEEE4,(long_deg=NAN OR long_min=NAN))
+    FieldNames("longitude_Med")
+    Units longitude_Med = degE
+  Median(1,mag_var,DAILY_MEDNUM,FP2,mag_var=NAN)
+  Average(1,num_sat,FP2,num_sat=NAN)
+  Median(1,altitude,DAILY_MEDNUM,IEEE4,altitude=NAN)
+  Average(1,altitude,IEEE4,altitude=NAN)
+  Minimum(1,gps_ready,FP2,gps_ready=NAN,0)
+  Sample(1,max_clock_change,UINT2)
+  Sample(1,num_clock_change,UINT2)
+EndTable
+
+DataTable(info,True,100)
+  'CardOut(1,-1)
+  Sample(1,UTC_OFFSET,FP2)
+    FieldNames("UTC_offset")
+    Units UTC_OFFSET = hours
+EndTable
+
 
 '========================== CUSTOM MENUS =====================================
 DisplayMenu("FIS DAQ", -1)
@@ -140,6 +202,7 @@ ShutDownEnd
 
 BeginProg
   Call setup()
+  CallTable info
   
   Scan(FAST_INTV,mSec,0,0)
     SerialInRecord(FIS_PMT_COM,pmt_record,0,4,0,pmt_bytes,11)
@@ -182,6 +245,12 @@ BeginProg
       inbetween_1hz_scan = False
     EndIf
   NextScan
-  
-  'slowsequence goes here
+
+  SlowSequence
+  Scan(SLOW_INTV,Sec,10,-1)
+    GPS(gps16x(1),GPS_COM,UTC_OFFSET*3600,MAX_DIFF,nmea_str(1))
+    CallTable(gps_daily)
+    
+    just_had_1hz_scan = True
+  NextScan
 EndProg
