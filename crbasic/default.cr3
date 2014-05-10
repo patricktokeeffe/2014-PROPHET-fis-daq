@@ -11,10 +11,15 @@
 
 '=========================== CONST TABLE SETTINGS ============================
 ConstTable
+  Const SONIC2_ENABLED = True 'XXX
+  Const SONIC3_ENABLED = True
+
   Const UTC_OFFSET = -8  'Pacific Standard Time
 
   Const SDM_SPEED = 30 'usec; 8-3000
   Const EC100_ADDR = 1 'default SDM address
+  Const SONIC2_ADDR = 3 'default SDM address
+  Const SONIC3_ADDR = 4 '<-- change sonic config   
 EndConstTable
 
 
@@ -66,6 +71,8 @@ Const DAILY_MEDNUM = 480
 
 'SDM devices
 Const EC100_CMD = 1 'get 3D wind, temp, CO2, H2O, press & 2 diagnostics
+Const CSAT3_CMD = 91 'trigger + get 3D wind, temp & diagnostic
+Const CSAT3_OPT = INT(1000/FAST_INTV)
 
 
 '============================= VARIABLES =====================================
@@ -117,6 +124,30 @@ Units irga1_amb_tmpr = degC
 Units irga1_amb_press = kPa
 Units irga1_CO2_signal = ratio
 Units irga1_H2O_signal = ratio
+
+#If (SONIC2_ENABLED) Then
+  Public sonic2(5)
+  Alias sonic2(1) = sonic2_Ux
+  Alias sonic2(2) = sonic2_Uy
+  Alias sonic2(3) = sonic2_Uz
+  Alias sonic2(4) = sonic2_Ts
+  Alias sonic2(5) = sonic2_diag
+  Units sonic2 = m/s
+  Units sonic2_Ts = degC
+  Units sonic2_diag = bitmap
+#EndIf
+
+#If (SONIC3_ENABLED) Then
+  Public sonic3(5)
+  Alias sonic3(1) = sonic3_Ux
+  Alias sonic3(2) = sonic3_Uy
+  Alias sonic3(3) = sonic3_Uz
+  Alias sonic3(4) = sonic3_Ts
+  Alias sonic3(5) = sonic3_diag
+  Units sonic3 = m/s
+  Units sonic3_Ts = degC
+  Units sonic3_diag = bitmap
+#EndIf
 
 Dim nmea_str As String * 90
 Public gps16x(15)
@@ -174,6 +205,22 @@ DataTable(ts_fast,True,-1)
   Sample(1,irga1_diag,UINT2)
   Sample(1,irga1_CO2_signal,IEEE4)
   Sample(1,irga1_H2O_signal,IEEE4)
+  
+  #If (SONIC2_ENABLED) Then
+    Sample(1,sonic2_Ux,IEEE4)
+    Sample(1,sonic2_Uy,IEEE4)
+    Sample(1,sonic2_Uz,IEEE4)
+    Sample(1,sonic2_Ts,IEEE4)
+    Sample(1,sonic2_diag,UINT2)
+  #EndIf
+  
+  #If (SONIC3_ENABLED) Then
+    Sample(1,sonic3_Ux,IEEE4)
+    Sample(1,sonic3_Uy,IEEE4)
+    Sample(1,sonic3_Uz,IEEE4)
+    Sample(1,sonic3_Ts,IEEE4)
+    Sample(1,sonic3_diag,UINT2)
+  #EndIf
 EndTable
 
 DataTable(stats,True,-1)
@@ -212,18 +259,41 @@ DataTable(info,True,100)
     Units UTC_OFFSET = hours
   Sample(1,EC100_ADDR,UINT2)
     FieldNames("sonicIRGA_SDM_address")
+  Sample(1,SONIC2_ADDR,UINT2)
+    FieldNames("sonic2_SDM_address")
+  Sample(1,SONIC3_ADDR,UINT2)
+    FieldNames("sonic3_SDM_address")
 EndTable
 
 
 '========================== CUSTOM MENUS =====================================
+Const Yes = True
+Const No = False
+Const Cancel = False
+Dim recompile As Boolean
+
 DisplayMenu("FIS DAQ", -1)
-  DisplayValue("PMT counts", FIS_pmt_counts)
-  DisplayValue("PMT overflow", FIS_pmt_overflow)
-  DisplayValue("Total flow", FIS_flow_tot)
-  DisplayValue("O2 flow", FIS_flow_O2)
-  DisplayValue("Std. flow", FIS_flow_std)
-  DisplayValue("Calibrating", FIS_is_calibrating)
-  DisplayValue("Zeroing", FIS_is_zeroing)
+  SubMenu("View data")
+    DisplayValue("PMT counts", FIS_pmt_counts)
+    DisplayValue("PMT overflow", FIS_pmt_overflow)
+    DisplayValue("Total flow", FIS_flow_tot)
+    DisplayValue("O2 flow", FIS_flow_O2)
+    DisplayValue("Std. flow", FIS_flow_std)
+    DisplayValue("Calibrating", FIS_is_calibrating)
+    DisplayValue("Zeroing", FIS_is_zeroing)
+  EndSubMenu
+  SubMenu("Initial setup")
+    MenuItem("Use sonic2?", SONIC2_ENABLED)
+      MenuPick(SONIC2_ENABLED, No, Yes)
+    MenuItem("sonic2 addr", SONIC2_ADDR)
+      MenuPick(SONIC2_ADDR,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14)
+    MenuItem("Use sonic3?", SONIC3_ENABLED)
+      MenuPick(SONIC3_ENABLED, No, Yes)
+    MenuItem("sonic3 addr", SONIC3_ADDR)
+      MenuPick(SONIC3_ADDR,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14)
+    MenuRecompile("Save now?", recompile)
+      MenuPick(Cancel,Yes)
+  EndSubMenu
 EndMenu
 
 
@@ -292,6 +362,13 @@ BeginProg
     irga1_CO2 /= MW_CO2 'mg/m^3 --> mmol/m^3
     irga1_H2O *= (1000/MW_H2O) 'g/m^3 --> mmol/m^3
     
+    #If (SONIC2_ENABLED) Then
+      CSAT3(sonic2(1),1,SONIC2_ADDR,CSAT3_CMD,CSAT3_OPT)
+    #EndIf
+    #If (SONIC3_ENABLED) Then
+      CSAT3(sonic3(1),1,SONIC3_ADDR,CSAT3_CMD,CSAT3_OPT)
+    #EndIf
+
     'disable_sonic1 = sonic1_diag > 0
     'disable_irga1 = irga1_diag > 0
     
