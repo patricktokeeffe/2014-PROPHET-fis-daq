@@ -17,9 +17,8 @@ ConstTable
   Const UTC_OFFSET = -8  'Pacific Standard Time
 
   Const SDM_SPEED = 30 'usec; 8-3000
-  Const EC100_ADDR = 1 'default SDM address
   Const SONIC2_ADDR = 3 'default SDM address
-  Const SONIC3_ADDR = 4 '<-- change sonic config   
+  Const SONIC3_ADDR = 4 '<-- change sonic config
 EndConstTable
 
 
@@ -70,6 +69,7 @@ Const MAX_DIFF = 25 'msec
 Const DAILY_MEDNUM = 480 
 
 'SDM devices
+Const EC100_ADDR = 1 'default SDM address
 Const EC100_CMD = 1 'get 3D wind, temp, CO2, H2O, press & 2 diagnostics
 Const CSAT3_CMD = 91 'trigger + get 3D wind, temp & diagnostic
 Const CSAT3_OPT = INT(1000/FAST_INTV)
