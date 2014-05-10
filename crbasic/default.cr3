@@ -12,6 +12,9 @@
 '=========================== CONST TABLE SETTINGS ============================
 ConstTable
   Const UTC_OFFSET = -8  'Pacific Standard Time
+
+  Const SDM_SPEED = 30 'usec; 8-3000
+  Const EC100_ADDR = 1 'default SDM address
 EndConstTable
 
 
@@ -28,6 +31,9 @@ Const FIS_STATE_ZERO_SE = 28
 
 '============================== CONSTANTS ====================================
 Const CR = CHR(13) 'carriage return
+
+Const MW_CO2 = 44.010   'molecular weight of carbon dioxide, g/mol
+Const MW_H2O = 18.01528 'molecular weight of water vapor, g/mol
 
 'Operational configuration
 Const FAST_INTV = 100 'ms = 10 Hz
@@ -58,6 +64,9 @@ Const GPS_COM = Com4
 Const MAX_DIFF = 25 'msec
 Const DAILY_MEDNUM = 480 
 
+'SDM devices
+Const EC100_CMD = 1 'get 3D wind, temp, CO2, H2O, press & 2 diagnostics
+
 
 '============================= VARIABLES =====================================
 Dim pmt_record As String * 4
@@ -82,6 +91,32 @@ Alias fis_state(2) = FIS_state_zero
 Public fis_status(2) As Boolean
 Alias fis_status(1) = FIS_is_calibrating
 Alias fis_status(2) = FIS_is_zeroing
+
+Public sonic_irga(12)
+Alias sonic_irga(1)  = sonic1_Ux
+Alias sonic_irga(2)  = sonic1_Uy
+Alias sonic_irga(3)  = sonic1_Uz
+Alias sonic_irga(4)  = sonic1_Ts
+Alias sonic_irga(5)  = sonic1_diag
+Alias sonic_irga(6)  = irga1_CO2
+Alias sonic_irga(7)  = irga1_H2O
+Alias sonic_irga(8)  = irga1_diag
+Alias sonic_irga(9)  = irga1_amb_tmpr
+Alias sonic_irga(10) = irga1_amb_press
+Alias sonic_irga(11) = irga1_CO2_signal
+Alias sonic_irga(12) = irga1_H2O_signal
+Units sonic1_Ux = m/s
+Units sonic1_Uy = m/s
+Units sonic1_Uz = m/s
+Units sonic1_Ts = degC
+Units sonic1_diag = bitmap
+Units irga1_CO2 = mmol/m^3
+Units irga1_H2O = mmol/m^3
+Units irga1_diag = bitmap
+Units irga1_amb_tmpr = degC
+Units irga1_amb_press = kPa
+Units irga1_CO2_signal = ratio
+Units irga1_H2O_signal = ratio
 
 Dim nmea_str As String * 90
 Public gps16x(15)
@@ -126,6 +161,19 @@ DataTable(ts_fast,True,-1)
   Sample(1,FIS_flow_std,IEEE4)
   Sample(1,FIS_is_calibrating,Boolean)
   Sample(1,FIS_is_zeroing,Boolean)
+  
+  Sample(1,sonic1_Ux,IEEE4)
+  Sample(1,sonic1_Uy,IEEE4)
+  Sample(1,sonic1_Uz,IEEE4)
+  Sample(1,sonic1_Ts,IEEE4)
+  Sample(1,sonic1_diag,UINT2)
+  Sample(1,irga1_CO2,IEEE4)
+  Sample(1,irga1_H2O,IEEE4)
+  Sample(1,irga1_amb_tmpr,IEEE4)
+  Sample(1,irga1_amb_press,IEEE4)
+  Sample(1,irga1_diag,UINT2)
+  Sample(1,irga1_CO2_signal,IEEE4)
+  Sample(1,irga1_H2O_signal,IEEE4)
 EndTable
 
 DataTable(stats,True,-1)
@@ -162,6 +210,8 @@ DataTable(info,True,100)
   Sample(1,UTC_OFFSET,FP2)
     FieldNames("UTC_offset")
     Units UTC_OFFSET = hours
+  Sample(1,EC100_ADDR,UINT2)
+    FieldNames("sonicIRGA_SDM_address")
 EndTable
 
 
@@ -181,6 +231,8 @@ EndMenu
 Sub setup()
   SerialOpen(FIS_PMT_COM,PMT_BAUD,PMT_FORMAT,0,PMT_BUFF)
   Call start_pmt()
+  
+  SDMSpeed(SDM_SPEED)
 EndSub
 
 Sub start_pmt()
@@ -235,6 +287,13 @@ BeginProg
     VoltSe(FIS_state_zero,1,mV5000,FIS_STATE_ZERO_SE,False,0,INTEG,1,0)
     FIS_is_calibrating = (FIS_state_std > 2500) 
     FIS_is_zeroing = (FIS_state_zero > 2500)
+
+    EC100(sonic_irga(1),EC100_ADDR,EC100_CMD)
+    irga1_CO2 /= MW_CO2 'mg/m^3 --> mmol/m^3
+    irga1_H2O *= (1000/MW_H2O) 'g/m^3 --> mmol/m^3
+    
+    'disable_sonic1 = sonic1_diag > 0
+    'disable_irga1 = irga1_diag > 0
     
     CallTable(ts_fast)
     CallTable(stats)
