@@ -86,8 +86,10 @@ Const TSI_BAUD = 38400
 Const TSI_FORMAT = 3  '8/none/1 in "binary mode"
 Const TSI_BUFF = 19  '2*(9 char/rec) + 1
 Const TSI_QUERY = "DBFTP0001"+CR 'request 1 binary record
-Const TSI_BEGINWORD = &h80000000 'null byte
+Const TSI_BEGINWORD = &h80000000 'special null byte representation
 Const TSI_ENDWORD = &hFFFF
+Const TSI_STP_T = 21.1 'degC
+Const TSI_STP_P = 101.3 'kPa
 
 '============================= VARIABLES =====================================
 Dim pmt_record As String * 4
@@ -215,12 +217,16 @@ Dim tsi_record As String * 6
 Dim tsi_words(3) As Long
 Dim tmpr_msb As Long
 Public tsi(3)
-Alias tsi(1) = flush_flow
+Alias tsi(1) = flush_massFlow
 Alias tsi(2) = flush_tmpr
 Alias tsi(3) = flush_press
-Units flush_flow = sLpm
+Units flush_massFlow = sLpm
 Units flush_tmpr = degC
 Units flush_press = kPa
+
+Public tsi_etc(1)
+Alias tsi_etc(1) = flush_volFlow
+Units flush_volFlow = Lpm
 
 Dim i
 Dim just_had_1hz_scan As Boolean
@@ -267,6 +273,10 @@ DataTable(ts_fast,True,-1)
     Sample(1,sonic3_Ts,IEEE4)
     Sample(1,sonic3_diag,UINT2)
   #EndIf
+  
+  Sample(1,flush_massFlow,FP2)
+  Sample(1,flush_tmpr,FP2)
+  Sample(1,flush_press,FP2)
 EndTable
 
 DataTable(ts_wxt,True,-1)
@@ -322,6 +332,10 @@ DataTable(info,True,100)
     FieldNames("sonic2_SDM_address")
   Sample(1,SONIC3_ADDR,UINT2)
     FieldNames("sonic3_SDM_address")
+  Sample(1,TSI_STP_T,FP2)
+    FieldNames("flowmeter_STP_tmpr")
+  Sample(1,TSI_STP_P,FP2)
+    FieldNames("flowmeter_STP_press")
 EndTable
 
 
@@ -377,6 +391,13 @@ EndSub
 Sub stop_pmt()
   SerialOut(FIS_PMT_COM,PMT_CMD_STOP,"",0,0) 'stop continuous readings
 EndSub
+
+
+'================================= FUNCTIONS =================================
+Function volumetric_flow(StdFlow, Tmpr, Press) As Float
+  Return (StdFlow * ((273.15+Tmpr)/(273.15+TSI_STP_T)) * (TSI_STP_P/Press))
+EndFunction
+
 
 '=============================== PROGRAM =====================================
 ShutDownBegin
@@ -441,6 +462,14 @@ BeginProg
     For i = 1 To 3 'now scale to decimal
       tsi(i) = tsi_words(i)/100.0
     Next
+    'HACK datalogger reads consecutive leading null bytes (e.g. flow = 0.00)
+    'incorrectly; if abs. press is 0, then move values into correct vars
+    If (flush_press <= 0) Then
+      flush_press = flush_tmpr
+      flush_tmpr = flush_massFlow
+      flush_massFlow = 0
+    EndIf
+    flush_volFlow = volumetric_flow(flush_massFlow, flush_tmpr, flush_press)
     SerialOut(TSI_COM,TSI_QUERY,"",0,0) 'ask for next measurement
 
     'disable_sonic1 = sonic1_diag > 0
