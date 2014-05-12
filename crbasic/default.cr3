@@ -31,6 +31,8 @@ Const FIS_FLOW_STD_DF = 3
 Const FIS_STATE_STD_SE = 27
 Const FIS_STATE_ZERO_SE = 28
 
+Const TSI_COM = Com2 'C3/C4  TSI flowmeter
+
 Const WXT_COM = 5 'C5 (SDI)
 
 Const GPS_COM = Com4 'C7/C8
@@ -51,7 +53,7 @@ Const INTEG = 250
 'FIS photomultiplier tube
 Const PMT_INTEG = 10  '# of 10ms intervals to sum per reading; = 10 Hz
 Const PMT_BAUD = 9600
-Const PMT_FORMAT = 3  '8/none/1 in "binary" mode (
+Const PMT_FORMAT = 3  '8/none/1 in "binary" mode
 Const PMT_BUFF = 10  '4 bytes/reading * 2 + 1
 Const PMT_CMD_SETINTEG = "P" & CHR(PMT_INTEG) & CR  'set integration time
 Const PMT_CMD_SETVOLTAGE = "D" & CR  'set default high voltage
@@ -79,6 +81,13 @@ Const CSAT3_OPT = INT(1000/FAST_INTV)
 'SDI device
 Const WXT_ADDR = 0   'SDI address
 Const WXT_CMD = "C!" 'initiate concurrent measurements --> composite msg
+
+Const TSI_BAUD = 38400
+Const TSI_FORMAT = 3  '8/none/1 in "binary mode"
+Const TSI_BUFF = 19  '2*(9 char/rec) + 1
+Const TSI_QUERY = "DBFTP0001"+CR 'request 1 binary record
+Const TSI_BEGINWORD = &h80000000 'null byte
+Const TSI_ENDWORD = &hFFFF
 
 '============================= VARIABLES =====================================
 Dim pmt_record As String * 4
@@ -201,6 +210,19 @@ Units since_gprmc = s
 Units max_clock_change = ms
 Units num_clock_change = occurrences
 
+Dim tsi_bytes
+Dim tsi_record As String * 6
+Dim tsi_words(3) As Long
+Dim tmpr_msb As Long
+Public tsi(3)
+Alias tsi(1) = flush_flow
+Alias tsi(2) = flush_tmpr
+Alias tsi(3) = flush_press
+Units flush_flow = sLpm
+Units flush_tmpr = degC
+Units flush_press = kPa
+
+Dim i
 Dim just_had_1hz_scan As Boolean
 Dim inbetween_1hz_scan As Boolean
 
@@ -338,7 +360,9 @@ EndMenu
 Sub setup()
   SerialOpen(FIS_PMT_COM,PMT_BAUD,PMT_FORMAT,0,PMT_BUFF)
   Call start_pmt()
-  
+
+  SerialOpen(TSI_COM,TSI_BAUD,TSI_FORMAT,0,TSI_BUFF)  
+
   SDMSpeed(SDM_SPEED)
 EndSub
 
@@ -405,6 +429,19 @@ BeginProg
     #If (SONIC3_ENABLED) Then
       CSAT3(sonic3(1),1,SONIC3_ADDR,CSAT3_CMD,CSAT3_OPT)
     #EndIf
+
+    SerialInRecord(TSI_COM,tsi_record,TSI_BEGINWORD,0,TSI_ENDWORD,tsi_bytes,11)
+    MoveBytes(tsi_words(1),2,tsi_record,0,2) 'flow
+    MoveBytes(tsi_words(3),2,tsi_record,4,2) 'press
+    'HINT string-indexing is 1-based but MoveBytes indexing is 0-based
+    tmpr_msb = ASCII(tsi_record(1,1,3)) 'grab sign & MSB as # (0-255)
+    tsi_words(2) = (tmpr_msb AND &h7F) << 8 'drop sign, push into 2nd byte pos
+    MoveBytes(tsi_words(2),3,tsi_record,3,1) 'move LSB into 1st byte pos
+    If (tmpr_msb AND &h80) Then tsi_words(2) -= 32768 'apply sign
+    For i = 1 To 3 'now scale to decimal
+      tsi(i) = tsi_words(i)/100.0
+    Next
+    SerialOut(TSI_COM,TSI_QUERY,"",0,0) 'ask for next measurement
 
     'disable_sonic1 = sonic1_diag > 0
     'disable_irga1 = irga1_diag > 0
