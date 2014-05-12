@@ -173,7 +173,7 @@ Units wxt_rain_amt = mm
 Units wxt_rain_dur = sec
 Units wxt_rain_int = mm/hr
 
-Dim nmea_str As String * 90
+Public nmea_str(2) As String * 90
 Public gps16x(15)
 Alias gps16x(1)  = lat_deg        '(+)=North, (-)=South
 Alias gps16x(2)  = lat_min
