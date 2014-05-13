@@ -267,7 +267,7 @@ Alias choice(4)  = ch_flush_tube_length
 '============================= DATA TABLES ===================================
 DataTable(ts_fast,True,-1)
   DataInterval(0,FAST_INTV,mSec,10)
-  'CardOut(1,-1)
+  CardOut(1,-1)
   Sample(1,FIS_pmt_counts,IEEE4)
   Sample(1,FIS_pmt_overflow,Boolean)
   Sample(1,FIS_flow_tot,IEEE4)
@@ -312,7 +312,7 @@ EndTable
 
 DataTable(ts_wxt,True,-1)
   DataInterval(0,WXT_INTV,Sec,10)
-  'CardOut(1,-1)
+  CardOut(1,-1)
   Sample(1,wxt_WD,FP2)
   Sample(1,wxt_WS,FP2)
   Sample(1,wxt_tmpr,FP2)
@@ -325,7 +325,7 @@ EndTable
 
 DataTable(stats,True,-1)
   DataInterval(0,STATS_INTV,Min,10)
-  'CardOut(1,-1)
+  CardOut(1,-1)
   Average(1,FIS_flow_tot,FP2,FIS_flow_tot=NAN)
   StdDev(1,FIS_flow_tot,FP2,FIS_flow_tot=NAN)
   Average(1,FIS_flow_O2,FP2,FIS_flow_O2=NAN)
