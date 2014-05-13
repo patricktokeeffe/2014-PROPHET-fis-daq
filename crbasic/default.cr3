@@ -11,8 +11,8 @@
 
 '=========================== CONST TABLE SETTINGS ============================
 ConstTable
-  Const SONIC2_ENABLED = True 'XXX
-  Const SONIC3_ENABLED = True
+  Const SONIC2_ENABLED = False
+  Const SONIC3_ENABLED = False
 
   Const UTC_OFFSET = -8  'Pacific Standard Time
 
@@ -188,7 +188,27 @@ Units wxt_rain_amt = mm
 Units wxt_rain_dur = sec
 Units wxt_rain_int = mm/hr
 
-Public nmea_str(2) As String * 90
+Dim tsi_bytes
+Dim tsi_record As String * 6
+Dim tsi_words(3) As Long
+Dim tmpr_msb As Long
+Public tsi(3)
+Alias tsi(1) = flush_massFlow
+Alias tsi(2) = flush_tmpr
+Alias tsi(3) = flush_press
+Units flush_massFlow = sLpm
+Units flush_tmpr = degC
+Units flush_press = kPa
+
+Dim tube_volume
+Public tsi_etc(2)
+Alias tsi_etc(1) = flush_volFlow
+Alias tsi_etc(2) = lag_estimate
+Units flush_volFlow = Lpm
+Units lag_estimate = sec
+'TODO reynolds #
+
+Dim nmea_str(2) As String * 90
 Public gps16x(15)
 Alias gps16x(1)  = lat_deg        '(+)=North, (-)=South
 Alias gps16x(2)  = lat_min
@@ -215,26 +235,6 @@ Units since_pps = ms
 Units since_gprmc = s
 Units max_clock_change = ms
 Units num_clock_change = occurrences
-
-Dim tsi_bytes
-Dim tsi_record As String * 6
-Dim tsi_words(3) As Long
-Dim tmpr_msb As Long
-Public tsi(3)
-Alias tsi(1) = flush_massFlow
-Alias tsi(2) = flush_tmpr
-Alias tsi(3) = flush_press
-Units flush_massFlow = sLpm
-Units flush_tmpr = degC
-Units flush_press = kPa
-
-Dim tube_volume
-Public tsi_etc(2)
-Alias tsi_etc(1) = flush_volFlow
-Alias tsi_etc(2) = lag_estimate
-Units flush_volFlow = Lpm
-Units lag_estimate = sec
-'TODO reynolds #
 
 Dim i
 Dim just_had_1hz_scan As Boolean
@@ -434,7 +434,7 @@ DisplayMenu("FIS DAQ", -1)
       MenuItem("Sonic 3 azimuth", ch_sonic3_azimuth)
     #EndIf
     MenuItem("Flush tube length", ch_flush_tube_length)
-    SubMenu("Save changes")
+    SubMenu("Apply/cancel")
       MenuItem("Save now?", save_changes)
         MenuPick(Cancel,Yes)
       MenuItem("Discard?", discard_changes)
