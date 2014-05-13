@@ -7,3 +7,7 @@ Thumbs.db
 *.ods~
 *.odg~
 .~lock.*
+
+#ignore Lyx temp files
+*.lyx#
+*.lyx~
