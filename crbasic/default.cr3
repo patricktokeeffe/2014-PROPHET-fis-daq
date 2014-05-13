@@ -487,7 +487,7 @@ Sub load_settings()
   filehandle = FileOpen(SETTINGS_FILE,"rb",0)
   FileClose(filehandle)
   If (filehandle = 0) Then 'file was not found
-    Call set_default_choices()
+    set_default_choices()
   Else
     Calfile(settings,NUM_SETTINGS,SETTINGS_FILE,READFILE)
     populate_choices()
@@ -521,11 +521,11 @@ EndFunction
 
 '=============================== PROGRAM =====================================
 ShutDownBegin
-  Call stop_pmt()
+  stop_pmt()
 ShutDownEnd
 
 BeginProg
-  Call setup()
+  setup()
   CallTable info
   
   Scan(FAST_INTV,mSec,0,0)
