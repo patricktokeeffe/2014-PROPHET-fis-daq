@@ -332,6 +332,20 @@ DataTable(stats,True,-1)
   StdDev(1,FIS_flow_O2,FP2,FIS_flow_O2=NAN)
   Average(1,FIS_flow_std,FP2,FIS_flow_std=NAN) 'XXX should the standard only be
   StdDev(1,FIS_flow_std,FP2,FIS_flow_std=NAN)  '    included when active?
+
+  'XXX how to average wxt_WD?
+  Average(1,wxt_WS,FP2,wxt_WS=NAN)
+  Average(1,wxt_tmpr,FP2,wxt_tmpr=NAN)
+  Average(1,wxt_RH,FP2,wxt_RH=NAN)
+  Average(1,wxt_press,FP2,wxt_press=NAN)
+  Totalize(1,wxt_rain_amt,FP2,wxt_rain_amt=NAN)
+  'XXX do anything with duration/intensity?
+
+  Average(1,flush_massFlow,FP2,flush_massFlow=NAN)
+  Average(1,flush_tmpr,FP2,flush_tmpr=NAN)
+  Average(1,flush_press,FP2,flush_press=NAN)
+  Average(1,flush_volFlow,FP2,flush_volFlow=NAN)
+  Average(1,lag_estimate,FP2,lag_estimate=NAN)
 EndTable
 
 DataTable(gps_daily,TRUE,30)
