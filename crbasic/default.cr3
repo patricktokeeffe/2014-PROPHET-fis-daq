@@ -473,12 +473,13 @@ EndSub
 Sub save_current_choices()
   Move(settings(1),NUM_SETTINGS,choice(1),NUM_SETTINGS)
   'XXX INPUT VALIDATION GOES HERE
+  If (flush_tube_length < 0) Then flush_tube_length = 0
 
   'XXX DEPENDENT VARIABLES ARE SET HERE
   tube_volume = flush_tube_length * (PI*FLUSH_TUBE_ID*FLUSH_TUBE_ID/4) 'ft^3
   tube_volume *= L_PER_FT3
 
-  'Move(choice(1),NUM_SETTINGS,settings(1),NUM_SETTINGS)
+  Move(choice(1),NUM_SETTINGS,settings(1),NUM_SETTINGS)
   Calfile(settings,NUM_SETTINGS,SETTINGS_FILE,WRITEFILE)
 EndSub
 
@@ -590,7 +591,7 @@ BeginProg
       flush_massFlow = 0
     EndIf
     flush_volFlow = volumetric_flow(flush_massFlow, flush_tmpr, flush_press)
-    lag_estimate = estimate_lag(flush_volFlow)
+    lag_estimate = IIF(tube_volume > 0, estimate_lag(flush_volFlow), NAN)
 
     'disable_sonic1 = sonic1_diag > 0
     'disable_irga1 = irga1_diag > 0
