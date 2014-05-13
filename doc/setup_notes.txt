@@ -1,6 +1,0 @@
-
-
-- When wiring armored ethernet cable to EC100 and serial converter, maintain
-  twisting of the wire pairs up to within 1/2" of terminal blocks 
-
-
