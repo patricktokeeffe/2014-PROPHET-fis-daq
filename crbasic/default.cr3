@@ -203,10 +203,10 @@ Units flush_press = kPa
 Dim tube_volume
 Public tsi_etc(2)
 Alias tsi_etc(1) = flush_volFlow
-Alias tsi_etc(2) = lag_estimate
+Alias tsi_etc(2) = flush_delay
 Units flush_volFlow = Lpm
-Units lag_estimate = sec
 'TODO reynolds #
+Units flush_delay = sec
 
 Dim nmea_str(2) As String * 90
 Public gps16x(15)
@@ -345,7 +345,7 @@ DataTable(stats,True,-1)
   Average(1,flush_tmpr,FP2,flush_tmpr=NAN)
   Average(1,flush_press,FP2,flush_press=NAN)
   Average(1,flush_volFlow,FP2,flush_volFlow=NAN)
-  Average(1,lag_estimate,FP2,lag_estimate=NAN)
+  Average(1,flush_delay,FP2,flush_delay=NAN)
 EndTable
 
 DataTable(gps_daily,TRUE,30)
@@ -510,11 +510,15 @@ EndSub
 
 
 '================================= FUNCTIONS =================================
-Function volumetric_flow(StdFlow, Tmpr, Press) As Float
+'TSI Models 4040/4043/4045 General Purpose Thermal Mass Flowmeter Operation and
+'    Service Manual. Appendix B. August 2001. Revision D
+'[StdFlow] = std L/min @ TSI specs, [Tmpr] = C, [Press] = kPa
+Function volumetric_flow(StdFlow, Tmpr, Press) As Float 'Lpm
   Return (StdFlow * ((273.15+Tmpr)/(273.15+TSI_STP_T)) * (TSI_STP_P/Press))
 EndFunction
 
-Function estimate_lag(VolFlow) As Float
+'[VolFlow] = L/min
+Function estimate_lag(VolFlow) As Float 'sec
   Return (VolFlow / (60 * tube_volume))  '(L/min)*(min/60sec) / L
 EndFunction
 
@@ -591,7 +595,7 @@ BeginProg
       flush_massFlow = 0
     EndIf
     flush_volFlow = volumetric_flow(flush_massFlow, flush_tmpr, flush_press)
-    lag_estimate = IIF(tube_volume > 0, estimate_lag(flush_volFlow), NAN)
+    flush_delay = IIF(tube_volume > 0, estimate_lag(flush_volFlow), NAN)
 
     'disable_sonic1 = sonic1_diag > 0
     'disable_irga1 = irga1_diag > 0
