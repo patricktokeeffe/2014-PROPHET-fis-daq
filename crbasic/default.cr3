@@ -19,6 +19,8 @@ ConstTable
   Const SDM_SPEED = 30 'usec; 8-3000
   Const SONIC2_ADDR = 3 'default SDM address
   Const SONIC3_ADDR = 4 '<-- change sonic config
+  
+  Const FLUSH_TUBE_ID = 0.5/12 'I.D. of flush line, ft
 EndConstTable
 
 
@@ -39,6 +41,8 @@ Const GPS_COM = Com4 'C7/C8
 
 '============================== CONSTANTS ====================================
 Const CR = CHR(13) 'carriage return
+Const PI = 3.14159
+Const L_PER_FT3 = 28.316847 'vol. conversion
 
 Const MW_CO2 = 44.010   'molecular weight of carbon dioxide, g/mol
 Const MW_H2O = 18.01528 'molecular weight of water vapor, g/mol
@@ -224,9 +228,13 @@ Units flush_massFlow = sLpm
 Units flush_tmpr = degC
 Units flush_press = kPa
 
-Public tsi_etc(1)
+Dim tube_volume
+Public tsi_etc(2)
 Alias tsi_etc(1) = flush_volFlow
+Alias tsi_etc(2) = lag_estimate
 Units flush_volFlow = Lpm
+Units lag_estimate = sec
+'TODO reynolds #
 
 Dim i
 Dim just_had_1hz_scan As Boolean
@@ -451,6 +459,11 @@ EndSub
 Sub save_current_choices()
   Move(settings(1),NUM_SETTINGS,choice(1),NUM_SETTINGS)
   'XXX INPUT VALIDATION GOES HERE
+
+  'XXX DEPENDENT VARIABLES ARE SET HERE
+  tube_volume = flush_tube_length * (PI*FLUSH_TUBE_ID*FLUSH_TUBE_ID/4) 'ft^3
+  tube_volume *= L_PER_FT3
+
   'Move(choice(1),NUM_SETTINGS,settings(1),NUM_SETTINGS)
   Calfile(settings,NUM_SETTINGS,SETTINGS_FILE,WRITEFILE)
 EndSub
@@ -484,6 +497,10 @@ EndSub
 '================================= FUNCTIONS =================================
 Function volumetric_flow(StdFlow, Tmpr, Press) As Float
   Return (StdFlow * ((273.15+Tmpr)/(273.15+TSI_STP_T)) * (TSI_STP_P/Press))
+EndFunction
+
+Function estimate_lag(VolFlow) As Float
+  Return (VolFlow / (60 * tube_volume))  '(L/min)*(min/60sec) / L
 EndFunction
 
 
@@ -540,6 +557,7 @@ BeginProg
     #EndIf
 
     SerialInRecord(TSI_COM,tsi_record,TSI_BEGINWORD,0,TSI_ENDWORD,tsi_bytes,11)
+    SerialOut(TSI_COM,TSI_QUERY,"",0,0) 'ask for next measurement
     MoveBytes(tsi_words(1),2,tsi_record,0,2) 'flow
     MoveBytes(tsi_words(3),2,tsi_record,4,2) 'press
     'HINT string-indexing is 1-based but MoveBytes indexing is 0-based
@@ -558,7 +576,7 @@ BeginProg
       flush_massFlow = 0
     EndIf
     flush_volFlow = volumetric_flow(flush_massFlow, flush_tmpr, flush_press)
-    SerialOut(TSI_COM,TSI_QUERY,"",0,0) 'ask for next measurement
+    lag_estimate = estimate_lag(flush_volFlow)
 
     'disable_sonic1 = sonic1_diag > 0
     'disable_irga1 = irga1_diag > 0
