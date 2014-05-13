@@ -46,6 +46,13 @@ Const L_PER_FT3 = 28.316847 'vol. conversion
 
 Const MW_CO2 = 44.010   'molecular weight of carbon dioxide, g/mol
 Const MW_H2O = 18.01528 'molecular weight of water vapor, g/mol
+Const R_AIR = 287.058   'specific gas constant for dry air, J/(kg K)
+
+'part of Sutherland's fomula for deriving dynamic viscosity of air
+Const SU_CONST = 120 'K
+Const LAMBDA_AIR = 1.512041288 'uPa s K^-1/2
+
+Const TUBE_AREA = PI*FLUSH_TUBE_ID*FLUSH_TUBE_ID/4 'ft^2
 
 'Operational configuration
 Const FAST_INTV = 100 'ms = 10 Hz
@@ -201,12 +208,13 @@ Units flush_tmpr = degC
 Units flush_press = kPa
 
 Dim tube_volume
-Public tsi_etc(2)
+Public tsi_etc(3)
 Alias tsi_etc(1) = flush_volFlow
 Alias tsi_etc(2) = flush_delay
+Alias tsi_etc(3) = flush_Re
 Units flush_volFlow = Lpm
-'TODO reynolds #
 Units flush_delay = sec
+Units flush_Re = dimless
 
 Dim nmea_str(2) As String * 90
 Public gps16x(15)
@@ -476,7 +484,7 @@ Sub save_current_choices()
   If (flush_tube_length < 0) Then flush_tube_length = 0
 
   'XXX DEPENDENT VARIABLES ARE SET HERE
-  tube_volume = flush_tube_length * (PI*FLUSH_TUBE_ID*FLUSH_TUBE_ID/4) 'ft^3
+  tube_volume = flush_tube_length * TUBE_AREA 'ft^3
   tube_volume *= L_PER_FT3
 
   Move(choice(1),NUM_SETTINGS,settings(1),NUM_SETTINGS)
@@ -522,6 +530,28 @@ Function estimate_lag(VolFlow) As Float 'sec
   Return (VolFlow / (60 * tube_volume))  '(L/min)*(min/60sec) / L
 EndFunction
 
+'https://en.wikipedia.org/wiki/Viscosity
+'[Tmpr] = C
+Function dynamic_viscosity(Tmpr) As Float 'kg/(m*s) = Pa*s
+  Return (LAMBDA_AIR * (Tmpr+273.15)^1.5 / (Tmpr+273.15+SU_CONST))
+EndFunction
+
+'[Tmpr] = C, [Press] = kPa
+Function density_of_air(Tmpr, Press) As Float 'kg/m^3
+  '(Pa/kPa)(kPa)(kg*K / J)(1/K)(J / Pa*m^3)
+  Return (1000*Press / (R_AIR*(Tmpr+273.15))
+EndFunction
+
+'https://en.wikipedia.org/wiki/Reynolds_number
+'[VolFlow] = L/min, [Tmpr] = C, [Press] = kPa
+Function reynolds_num(VolFlow, Tmpr, Press) 'dimless
+  Dim mu, rho
+  mu = dynamic_viscosity(Tmpr)
+  rho = density_of_air(Tmpr, Press)
+  '((kg/m^3)(L/min)(ft)(min*ft*m^3 / s*m*L)) / ((kg/(m s))(ft^2))
+  Return ((rho*VolFlow*FLUSH_TUBE_ID*5.4681e-5) / (mu*TUBE_AREA))
+EndFunction
+  
 
 '=============================== PROGRAM =====================================
 ShutDownBegin
@@ -596,7 +626,8 @@ BeginProg
     EndIf
     flush_volFlow = volumetric_flow(flush_massFlow, flush_tmpr, flush_press)
     flush_delay = IIF(tube_volume > 0, estimate_lag(flush_volFlow), NAN)
-
+    flush_Re = reynolds_num(flush_volFlow, flush_tmpr, flush_press)
+    
     'disable_sonic1 = sonic1_diag > 0
     'disable_irga1 = irga1_diag > 0
     
