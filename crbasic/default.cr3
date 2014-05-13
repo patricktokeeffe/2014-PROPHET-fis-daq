@@ -232,6 +232,29 @@ Dim i
 Dim just_had_1hz_scan As Boolean
 Dim inbetween_1hz_scan As Boolean
 
+'========================= SETTINGS RETENTION ================================
+Dim filehandle As Long
+Const SETTINGS_FILE = "CPU:umbs_settings.dat"
+Const NUM_SETTINGS = {4}
+Const WRITEFILE = 0
+Const READFILE = 0
+
+Dim settings(NUM_SETTINGS)
+Alias settings(1)  = sonic1_azimuth
+Alias settings(2)  = sonic2_azimuth
+Alias settings(3)  = sonic3_azimuth
+Alias settings(4)  = flush_tube_length
+Units sonic1_azimuth = degreesEofMN
+Units sonic2_azimuth = degreesEofMN
+Units sonic3_azimuth = degreesEofMN
+Units flush_tube_length = ft
+
+Dim choice(NUM_SETTINGS)
+Alias choice(1)  = ch_sonic1_azimuth
+Alias choice(2)  = ch_sonic2_azimuth
+Alias choice(3)  = ch_sonic3_azimuth
+Alias choice(4)  = ch_flush_tube_length
+
 
 '============================= DATA TABLES ===================================
 DataTable(ts_fast,True,-1)
@@ -336,6 +359,14 @@ DataTable(info,True,100)
     FieldNames("flowmeter_STP_tmpr")
   Sample(1,TSI_STP_P,FP2)
     FieldNames("flowmeter_STP_press")
+  Sample(1,sonic1_azimuth,UINT2)
+  #If (SONIC2_ENABLED) Then
+    Sample(1,sonic2_azimuth,UINT2)
+  #EndIf
+  #If (SONIC3_ENABLED) Then
+    Sample(1,sonic3_azimuth,UINT2)
+  #EndIf
+  Sample(1,flush_tube_length,FP2)
 EndTable
 
 
@@ -344,6 +375,9 @@ Const Yes = True
 Const No = False
 Const Cancel = False
 Dim recompile As Boolean
+Dim save_changes As Boolean
+Dim discard_changes As Boolean
+Dim set_defaults As Boolean
 
 DisplayMenu("FIS DAQ", -1)
   SubMenu("View data")
@@ -355,6 +389,7 @@ DisplayMenu("FIS DAQ", -1)
     DisplayValue("Calibrating", FIS_is_calibrating)
     DisplayValue("Zeroing", FIS_is_zeroing)
   EndSubMenu
+  
   SubMenu("Initial setup")
     MenuItem("Use sonic2?", SONIC2_ENABLED)
       MenuPick(SONIC2_ENABLED, No, Yes)
@@ -367,19 +402,29 @@ DisplayMenu("FIS DAQ", -1)
     MenuRecompile("Save now?", recompile)
       MenuPick(Cancel,Yes)
   EndSubMenu
+  
+  SubMenu("FIS DAQ Settings")
+    MenuItem("Sonic 1 azimuth", ch_sonic1_azimuth)
+    #If (SONIC2_ENABLED) Then
+      MenuItem("Sonic 2 azimuth", ch_sonic2_azimuth)
+    #EndIf
+    #If (SONIC3_ENABLED) Then
+      MenuItem("Sonic 3 azimuth", ch_sonic3_azimuth)
+    #EndIf
+    MenuItem("Flush tube length", ch_flush_tube_length)
+    SubMenu("Save changes")
+      MenuItem("Save now?", save_changes)
+        MenuPick(Cancel,Yes)
+      MenuItem("Discard?", discard_changes)
+        MenuPick(Cancel,Yes)
+      MenuItem("Set default?", set_defaults)
+        MenuPick(Cancel,Yes)
+    EndSubMenu
+  EndSubMenu
 EndMenu
 
 
 '============================== SUBROUTINES ==================================
-Sub setup()
-  SerialOpen(FIS_PMT_COM,PMT_BAUD,PMT_FORMAT,0,PMT_BUFF)
-  Call start_pmt()
-
-  SerialOpen(TSI_COM,TSI_BAUD,TSI_FORMAT,0,TSI_BUFF)  
-
-  SDMSpeed(SDM_SPEED)
-EndSub
-
 Sub start_pmt()
   'TODO check if a continuous measurement is already in progress!
   '     if so, send stop command, set integ time & voltage, then restart
@@ -390,6 +435,49 @@ EndSub
 
 Sub stop_pmt()
   SerialOut(FIS_PMT_COM,PMT_CMD_STOP,"",0,0) 'stop continuous readings
+EndSub
+
+Sub set_default_choices()
+  ch_sonic1_azimuth = 0
+  ch_sonic2_azimuth = 0
+  ch_sonic3_azimuth = 0
+  ch_flush_tube_length = 0
+EndSub
+
+Sub populate_choices()
+  Move(choice(1),NUM_SETTINGS,settings(1),NUM_SETTINGS)
+EndSub
+
+Sub save_current_choices()
+  Move(settings(1),NUM_SETTINGS,choice(1),NUM_SETTINGS)
+  'XXX INPUT VALIDATION GOES HERE
+  'Move(choice(1),NUM_SETTINGS,settings(1),NUM_SETTINGS)
+  Calfile(settings,NUM_SETTINGS,SETTINGS_FILE,WRITEFILE)
+EndSub
+
+Sub load_settings()
+  filehandle = FileOpen(SETTINGS_FILE,"rb",0)
+  FileClose(filehandle)
+  If (filehandle = 0) Then 'file was not found
+    Call set_default_choices()
+  Else
+    Calfile(settings,NUM_SETTINGS,SETTINGS_FILE,READFILE)
+    populate_choices()
+  EndIf
+  save_current_choices()
+EndSub
+
+Sub reset_settings()
+  FileManage(SETTINGS_FILE,8) 'delete file
+  load_settings()
+EndSub
+
+Sub setup()
+  load_settings()
+  SerialOpen(TSI_COM,TSI_BAUD,TSI_FORMAT,0,TSI_BUFF)  
+  SerialOpen(FIS_PMT_COM,PMT_BAUD,PMT_FORMAT,0,PMT_BUFF)
+  start_pmt()
+  SDMSpeed(SDM_SPEED)
 EndSub
 
 
@@ -477,6 +565,20 @@ BeginProg
     
     CallTable(ts_fast)
     CallTable(stats)
+
+    If (save_changes) Then
+      save_current_choices()
+      save_changes = Cancel
+      CallTable info
+    ElseIf (discard_changes) Then
+      populate_choices()
+      discard_changes = Cancel
+      'don't save b/c no changes
+    ElseIf (set_defaults) Then
+      reset_settings()
+      set_defaults = Cancel
+      CallTable info
+    EndIf
 
     inbetween_1hz_scan = True
     If (just_had_1hz_scan) Then
