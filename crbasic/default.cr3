@@ -604,17 +604,12 @@ BeginProg
       inbetween_1hz_scan = False
     EndIf
   NextScan
-
-  SlowSequence
-  Scan(SLOW_INTV,Sec,10,-1)
-    GPS(gps16x(1),GPS_COM,UTC_OFFSET*3600,MAX_DIFF,nmea_str(1))
-    CallTable(gps_daily)
-    
-    just_had_1hz_scan = True
-  NextScan
   
   SlowSequence
   Scan(WXT_INTV,Sec,10,0)
+    GPS(lat_deg),GPS_COM,UTC_OFFSET*3600,MAX_DIFF,nmea_str(1))
+    CallTable(gps_daily)
+
     SDI12Recorder(wxt(1),WXT_COM,WXT_ADDR,WXT_CMD,wxt_scaling(),0)
     CallTable(ts_wxt)
   NextScan
