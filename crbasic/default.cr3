@@ -251,7 +251,7 @@ Dim filehandle As Long
 Const SETTINGS_FILE = "CPU:umbs_settings.dat"
 Const NUM_SETTINGS = {4}
 Const WRITEFILE = 0
-Const READFILE = 0
+Const READFILE = 1
 
 Dim settings(NUM_SETTINGS)
 Alias settings(1)  = sonic1_azimuth
