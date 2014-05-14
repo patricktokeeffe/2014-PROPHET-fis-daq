@@ -20,7 +20,7 @@ ConstTable
   Const SONIC2_ADDR = 3 'default SDM address
   Const SONIC3_ADDR = 4 '<-- change sonic config
   
-  Const FLUSH_TUBE_ID = 0.5/12 'I.D. of flush line, ft
+  Const FLUSH_TUBE_ID = 0.5 'I.D. of flush line, inches
 EndConstTable
 
 
@@ -52,7 +52,7 @@ Const R_AIR = 287.058   'specific gas constant for dry air, J/(kg K)
 Const SU_CONST = 120 'K
 Const LAMBDA_AIR = 1.512041288 'uPa s K^-1/2
 
-Const TUBE_AREA = PI*FLUSH_TUBE_ID*FLUSH_TUBE_ID/4 'ft^2
+Const TUBE_AREA = PI*FLUSH_TUBE_ID*FLUSH_TUBE_ID/4 'in^2
 
 'Operational configuration
 Const FAST_INTV = 100 'ms = 10 Hz
@@ -494,7 +494,7 @@ Sub save_current_choices()
   If (flush_tube_length < 0) Then flush_tube_length = 0
 
   'XXX DEPENDENT VARIABLES ARE SET HERE
-  tube_volume = flush_tube_length * TUBE_AREA 'ft^3
+  tube_volume = flush_tube_length * TUBE_AREA/144 '(ft)(in^2)(ft^2/in^2)
   tube_volume *= L_PER_FT3
 
   Move(choice(1),NUM_SETTINGS,settings(1),NUM_SETTINGS)
@@ -543,23 +543,25 @@ EndFunction
 'https://en.wikipedia.org/wiki/Viscosity
 '[Tmpr] = C
 Function dynamic_viscosity(Tmpr) As Float 'kg/(m*s) = Pa*s
-  Return (LAMBDA_AIR * (Tmpr+273.15)^1.5 / (Tmpr+273.15+SU_CONST))
+  '(uPa*s/K^1/2)(K^3/2)(1/K) * (Pa/10^6 uPa)
+  Return (LAMBDA_AIR * (Tmpr+273.15)^1.5 / ((Tmpr+273.15+SU_CONST)*10^6))
 EndFunction
 
-'[Tmpr] = C, [Press] = kPa
+'[Tmpr] = C, [Press] = kPa (abs.)
 Function density_of_air(Tmpr, Press) As Float 'kg/m^3
   '(Pa/kPa)(kPa)(kg*K / J)(1/K)(J / Pa*m^3)
-  Return (1000*Press / (R_AIR*(Tmpr+273.15))
+  Return (1000*Press / (R_AIR*(Tmpr+273.15)))
 EndFunction
 
 'https://en.wikipedia.org/wiki/Reynolds_number
-'[VolFlow] = L/min, [Tmpr] = C, [Press] = kPa
-Function reynolds_num(VolFlow, Tmpr, Press) 'dimless
+'[VolFlow] = L/min, [Tmpr] = C, [Press] = kPa (abs.)
+'HINT return as a Float but use FIX() to drop fractional portion
+Function reynolds_num(VolFlow, Tmpr, Press) As Float 'dimless
   Dim mu, rho
   mu = dynamic_viscosity(Tmpr)
   rho = density_of_air(Tmpr, Press)
-  '((kg/m^3)(L/min)(ft)(min*ft*m^3 / s*m*L)) / ((kg/(m s))(ft^2))
-  Return ((rho*VolFlow*FLUSH_TUBE_ID*5.4681e-5) / (mu*TUBE_AREA))
+  '(kg/m^3)(L/min)(in)(m*s/kg)(1/in^2) * (min/60 sec)(39.37in/m)(m^3/1000L)
+  Return FIX((rho*VolFlow*FLUSH_TUBE_ID*39.37) / (mu*TUBE_AREA*60*1000))
 EndFunction
   
 
