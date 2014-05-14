@@ -14,7 +14,7 @@ ConstTable
   Const FLUSH_TUBE_ID = 0.5 'I.D. of flush line, inches
   Const SDM_SPEED = 30 'usec; 8-3000
 
-  Const UTC_OFFSET = -8 'Pacific Standard Time
+  Const UTC_OFFSET = -5 'Eastern Standard Time
   Const SONIC2_ENABLED = False  
   Const SONIC2_ADDR = 3 'default SDM address
   Const SONIC3_ENABLED = False
