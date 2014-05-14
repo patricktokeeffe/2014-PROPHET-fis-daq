@@ -271,10 +271,15 @@ Alias choice(4)  = ch_flush_tube_length
 
 
 '============================= DATA TABLES ===================================
+'HINT In time-series tables, only store variables in IEEE4 or FP2 variables 
+'     b/c UINT2 and Long store null values (NAN) as goofy sentinal values.
+'     Presumably, if a boolean is null, something went very wrong so don't
+'     worry about it and for summary tables, null values are excluded so we 
+'     don't care as much about sentinal values.
 DataTable(ts_fast,True,-1)
   DataInterval(0,FAST_INTV,mSec,10)
   CardOut(1,-1)
-  Sample(1,FIS_pmt_counts,IEEE4)
+  Sample(1,FIS_pmt_counts,FP2)
   Sample(1,FIS_pmt_overflow,Boolean)
   Sample(1,FIS_flow_tot,IEEE4)
   Sample(1,FIS_flow_O2,IEEE4)
@@ -286,12 +291,12 @@ DataTable(ts_fast,True,-1)
   Sample(1,sonic1_Uy,IEEE4)
   Sample(1,sonic1_Uz,IEEE4)
   Sample(1,sonic1_Ts,IEEE4)
-  Sample(1,sonic1_diag,UINT2)
+  Sample(1,sonic1_diag,IEEE4)
   Sample(1,irga1_CO2,IEEE4)
   Sample(1,irga1_H2O,IEEE4)
   Sample(1,irga1_amb_tmpr,IEEE4)
   Sample(1,irga1_amb_press,IEEE4)
-  Sample(1,irga1_diag,UINT2)
+  Sample(1,irga1_diag,FP2) 'OK, only 1 byte
   Sample(1,irga1_CO2_signal,IEEE4)
   Sample(1,irga1_H2O_signal,IEEE4)
   
@@ -300,7 +305,7 @@ DataTable(ts_fast,True,-1)
     Sample(1,sonic2_Uy,IEEE4)
     Sample(1,sonic2_Uz,IEEE4)
     Sample(1,sonic2_Ts,IEEE4)
-    Sample(1,sonic2_diag,UINT2)
+    Sample(1,sonic2_diag,IEEE4)
   #EndIf
   
   #If (SONIC3_ENABLED) Then
@@ -308,7 +313,7 @@ DataTable(ts_fast,True,-1)
     Sample(1,sonic3_Uy,IEEE4)
     Sample(1,sonic3_Uz,IEEE4)
     Sample(1,sonic3_Ts,IEEE4)
-    Sample(1,sonic3_diag,UINT2)
+    Sample(1,sonic3_diag,IEEE4)
   #EndIf
   
   Sample(1,flush_massFlow,FP2)
@@ -356,7 +361,7 @@ EndTable
 
 DataTable(gps_daily,TRUE,30)
   DataInterval (0,1,Day,10)
-  'CardOut(0,90)
+  CardOut(0,90)
   Median(1,(lat_deg + lat_min/60),DAILY_MEDNUM,IEEE4,(lat_deg=NAN OR lat_min=NAN))
     FieldNames("latitude_Med")
     Units latitude_Med = degN
@@ -373,7 +378,7 @@ DataTable(gps_daily,TRUE,30)
 EndTable
 
 DataTable(info,True,100)
-  'CardOut(1,-1)
+  CardOut(1,100)
   Sample(1,UTC_OFFSET,FP2)
     FieldNames("UTC_offset")
     Units UTC_OFFSET = hours
@@ -395,6 +400,9 @@ DataTable(info,True,100)
     Sample(1,sonic3_azimuth,UINT2)
   #EndIf
   Sample(1,flush_tube_length,FP2)
+  Sample(1,FLUSH_TUBE_ID,FP2)
+    FieldNames("flush_tube_ID")
+    Units flush_tube_ID = in
 EndTable
 
 
