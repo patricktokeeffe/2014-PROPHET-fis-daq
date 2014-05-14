@@ -402,15 +402,18 @@ EndTable
 
 '========================== CUSTOM MENUS =====================================
 Const Yes = True
+Const SendCommand = True
 Const No = False
 Const Cancel = False
-Dim recompile As Boolean
 Dim save_changes As Boolean
 Dim discard_changes As Boolean
 Dim set_defaults As Boolean
+Dim recompile As Boolean
+Dim restart_pmt_flag As Boolean
+Dim stop_pmt_flag As Boolean
 
 DisplayMenu("FIS DAQ", -1)
-  SubMenu("View data")
+  SubMenu("View FIS data")
     DisplayValue("PMT counts", FIS_pmt_counts)
     DisplayValue("PMT overflow", FIS_pmt_overflow)
     DisplayValue("Total flow", FIS_flow_tot)
@@ -420,20 +423,7 @@ DisplayMenu("FIS DAQ", -1)
     DisplayValue("Zeroing", FIS_is_zeroing)
   EndSubMenu
   
-  SubMenu("Initial setup")
-    MenuItem("Use sonic2?", SONIC2_ENABLED)
-      MenuPick(SONIC2_ENABLED, No, Yes)
-    MenuItem("sonic2 addr", SONIC2_ADDR)
-      MenuPick(SONIC2_ADDR,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14)
-    MenuItem("Use sonic3?", SONIC3_ENABLED)
-      MenuPick(SONIC3_ENABLED, No, Yes)
-    MenuItem("sonic3 addr", SONIC3_ADDR)
-      MenuPick(SONIC3_ADDR,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14)
-    MenuRecompile("Save now?", recompile)
-      MenuPick(Cancel,Yes)
-  EndSubMenu
-  
-  SubMenu("FIS DAQ Settings")
+  SubMenu("Settings")
     MenuItem("Sonic 1 azimuth", ch_sonic1_azimuth)
     #If (SONIC2_ENABLED) Then
       MenuItem("Sonic 2 azimuth", ch_sonic2_azimuth)
@@ -450,6 +440,26 @@ DisplayMenu("FIS DAQ", -1)
       MenuItem("Set default?", set_defaults)
         MenuPick(Cancel,Yes)
     EndSubMenu
+  EndSubMenu
+  
+  SubMenu("FIS PMT Control")
+    MenuItem("(Re)start", restart_pmt_flag)
+      MenuPick(Cancel,SendCommand)
+    MenuItem("Stop", stop_pmt_flag)
+      MenuPick(Cancel,SendCommand)
+  EndSubMenu
+    
+  SubMenu("Initial setup")
+    MenuItem("Use sonic2?", SONIC2_ENABLED)
+      MenuPick(SONIC2_ENABLED, No, Yes)
+    MenuItem("sonic2 addr", SONIC2_ADDR)
+      MenuPick(SONIC2_ADDR,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14)
+    MenuItem("Use sonic3?", SONIC3_ENABLED)
+      MenuPick(SONIC3_ENABLED, No, Yes)
+    MenuItem("sonic3 addr", SONIC3_ADDR)
+      MenuPick(SONIC3_ADDR,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14)
+    MenuRecompile("Save now?", recompile)
+      MenuPick(Cancel,Yes)
   EndSubMenu
 EndMenu
 
@@ -647,6 +657,12 @@ BeginProg
       reset_settings()
       set_defaults = Cancel
       CallTable info
+    ElseIf (restart_pmt_flag) Then
+      start_PMT()
+      restart_pmt_flag = False
+    ElseIf (stop_pmt_flag) Then
+      stop_PMT()
+      stop_pmt_flag = False
     EndIf
 
     inbetween_1hz_scan = True
