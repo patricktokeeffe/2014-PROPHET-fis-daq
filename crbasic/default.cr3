@@ -11,16 +11,14 @@
 
 '=========================== CONST TABLE SETTINGS ============================
 ConstTable
-  Const SONIC2_ENABLED = False
-  Const SONIC3_ENABLED = False
-
-  Const UTC_OFFSET = -8  'Pacific Standard Time
-
-  Const SDM_SPEED = 30 'usec; 8-3000
-  Const SONIC2_ADDR = 3 'default SDM address
-  Const SONIC3_ADDR = 4 '<-- change sonic config
-  
   Const FLUSH_TUBE_ID = 0.5 'I.D. of flush line, inches
+  Const SDM_SPEED = 30 'usec; 8-3000
+
+  Const UTC_OFFSET = -8 'Pacific Standard Time
+  Const SONIC2_ENABLED = False  
+  Const SONIC2_ADDR = 3 'default SDM address
+  Const SONIC3_ENABLED = False
+  Const SONIC3_ADDR = 4 '<-- change sonic config
 EndConstTable
 
 
@@ -450,6 +448,11 @@ DisplayMenu("FIS DAQ", -1)
   EndSubMenu
     
   SubMenu("Initial setup")
+    'HINT do not include SDM_SPEED or FLUSH_TUBE_ID in this menu because the
+    '     datalogger is too dumb to accept arbitrary input via custom menus
+    MenuItem("Time zone", UTC_OFFSET)
+      MenuPick(UTC_OFFSET,-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1, _
+        0,1,2,3,4,5,6,7,8,9,10,11,12,13,14)
     MenuItem("Use sonic2?", SONIC2_ENABLED)
       MenuPick(SONIC2_ENABLED, No, Yes)
     MenuItem("sonic2 addr", SONIC2_ADDR)
