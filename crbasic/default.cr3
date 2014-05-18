@@ -666,6 +666,16 @@ BeginProg
     ExciteCAO(FIS_CTRL_ZERO_CAO,FIS_ctrl_zero,True)
     ExciteCAO(FIS_CTRL_STD_CAO,FIS_ctrl_std,True)
 
+    EC100(sonic_irga(1),EC100_ADDR,EC100_CMD)
+    irga1_CO2 /= MW_CO2 'mg/m^3 --> mmol/m^3
+    irga1_H2O *= (1000/MW_H2O) 'g/m^3 --> mmol/m^3
+    #If (SONIC2_ENABLED) Then
+      CSAT3(sonic2(1),1,SONIC2_ADDR,CSAT3_CMD,CSAT3_OPT)
+    #EndIf
+    #If (SONIC3_ENABLED) Then
+      CSAT3(sonic3(1),1,SONIC3_ADDR,CSAT3_CMD,CSAT3_OPT)
+    #EndIf
+
     SerialInRecord(FIS_PMT_COM,pmt_record,0,4,0,pmt_bytes,11)
     If (pmt_bytes = 4) Then
       'check most significant bit of MSB (byte3) for overflow condition
@@ -696,17 +706,6 @@ BeginProg
     VoltSe(FIS_state_zero,1,mV5000,FIS_STATE_ZERO_SE,False,0,INTEG,1,0)
     FIS_std_ON = (FIS_state_std > 2500)
     FIS_zero_ON = (FIS_state_zero > 2500)
-
-    EC100(sonic_irga(1),EC100_ADDR,EC100_CMD)
-    irga1_CO2 /= MW_CO2 'mg/m^3 --> mmol/m^3
-    irga1_H2O *= (1000/MW_H2O) 'g/m^3 --> mmol/m^3
-    
-    #If (SONIC2_ENABLED) Then
-      CSAT3(sonic2(1),1,SONIC2_ADDR,CSAT3_CMD,CSAT3_OPT)
-    #EndIf
-    #If (SONIC3_ENABLED) Then
-      CSAT3(sonic3(1),1,SONIC3_ADDR,CSAT3_CMD,CSAT3_OPT)
-    #EndIf
 
     SerialInRecord(TSI_COM,tsi_record,TSI_BEGINWORD,0,TSI_ENDWORD,tsi_bytes,11)
     SerialOut(TSI_COM,TSI_QUERY,"",0,0) 'ask for next measurement
