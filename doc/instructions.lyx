@@ -782,26 +782,129 @@ A datalogger (CR3000; Campbell Scientific) is used to control and record
  A majority of the devices used provide digital signals rather than conventional
  analog voltages.
  This results in a vastly simpler physical setup and much improved quality
- of data at the expense of some additional complexity.
+ of data at the expense of some complexity parsing data from digital records.
  
 \end_layout
 
+\begin_layout Paragraph
+Ground level
+\end_layout
+
 \begin_layout Standard
-The FIS, datalogger and flow meter are located at ground level in a permanent
- shelter adjacent to the tower.
+The datalogger, FIS system, flowmeter, GPS receiver and sampling pump are
+ located at ground level in a permanent shelter adjacent to the tower.
+ Both the FIS photomultiplier tube (PMT
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+prefix "PMT"
+symbol "PMT"
+description "photomultipler tube; refer to the FIS user manual for details"
+
+\end_inset
+
+) and flow meter are connected to conventional 9-pin dongles mounted in
+ the datalogger enclosure using straight-through serial cables.
+ Remaining FIS data ports (analog voltage output, TTL
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+prefix "TTL"
+symbol "TTL"
+description "an acronym for transistor-transistor logic; in the context of this document, it refers to TTL-compatible logic voltage levels whereby True and False are nominally 5 and 0 volts, respectively"
+
+\end_inset
+
+ output & TTL input) are connected to the datalogger using coaxial cable
+ with BNC fittings on one end and bare wires on the other.
+ The GPS receiver, mounted outside the shelter, provides bare wires for
+ connection to the datalogger.
+ The pump inlet is connected to the flowmeter with a short section of 1/2
+\begin_inset Quotes erd
+\end_inset
+
+ I.D.
+ (5/8
+\begin_inset Quotes erd
+\end_inset
+
+ O.D.) tubing and the outlet vents directly to the atmosphere.
+ A high-flow HEPA filter is located directly upstream of the flowmeter but
+ downstream of the subsampling tee from which the FIS draws flushed gas
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+prefix "flush line"
+symbol "flush line"
+description "refers to the large diameter tubing through which air is drawn from the sonic/IRGA location to the FIS location at high flow rates"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Paragraph
+On the Tower
+\end_layout
+
+\begin_layout Standard
+At the top of the tower, the sonic/IRGA unit and weather transmitter are
+ mounted.
  A 1/2
 \begin_inset Quotes erd
 \end_inset
 
- ID (5/8
+ I.D.
+ (5/8
 \begin_inset Quotes erd
 \end_inset
 
- OD) tube of unidentified material (seriously, we don't know--sorry) and
- a 150' outdoor-rated CAT6 ethernet are run to the top of the tower where
- the sonic/IRGA and weather transmitter are mounted.
- Power is provided to the upper sensors by a 12Vdc transformer housed in
- a plastic container.
+ O.D.) tube of unidentified material
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+seriously, we don't know -- sorry
+\end_layout
+
+\end_inset
+
+ and a 150' outdoor-rated CAT6 ethernet cable run to the top of the tower
+ from the ground level enclosure.
+ Power is provided to the sensors at the upper level by a 12Vdc transformer
+ housed in a plastic container.
+ A short length of CAT5e patch
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+e.g.
+ stranded core, not solid
+\end_layout
+
+\end_inset
+
+ cable (with bare wires on one end) is coupled to the CAT6 cable at the
+ upper level and run into the sonic/IRGA control unit enclosure where it
+ is connected to the sonic/IRGA data terminals and the weather transmitter
+ cable.
+ Another (uncut) CAT5e patch cable connects the lower end of the CAT6 cable
+ to an industrial surge protection unit mounted in the datalogger enclosure.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Optional sonics
+\end_layout
+
+\begin_layout Standard
+If used, the sonic anemometer units are mounted at whatever height is determined
+ appropriate and cables are run down the tower to the datalogger enclosure
+ in the permanent shelter.
+ One euro-style terminal strip provides power from a 13.8Vdc power supply
+ and another provides access to the datalogger's SDM interface.
+ An armored ethernet cable is available to extend the anemometer(s) existing
+ data cable(s).
+ The behavior of the SDM interface is such that cables can be daisy-chained,
+ reducing the total length required.
  
 \end_layout
 
@@ -829,7 +932,7 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Device digital interfaces (contingency plans in emphasis)
+Device digital interfaces
 \end_layout
 
 \end_inset
@@ -840,7 +943,7 @@ Device digital interfaces (contingency plans in emphasis)
 \begin_layout Plain Layout
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="12" columns="3">
+<lyxtabular version="3" rows="8" columns="3">
 <features tabularvalignment="middle">
 <column alignment="left" valignment="top" width="0">
 <column alignment="center" valignment="top" width="0">
@@ -933,53 +1036,6 @@ proprietary command set
 </cell>
 </row>
 <row>
-<cell multirow="4" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Flex Emph
-status collapsed
-
-\begin_layout Plain Layout
-analog voltage
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Flex Emph
-status collapsed
-
-\begin_layout Plain Layout
-n/a
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
@@ -1047,53 +1103,6 @@ description "Synchronous Device for Measurement; a proprietary protocol develope
 </cell>
 </row>
 <row>
-<cell multirow="4" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Flex Emph
-status collapsed
-
-\begin_layout Plain Layout
-RS-485
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Flex Emph
-status collapsed
-
-\begin_layout Plain Layout
-proprietary command set
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
 <cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
@@ -1152,7 +1161,7 @@ SDM, proprietary
 </cell>
 </row>
 <row>
-<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1161,7 +1170,7 @@ Weather transmitter
 
 \end_inset
 </cell>
-<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -1171,82 +1180,6 @@ SDI-12
 \end_inset
 </cell>
 <cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell multirow="4" alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Flex Emph
-status collapsed
-
-\begin_layout Plain Layout
-RS-485
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Flex Emph
-status collapsed
-
-\begin_layout Plain Layout
-proprietary command set
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
