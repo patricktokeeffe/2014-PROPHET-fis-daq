@@ -460,6 +460,60 @@ lstlistoflistings
 \end_layout
 
 \begin_layout Standard
+\begin_inset VSpace vfill
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+This document, the datalogger program, and ancillary files such as the wiring
+ diagrams are maintained under version control in a Git
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+http://www.git-scm.org
+\end_layout
+
+\end_inset
+
+ repository.
+ By the time an 
+\begin_inset Quotes eld
+\end_inset
+
+official
+\begin_inset Quotes erd
+\end_inset
+
+ version is released, this repository will be hosted on the WSU intranet
+ at an address to-be-determined.
+ There will, in fact, be public access as well but to avoid invoking the
+ wrath of network administrators such access will not publicly acknowledged.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Newpage clearpage
 \end_inset
 
