@@ -1236,8 +1236,8 @@ engineered airflows
 \begin_inset Quotes erd
 \end_inset
 
- so the FIS must be located away from HVAC components, especially air conditione
-rs.
+ so the FIS must be located away from HVAC components, most especially air
+ conditioners.
 \end_layout
 
 \begin_layout Itemize
@@ -1250,9 +1250,149 @@ Sonic/IRGA
 \end_layout
 
 \begin_layout Standard
-It will not be possible to verify the sensors are adequately level.
+It will not be possible to verify the sensors are adequately level once
+ the boom is extended.
+ Instead the sensors will be mounted to the boom as parallel as possible,
+ then the boom will be mounted as level as possible: 
 \end_layout
 
+\begin_layout Enumerate
+With boom absolutely level in a convenient location, mount & level the sonic/IRG
+A unit.
+\end_layout
+
+\begin_layout Enumerate
+Attach the eyebolts for stabilizing cables to the boom.
+\end_layout
+
+\begin_layout Enumerate
+Extend the boom and affix to tower.
+ Be extra vigilent to avoid imparting a twist in the boom during mounting
+ since the stabilizing cables cannot compensate for applied torque.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Use stabilizing cables to lift boom to just about level position and secure.
+\end_layout
+
+\begin_layout Enumerate
+Fine-tune the boom to perfectly level using turn-buckles on stabilizing
+ cables.
+\end_layout
+
+\begin_layout Subsection
+Datalogger
+\end_layout
+
+\begin_layout Standard
+Do it approximately like this:
+\end_layout
+
+\begin_layout Enumerate
+Connect RS-232 devices
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+FIS PMT to DB9 dongle labled 
+\begin_inset Quotes eld
+\end_inset
+
+FIS PMT
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Flowmeter to DB9 dongle labeled 
+\begin_inset Quotes eld
+\end_inset
+
+Flow meter
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+GPS to datalogger terminals as indicated by wiring diagram
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Connect remaining FIS data/control lines to datalogger terminals as indicated
+ by the wiring diagram
+\end_layout
+
+\begin_layout Enumerate
+Connect outdoor ethernet cable to industrial surge protection unit
+\end_layout
+
+\begin_layout Enumerate
+If using, connect standalone sonic anemometers
+\begin_inset VSpace defskip
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100line%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+Be sure to modify at least one of the sonic's SDM addresses and update the
+ program accordingly using 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Initial Setup
+\end_layout
+
+\end_inset
+
+ menu (section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Initial-Setup"
+
+\end_inset
+
+).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+SDM cable to euro-terminal opposite hinge-side of datalogger enclosure
+\end_layout
+
+\begin_layout Enumerate
+power cable to 13.8Vdc power supply, if not powered locally (e.g.
+ on tower)
+\end_layout
+
+\end_deeper
 \begin_layout Standard
 \begin_inset Newpage clearpage
 \end_inset
