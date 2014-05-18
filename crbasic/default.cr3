@@ -25,11 +25,13 @@ EndConstTable
 '============================== WIRING =======================================
 
 Const FIS_PMT_COM = Com1  'C1/C2  photomuliplier tube (PMT)
-Const FIS_FLOW_TOT_DF = 1
+Const FIS_FLOW_TOT_DF = 1 'differential analog inputs
 Const FIS_FLOW_O2_DF = 2
 Const FIS_FLOW_STD_DF = 3
-Const FIS_STATE_STD_SE = 27
+Const FIS_STATE_STD_SE = 27 'single-ended analog inputs
 Const FIS_STATE_ZERO_SE = 28
+Const FIS_CTRL_STD_CAO = 1 'continuous analog outputs
+Const FIS_CTRL_ZERO_CAO = 2
 
 Const TSI_COM = Com2 'C3/C4  TSI flowmeter
 
@@ -117,12 +119,20 @@ Units FIS_flow_tot = sLpm
 Units FIS_flow_O2 = sLpm
 Units FIS_flow_std = sccm
 
-Dim fis_state(2) 'hack for reading TTL with SE 27,28 b/c too few control ports 
+Dim fis_sched(4) As Long 'simplify scheduling, use Long to stop annoying compiler warnings
+Alias fis_sched(1) = fis_cal_int
+Alias fis_sched(2) = fis_turn_std_on
+Alias fis_sched(3) = fis_turn_zero_off
+Alias fis_sched(4) = fis_turn_std_off
+Dim fis_ctrl(2) 'HACK for sending TTL with CAO b/c too few control ports
+Alias fis_ctrl(1) = FIS_ctrl_zero
+Alias fis_ctrl(2) = FIS_ctrl_std
+Dim fis_state(2) 'HACK for reading TTL with SE 27,28 b/c too few control ports
 Alias fis_state(1) = FIS_state_std
 Alias fis_state(2) = FIS_state_zero
 Public fis_status(2) As Boolean
-Alias fis_status(1) = FIS_is_calibrating
-Alias fis_status(2) = FIS_is_zeroing
+Alias fis_status(1) = FIS_std_ON
+Alias fis_status(2) = FIS_zero_ON
 
 Public sonic_irga(12)
 Alias sonic_irga(1)  = sonic1_Ux
@@ -249,7 +259,7 @@ Dim inbetween_1hz_scan As Boolean
 '========================= SETTINGS RETENTION ================================
 Dim filehandle As Long
 Const SETTINGS_FILE = "CPU:umbs_settings.dat"
-Const NUM_SETTINGS = {4}
+Const NUM_SETTINGS = {9}
 Const WRITEFILE = 0
 Const READFILE = 1
 
@@ -258,16 +268,31 @@ Alias settings(1)  = sonic1_azimuth
 Alias settings(2)  = sonic2_azimuth
 Alias settings(3)  = sonic3_azimuth
 Alias settings(4)  = flush_tube_length
-Units sonic1_azimuth = degreesEofMN
-Units sonic2_azimuth = degreesEofMN
-Units sonic3_azimuth = degreesEofMN
+Alias settings(5)  = fis_std_conc
+Alias settings(6)  = fis_cal_interval
+Alias settings(7)  = fis_cal_zero_dur
+Alias settings(8)  = fis_cal_both_dur
+Alias settings(9)  = fis_cal_std_dur
+Units sonic1_azimuth = degEofTN
+Units sonic2_azimuth = degEofTN
+Units sonic3_azimuth = degEofTN
 Units flush_tube_length = ft
+Units fis_std_conc = ppm
+Units fis_cal_interval = hr
+Units fis_cal_zero_dur = min
+Units fis_cal_both_dur = min
+Units fis_cal_std_dur = min
 
 Dim choice(NUM_SETTINGS)
 Alias choice(1)  = ch_sonic1_azimuth
 Alias choice(2)  = ch_sonic2_azimuth
 Alias choice(3)  = ch_sonic3_azimuth
 Alias choice(4)  = ch_flush_tube_length
+Alias choice(5)  = ch_fis_std_conc
+Alias choice(6)  = ch_fis_cal_interval
+Alias choice(7)  = ch_fis_cal_zero_dur
+Alias choice(8)  = ch_fis_cal_both_dur
+Alias choice(9)  = ch_fis_cal_std_dur
 
 
 '============================= DATA TABLES ===================================
@@ -284,8 +309,8 @@ DataTable(ts_fast,True,-1)
   Sample(1,FIS_flow_tot,IEEE4)
   Sample(1,FIS_flow_O2,IEEE4)
   Sample(1,FIS_flow_std,IEEE4)
-  Sample(1,FIS_is_calibrating,Boolean)
-  Sample(1,FIS_is_zeroing,Boolean)
+  Sample(1,FIS_zero_ON,Boolean)
+  Sample(1,FIS_std_ON,Boolean)
   
   Sample(1,sonic1_Ux,IEEE4)
   Sample(1,sonic1_Uy,IEEE4)
@@ -425,8 +450,8 @@ DisplayMenu("FIS DAQ", -1)
     DisplayValue("Total flow", FIS_flow_tot)
     DisplayValue("O2 flow", FIS_flow_O2)
     DisplayValue("Std. flow", FIS_flow_std)
-    DisplayValue("Calibrating", FIS_is_calibrating)
-    DisplayValue("Zeroing", FIS_is_zeroing)
+    DisplayValue("Zero is ON", FIS_zero_ON)
+    DisplayValue("Std is ON", FIS_std_ON)
   EndSubMenu
   
   SubMenu("Settings")
@@ -438,6 +463,13 @@ DisplayMenu("FIS DAQ", -1)
       MenuItem("Sonic 3 azimuth", ch_sonic3_azimuth)
     #EndIf
     MenuItem("Flush tube length", ch_flush_tube_length)
+    SubMenu("FIS Calibration")
+      MenuItem("Standard conc", fis_std_conc)
+      MenuItem("Cal. interval", fis_cal_interval)
+      MenuItem("Zero duration", fis_cal_zero_dur)
+      MenuItem("Z/S duration", fis_cal_both_dur)
+      MenuItem("Std duration", fis_cal_std_dur)
+    EndSubMenu
     SubMenu("Apply/cancel")
       MenuItem("Save now?", save_changes)
         MenuPick(Cancel,Yes)
@@ -493,6 +525,11 @@ Sub set_default_choices()
   ch_sonic2_azimuth = 0
   ch_sonic3_azimuth = 0
   ch_flush_tube_length = 0
+  ch_fis_std_conc = 0
+  ch_fis_cal_interval = 4 'hr
+  ch_fis_cal_zero_dur = 5 'min
+  ch_fis_cal_both_dur = 5
+  ch_fis_cal_std_dur = 5
 EndSub
 
 Sub populate_choices()
@@ -501,12 +538,21 @@ EndSub
 
 Sub save_current_choices()
   Move(settings(1),NUM_SETTINGS,choice(1),NUM_SETTINGS)
-  'XXX INPUT VALIDATION GOES HERE
+  'simplest possible input validation
   If (flush_tube_length < 0) Then flush_tube_length = 0
+  If (fis_std_conc < 0) Then fis_std_conc = 0
+  If (fis_cal_interval < 0) Then fis_cal_interval = 4
+  If (fis_cal_zero_dur < 0) Then fis_cal_zero_dur = 5
+  If (fis_cal_both_dur < 0) Then fis_cal_both_dur = 5
+  If (fis_cal_std_dur < 0) Then fis_cal_std_dur = 5
 
-  'XXX DEPENDENT VARIABLES ARE SET HERE
+  'set dependent variables
   tube_volume = flush_tube_length * TUBE_AREA/144 '(ft)(in^2)(ft^2/in^2)
   tube_volume *= L_PER_FT3
+  fis_cal_int = fis_cal_interval*60 'hr -> Min
+  fis_turn_std_on = fis_cal_zero_dur
+  fis_turn_zero_off = fis_cal_zero_dur+fis_cal_both_dur
+  fis_turn_std_off = fis_turn_zero_off+fis_cal_std_dur
 
   Move(choice(1),NUM_SETTINGS,settings(1),NUM_SETTINGS)
   Calfile(settings,NUM_SETTINGS,SETTINGS_FILE,WRITEFILE)
@@ -586,6 +632,19 @@ BeginProg
   CallTable info
   
   Scan(FAST_INTV,mSec,0,0)
+    'calibration schedule
+    If TimeIntoInterval(0,fis_cal_int,Min) Then
+      FIS_ctrl_zero = 5000 'at start of interval, turn on zero
+    ElseIf TimeIntoInterval(fis_turn_std_on,fis_cal_int,Min) Then
+      FIS_ctrl_std = 5000 'after zero duration, turn on standard
+    ElseIf TimeIntoInterval(fis_turn_zero_off,fis_cal_int,Min) Then
+      FIS_ctrl_zero = 0 'after zero+both duration, turn off zero
+    ElseIf TimeIntoInterval(fis_turn_std_off,fis_cal_int,Min) Then
+      FIS_ctrl_std = 0 'after zero+both+std duration, turn off standard
+    EndIf
+    ExciteCAO(FIS_CTRL_ZERO_CAO,FIS_ctrl_zero,True)
+    ExciteCAO(FIS_CTRL_STD_CAO,FIS_ctrl_std,True)
+
     SerialInRecord(FIS_PMT_COM,pmt_record,0,4,0,pmt_bytes,11)
     If (pmt_bytes = 4) Then
       'check most significant bit of MSB (byte3) for overflow condition
@@ -614,8 +673,8 @@ BeginProg
     'pretend SE 27, SE 28 are TTL inputs
     VoltSe(FIS_state_std,1,mV5000,FIS_STATE_STD_SE,False,0,INTEG,1,0)
     VoltSe(FIS_state_zero,1,mV5000,FIS_STATE_ZERO_SE,False,0,INTEG,1,0)
-    FIS_is_calibrating = (FIS_state_std > 2500) 
-    FIS_is_zeroing = (FIS_state_zero > 2500)
+    FIS_std_ON = (FIS_state_std > 2500)
+    FIS_zero_ON = (FIS_state_zero > 2500)
 
     EC100(sonic_irga(1),EC100_ADDR,EC100_CMD)
     irga1_CO2 /= MW_CO2 'mg/m^3 --> mmol/m^3
