@@ -141,7 +141,7 @@ InsetLayout Flex:Strikeout
   LatexType    command
   LatexName     strikeout
   Preamble
-    \newcommand*{\strikeout[1]{{\sout{#1}}
+    \newcommand*{\strikeout}[1]{{\sout {#1}}}
   EndPreamble
 End
 \end_local_layout
