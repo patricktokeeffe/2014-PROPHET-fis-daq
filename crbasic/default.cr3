@@ -548,10 +548,10 @@ Sub stop_pmt()
 EndSub
 
 Sub set_default_choices()
-  ch_sonic1_azimuth = 0
-  ch_sonic2_azimuth = 0
-  ch_sonic3_azimuth = 0
-  ch_wxt_azimuth = 0
+  ch_sonic1_azimuth = -1
+  ch_sonic2_azimuth = -1
+  ch_sonic3_azimuth = -1
+  ch_wxt_azimuth = -1
   ch_sonic1_height = 0
   ch_sonic2_height = 0
   ch_sonic3_height =0
@@ -581,6 +581,12 @@ Sub save_current_choices()
   If (fis_cal_zero_dur < 0) Then fis_cal_zero_dur = 5
   If (fis_cal_both_dur < 0) Then fis_cal_both_dur = 5
   If (fis_cal_std_dur < 0) Then fis_cal_std_dur = 5
+
+  'treat azimuths differently since 0 is a valid azimuth & enforce integer values
+  sonic1_azimuth = IIF(sonic1_azimuth < 0, -1, FIX(sonic1_azimuth))
+  sonic2_azimuth = IIF(sonic2_azimuth < 0, -1, FIX(sonic2_azimuth))
+  sonic3_azimuth = IIF(sonic3_azimuth < 0, -1, FIX(sonic3_azimuth))
+  wxt_azimuth = IIF(wxt_azimuth < 0, -1, FIX(wxt_azimuth))
 
   'set dependent variables
   tube_volume = flush_tube_length * TUBE_AREA/144 '(ft)(in^2)(ft^2/in^2)
