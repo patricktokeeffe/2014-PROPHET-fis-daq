@@ -259,7 +259,7 @@ Dim inbetween_1hz_scan As Boolean
 '========================= SETTINGS RETENTION ================================
 Dim filehandle As Long
 Const SETTINGS_FILE = "CPU:umbs_settings.dat"
-Const NUM_SETTINGS = {9}
+Const NUM_SETTINGS = {12}
 Const WRITEFILE = 0
 Const READFILE = 1
 
@@ -267,15 +267,21 @@ Dim settings(NUM_SETTINGS)
 Alias settings(1)  = sonic1_azimuth
 Alias settings(2)  = sonic2_azimuth
 Alias settings(3)  = sonic3_azimuth
-Alias settings(4)  = flush_tube_length
-Alias settings(5)  = fis_std_conc
-Alias settings(6)  = fis_cal_interval
-Alias settings(7)  = fis_cal_zero_dur
-Alias settings(8)  = fis_cal_both_dur
-Alias settings(9)  = fis_cal_std_dur
+Alias settings(4)  = sonic1_height
+Alias settings(5)  = sonic2_height
+Alias settings(6)  = sonic3_height
+Alias settings(7)  = flush_tube_length
+Alias settings(8)  = fis_std_conc
+Alias settings(9)  = fis_cal_interval
+Alias settings(10) = fis_cal_zero_dur
+Alias settings(11) = fis_cal_both_dur
+Alias settings(12) = fis_cal_std_dur
 Units sonic1_azimuth = degEofTN
 Units sonic2_azimuth = degEofTN
 Units sonic3_azimuth = degEofTN
+Units sonic1_height = ft
+Units sonic2_height = ft
+Units sonic3_height = ft
 Units flush_tube_length = ft
 Units fis_std_conc = ppm
 Units fis_cal_interval = hr
@@ -287,12 +293,15 @@ Dim choice(NUM_SETTINGS)
 Alias choice(1)  = ch_sonic1_azimuth
 Alias choice(2)  = ch_sonic2_azimuth
 Alias choice(3)  = ch_sonic3_azimuth
-Alias choice(4)  = ch_flush_tube_length
-Alias choice(5)  = ch_fis_std_conc
-Alias choice(6)  = ch_fis_cal_interval
-Alias choice(7)  = ch_fis_cal_zero_dur
-Alias choice(8)  = ch_fis_cal_both_dur
-Alias choice(9)  = ch_fis_cal_std_dur
+Alias choice(4)  = ch_sonic1_height
+Alias choice(5)  = ch_sonic2_height
+Alias choice(6)  = ch_sonic3_height
+Alias choice(7)  = ch_flush_tube_length
+Alias choice(8)  = ch_fis_std_conc
+Alias choice(9)  = ch_fis_cal_interval
+Alias choice(10) = ch_fis_cal_zero_dur
+Alias choice(11) = ch_fis_cal_both_dur
+Alias choice(12) = ch_fis_cal_std_dur
 
 
 '============================= DATA TABLES ===================================
@@ -418,11 +427,14 @@ DataTable(info,True,100)
   Sample(1,TSI_STP_P,FP2)
     FieldNames("flowmeter_STP_press")
   Sample(1,sonic1_azimuth,UINT2)
+  Sample(1,sonic1_height,FP2)
   #If (SONIC2_ENABLED) Then
     Sample(1,sonic2_azimuth,UINT2)
+    Sample(1,sonic2_height,FP2)
   #EndIf
   #If (SONIC3_ENABLED) Then
     Sample(1,sonic3_azimuth,UINT2)
+    Sample(1,sonic3_height,FP2)
   #EndIf
   Sample(1,flush_tube_length,FP2)
   Sample(1,FLUSH_TUBE_ID,FP2)
@@ -456,11 +468,14 @@ DisplayMenu("FIS DAQ", -1)
   
   SubMenu("Settings")
     MenuItem("Sonic 1 azimuth", ch_sonic1_azimuth)
+    MenuItem("Sonic 1 height", ch_sonic1_height)
     #If (SONIC2_ENABLED) Then
       MenuItem("Sonic 2 azimuth", ch_sonic2_azimuth)
+      MenuItem("Sonic 2 height", ch_sonic2_height)
     #EndIf
     #If (SONIC3_ENABLED) Then
       MenuItem("Sonic 3 azimuth", ch_sonic3_azimuth)
+      MenuItem("Sonic 3 height", ch_sonic3_height)
     #EndIf
     MenuItem("Flush tube length", ch_flush_tube_length)
     SubMenu("FIS Calibration")
@@ -524,6 +539,9 @@ Sub set_default_choices()
   ch_sonic1_azimuth = 0
   ch_sonic2_azimuth = 0
   ch_sonic3_azimuth = 0
+  ch_sonic1_height = 0
+  ch_sonic2_height = 0
+  ch_sonic3_height =0
   ch_flush_tube_length = 0
   ch_fis_std_conc = 0
   ch_fis_cal_interval = 4 'hr
@@ -539,6 +557,9 @@ EndSub
 Sub save_current_choices()
   Move(settings(1),NUM_SETTINGS,choice(1),NUM_SETTINGS)
   'simplest possible input validation
+  If (sonic1_height < 0) Then sonic1_height = 0
+  If (sonic2_height < 0) Then sonic2_height = 0
+  If (sonic3_height < 0) Then sonic3_height = 0
   If (flush_tube_length < 0) Then flush_tube_length = 0
   If (fis_std_conc < 0) Then fis_std_conc = 0
   If (fis_cal_interval < 0) Then fis_cal_interval = 4
