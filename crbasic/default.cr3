@@ -194,7 +194,7 @@ Alias wxt(5) = wxt_press
 Alias wxt(6) = wxt_rain_amt
 Alias wxt(7) = wxt_rain_dur
 Alias wxt(8) = wxt_rain_int
-Units wxt_WD = degrees
+Units wxt_WD = degEofTN
 Units wxt_WS = m/s
 Units wxt_tmpr = degC
 Units wxt_RH = %
@@ -259,7 +259,7 @@ Dim inbetween_1hz_scan As Boolean
 '========================= SETTINGS RETENTION ================================
 Dim filehandle As Long
 Const SETTINGS_FILE = "CPU:umbs_settings.dat"
-Const NUM_SETTINGS = {12}
+Const NUM_SETTINGS = {14}
 Const WRITEFILE = 0
 Const READFILE = 1
 
@@ -267,21 +267,25 @@ Dim settings(NUM_SETTINGS)
 Alias settings(1)  = sonic1_azimuth
 Alias settings(2)  = sonic2_azimuth
 Alias settings(3)  = sonic3_azimuth
-Alias settings(4)  = sonic1_height
-Alias settings(5)  = sonic2_height
-Alias settings(6)  = sonic3_height
-Alias settings(7)  = flush_tube_length
-Alias settings(8)  = fis_std_conc
-Alias settings(9)  = fis_cal_interval
-Alias settings(10) = fis_cal_zero_dur
-Alias settings(11) = fis_cal_both_dur
-Alias settings(12) = fis_cal_std_dur
+Alias settings(4)  = wxt_azimuth
+Alias settings(5)  = sonic1_height
+Alias settings(6)  = sonic2_height
+Alias settings(7)  = sonic3_height
+Alias settings(8)  = wxt_height
+Alias settings(9)  = flush_tube_length
+Alias settings(10) = fis_std_conc
+Alias settings(11) = fis_cal_interval
+Alias settings(12) = fis_cal_zero_dur
+Alias settings(13) = fis_cal_both_dur
+Alias settings(14) = fis_cal_std_dur
 Units sonic1_azimuth = degEofTN
 Units sonic2_azimuth = degEofTN
 Units sonic3_azimuth = degEofTN
+Units wxt_azimuth = degEofTN
 Units sonic1_height = ft
 Units sonic2_height = ft
 Units sonic3_height = ft
+Units wxt_height = ft
 Units flush_tube_length = ft
 Units fis_std_conc = ppm
 Units fis_cal_interval = hr
@@ -293,15 +297,17 @@ Dim choice(NUM_SETTINGS)
 Alias choice(1)  = ch_sonic1_azimuth
 Alias choice(2)  = ch_sonic2_azimuth
 Alias choice(3)  = ch_sonic3_azimuth
-Alias choice(4)  = ch_sonic1_height
-Alias choice(5)  = ch_sonic2_height
-Alias choice(6)  = ch_sonic3_height
-Alias choice(7)  = ch_flush_tube_length
-Alias choice(8)  = ch_fis_std_conc
-Alias choice(9)  = ch_fis_cal_interval
-Alias choice(10) = ch_fis_cal_zero_dur
-Alias choice(11) = ch_fis_cal_both_dur
-Alias choice(12) = ch_fis_cal_std_dur
+Alias choice(4)  = ch_wxt_azimuth
+Alias choice(5)  = ch_sonic1_height
+Alias choice(6)  = ch_sonic2_height
+Alias choice(7)  = ch_sonic3_height
+Alias choice(8)  = ch_wxt_height
+Alias choice(9)  = ch_flush_tube_length
+Alias choice(10) = ch_fis_std_conc
+Alias choice(11) = ch_fis_cal_interval
+Alias choice(12) = ch_fis_cal_zero_dur
+Alias choice(13) = ch_fis_cal_both_dur
+Alias choice(14) = ch_fis_cal_std_dur
 
 
 '============================= DATA TABLES ===================================
@@ -436,6 +442,10 @@ DataTable(info,True,100)
     Sample(1,sonic3_azimuth,UINT2)
     Sample(1,sonic3_height,FP2)
   #EndIf
+  Sample(1,wxt_azimuth,UINT2)
+    FieldNames("wxt510_azimuth")
+  Sample(1,wxt_height,FP2)
+    FieldNames("wxt510_height")
   Sample(1,flush_tube_length,FP2)
   Sample(1,FLUSH_TUBE_ID,FP2)
     FieldNames("flush_tube_ID")
@@ -477,6 +487,8 @@ DisplayMenu("FIS DAQ", -1)
       MenuItem("Sonic 3 azimuth", ch_sonic3_azimuth)
       MenuItem("Sonic 3 height", ch_sonic3_height)
     #EndIf
+    MenuItem("WXT510 azimuth", ch_wxt_azimuth)
+    MenuItem("WXT510 height", ch_wxt_height)
     MenuItem("Flush tube length", ch_flush_tube_length)
     SubMenu("FIS Calibration")
       MenuItem("Standard conc", fis_std_conc)
@@ -539,9 +551,11 @@ Sub set_default_choices()
   ch_sonic1_azimuth = 0
   ch_sonic2_azimuth = 0
   ch_sonic3_azimuth = 0
+  ch_wxt_azimuth = 0
   ch_sonic1_height = 0
   ch_sonic2_height = 0
   ch_sonic3_height =0
+  ch_wxt_height = 0
   ch_flush_tube_length = 0
   ch_fis_std_conc = 0
   ch_fis_cal_interval = 4 'hr
@@ -560,6 +574,7 @@ Sub save_current_choices()
   If (sonic1_height < 0) Then sonic1_height = 0
   If (sonic2_height < 0) Then sonic2_height = 0
   If (sonic3_height < 0) Then sonic3_height = 0
+  If (wxt_height < 0) Then wxt_height = 0
   If (flush_tube_length < 0) Then flush_tube_length = 0
   If (fis_std_conc < 0) Then fis_std_conc = 0
   If (fis_cal_interval < 0) Then fis_cal_interval = 4
@@ -770,6 +785,7 @@ BeginProg
     CallTable(gps_daily)
 
     SDI12Recorder(wxt(1),WXT_COM,WXT_ADDR,WXT_CMD,wxt_scaling(),0)
+    'XXX despite `wxt_azimuth` setting, DO NOT correct WD values
     CallTable(ts_wxt)
   NextScan
 EndProg
