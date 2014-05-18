@@ -21,10 +21,6 @@
   \myTOC }
 %%%%%
 
-%enable footnotes in table outside float
-\usepackage{footnote}
-\makesavenoteenv{tabular}
-
 % http://tex.stackexchange.com/q/33841
 % default TOC settings from paper.cls:
 %    \newcommand*\l@section{\@dottedtocline{1}{1.5em}{2.3em}}
@@ -82,28 +78,10 @@
   \noindent \oldshadowbox{#1}%
 }
 
-% redefine shadowbox to override Lyx's default width of 1\columnwidth
-% note: this is hackish because it wraps the minipage inherently inside a 
-% shadowbox with another minipage explicitly 1\linewidth wide. thus, 
-% individual box widths cannot be specified
-%\let\oldshadowbox\shadowbox
-%\renewcommand{\shadowbox}[1]{%
-%  \noindent \oldshadowbox{%
-%    \begin{minipage}[t]{1\linewidth}
-%    #1
-%    \end{minipage}}%
-%}
-
 % enable color for banding rows in tables
 \usepackage{colortbl}
 \definecolor{band1}{gray}{0.85}
 \definecolor{band2}{gray}{0.75}
-
-% globally compact numbered lists:
-%\usepackage{enumitem}
-%\setenumerate{noitemsep}
-
-\usepackage{rotating} % for \sideways in imported spreadsheets
 
 \usepackage{currfile} % for capturing timestamp when "printed"
 \usepackage{filemod} % http://tex.stackexchange.com/q/14217/48287
