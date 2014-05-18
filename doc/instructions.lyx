@@ -34,7 +34,6 @@
 \renewcommand*\l@subsection{\@dottedtocline{2}{3em}{2.3em}}
 \renewcommand*\l@subsubsection{\@dottedtocline{3}{5.3em}{3.5em}}
 
-\renewcommand{\nomname}{List of Symbols}% was "Nomenclature"
 \renewcommand{\lstlistlistingname}{List of Program Listings}% http://stackoverflow.com/a/9480618/2946116
 
 % number listings by section like figure/table/eqns
@@ -537,10 +536,41 @@ Overview
 
 \begin_layout Standard
 This document addresses the data acquisition system used to monitor the
- Fast Isoprene Sensor (FIS) and related micrometeorological sensors during
- the 2014 PROPHET campaign at the University of Michigan Biological Station.
- Included are brief descriptions of the sensors, deployment instructions,
- operational guidelines, data product descriptions and other less interesting
+ Fast Isoprene Sensor (FIS
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+prefix "FIS"
+symbol "FIS"
+description "Fast Isoprene Sensor"
+
+\end_inset
+
+) and related micrometeorological sensors during the 
+\emph on
+Biogenic VOCs and Secondary Organic Aerosol at PROPHET - WSU 2014
+\emph default
+ field study at the University of Michigan Biological Station (UMBS
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+prefix "UMBS"
+symbol "UMBS"
+description "University of Michigan Biological Station"
+
+\end_inset
+
+) Program for Research on Oxidants: PHotochemistry, Emissions, and Transport
+ (PROPHET
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+prefix "PROPHET"
+symbol "PROPHET"
+description "Program for Research on Oxidants: PHotochemistry, Emissions and Transport; a tower located within a forested area on the UMBS property"
+
+\end_inset
+
+) tower.
+ Included are brief descriptions of the sensors, deployment guidelines,
+ operational instructions, data product descriptions and other less interesting
  tidbits.
 \end_layout
 
@@ -568,7 +598,8 @@ Hills Scientific (FIS-97; WSU asset tag 367158)
 \end_inset
 
 Provides high-frequency measurements of relative concentrations of alkenes
- (predominantly isoprene).
+ (e.g.
+ isoprene).
  
 \end_layout
 
@@ -591,7 +622,16 @@ Integrated sonic anemometer/infrared CO
 
 \end_inset
 
-O gas analyzer (sonic/IRGA) 
+O gas analyzer (sonic/IRGA
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+prefix "sonic/IRGA"
+symbol "sonic/IRGA"
+description "the integrated sonic anemometer and infrared $CO_2$/$H_2O$ analyzer unit"
+
+\end_inset
+
+) 
 \begin_inset Newline newline
 \end_inset
 
@@ -609,10 +649,14 @@ Campbell Scientific (CSAT3A/EC150/EC100)
 \begin_inset Newline newline
 \end_inset
 
-Provides high-frequency measurements of three-dimensional wind speed, approximat
-e virtual temperature, and molar density of carbon dioxide and water vapor.
- Additionally, an on-board thermistor and digital barometer provide ambient
- temperature and pressure, respectively.
+Provides high-frequency measurements of three-dimensional wind speed, sonic
+ temperature, and molar densities of carbon dioxide and water vapor.
+ Additionally, an on-board thermistor (Model 107; Campbell Scientific) and
+ digital barometer (
+\emph on
+unspecified
+\emph default
+) provide ambient temperature and pressure, respectively.
  
 \end_layout
 
@@ -691,7 +735,7 @@ Provides useful geolocation data and, more importantly, serves as a high-quality
 status open
 
 \begin_layout Plain Layout
-At present, the time-synchronization function is dubious.
+As this was printed, the time-synchronization function was dubious.
  It's difficult to get sufficient GPS satellites for proper operation while
  testing in the lab.
 \end_layout
@@ -702,7 +746,7 @@ At present, the time-synchronization function is dubious.
 \end_layout
 
 \begin_layout Standard
-Additionally, provisions have been made to integrate zero, one or two:
+Additionally, the system consists of zero, one or two:
 \end_layout
 
 \begin_layout Itemize
@@ -725,7 +769,7 @@ Campbell Scientific (CSAT3)
 \end_inset
 
 Provides high-frequency measurements of three-dimensional wind speed and
- approximate virtual temperature.
+ sonic temperature.
 \end_layout
 
 \begin_layout Section
