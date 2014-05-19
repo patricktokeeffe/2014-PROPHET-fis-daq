@@ -475,6 +475,7 @@ DataTable(stats,True,4)
   Average(1,flush_volFlow,FP2,flush_volFlow=NAN)
   StdDev (1,flush_volFlow,FP2,flush_volFlow=NAN)
   Average(1,flush_delay,FP2,flush_delay=NAN)
+  StdDev (1,flush_delay,FP2,flush_delay=NAN)
   Average(1,flush_Re,IEEE4,flush_Re=NAN)
 
   Average(1,sonic1_Ts,FP2,sonic1_Ts=NAN)
