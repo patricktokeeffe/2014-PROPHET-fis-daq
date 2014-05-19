@@ -233,7 +233,7 @@ Public tsi_etc(3)
 Alias tsi_etc(1) = flush_volFlow
 Alias tsi_etc(2) = flush_delay
 Alias tsi_etc(3) = flush_Re
-Units flush_volFlow = Lpm
+Units flush_volFlow = L/min
 Units flush_delay = sec
 Units flush_Re = dimless
 
