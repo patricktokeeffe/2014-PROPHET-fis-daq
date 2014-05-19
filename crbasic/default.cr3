@@ -92,6 +92,7 @@ Const CSAT3_OPT = INT(1000/FAST_INTV)
 'SDI device
 Const WXT_ADDR = 0   'SDI address
 Const WXT_CMD = "C!" 'initiate concurrent measurements --> composite msg
+Const WXT_MEDNUM = (STATS_INTV*60)/WXT_INTV 'max # of values to include in Median()
 
 Const TSI_BAUD = 38400
 Const TSI_FORMAT = 3  '8/none/1 in "binary mode"
@@ -253,8 +254,8 @@ Units max_clock_change = ms
 Units num_clock_change = occurrences
 
 Dim i
-Dim just_had_1hz_scan As Boolean
-Dim inbetween_1hz_scan As Boolean
+Dim just_had_wxt_scan As Boolean
+Dim inbetween_wxt_scan As Boolean
 
 '========================= SETTINGS RETENTION ================================
 Dim filehandle As Long
@@ -368,7 +369,7 @@ DataTable(ts_wxt,True,-1)
   Sample(1,wxt_WS,FP2)
   Sample(1,wxt_tmpr,FP2)
   Sample(1,wxt_RH,FP2)
-  Sample(1,wxt_press,FP2)
+  Sample(1,wxt_press,IEEE4) 'FP2 truncates to 1 decimal place if abs val > 80
   Sample(1,wxt_rain_amt,FP2)
   Sample(1,wxt_rain_dur,FP2)
   Sample(1,wxt_rain_int,FP2)
@@ -384,13 +385,11 @@ DataTable(stats,True,-1)
   Average(1,FIS_flow_std,FP2,FIS_flow_std=NAN) 'XXX should the standard only be
   StdDev(1,FIS_flow_std,FP2,FIS_flow_std=NAN)  '    included when active?
 
-  'XXX how to average wxt_WD?
-  Average(1,wxt_WS,FP2,wxt_WS=NAN)
-  Average(1,wxt_tmpr,FP2,wxt_tmpr=NAN)
-  Average(1,wxt_RH,FP2,wxt_RH=NAN)
-  Average(1,wxt_press,FP2,wxt_press=NAN)
-  Totalize(1,wxt_rain_amt,FP2,wxt_rain_amt=NAN)
-  'XXX do anything with duration/intensity?
+  Median(1,wxt_WD,WXT_MEDNUM,FP2,wxt_WD=NAN OR inbetween_wxt_scan)
+  Average(1,wxt_WS,FP2,wxt_WS=NAN OR inbetween_wxt_scan)
+  Average(1,wxt_tmpr,FP2,wxt_tmpr=NAN OR inbetween_wxt_scan)
+  Median(1,wxt_RH,WXT_MEDNUM,FP2,wxt_RH=NAN OR inbetween_wxt_scan)
+  Average(1,wxt_press,IEEE4,wxt_press=NAN OR inbetween_wxt_scan)
 
   Average(1,flush_massFlow,FP2,flush_massFlow=NAN)
   Average(1,flush_tmpr,FP2,flush_tmpr=NAN)
@@ -778,10 +777,10 @@ BeginProg
       stop_pmt_flag = False
     EndIf
 
-    inbetween_1hz_scan = True
-    If (just_had_1hz_scan) Then
-      just_had_1hz_scan = False
-      inbetween_1hz_scan = False
+    inbetween_wxt_scan = True
+    If (just_had_wxt_scan) Then
+      just_had_wxt_scan = False
+      inbetween_wxt_scan = False
     EndIf
   NextScan
   
@@ -793,5 +792,7 @@ BeginProg
     SDI12Recorder(wxt(1),WXT_COM,WXT_ADDR,WXT_CMD,wxt_scaling(),0)
     'XXX despite `wxt_azimuth` setting, DO NOT correct WD values
     CallTable(ts_wxt)
+
+    just_had_wxt_scan = True
   NextScan
 EndProg
