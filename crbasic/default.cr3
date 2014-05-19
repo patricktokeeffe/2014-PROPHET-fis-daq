@@ -600,6 +600,11 @@ Const Yes = True
 Const SendCommand = True
 Const No = False
 Const Cancel = False
+Const A = 10
+Const B = 11
+Const C = 12
+Const D = 13
+Const E = 14
 Dim save_changes As Boolean
 Dim discard_changes As Boolean
 Dim set_defaults As Boolean
@@ -666,17 +671,16 @@ DisplayMenu("FIS DAQ", -1)
     'HINT do not include SDM_SPEED or FLUSH_TUBE_ID in this menu because the
     '     datalogger is too dumb to accept arbitrary input via custom menus
     MenuItem("Time zone", UTC_OFFSET)
-      MenuPick(UTC_OFFSET,-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1, _
-        0,1,2,3,4,5,6,7,8,9,10,11,12,13,14)
+      MenuPick(UTC_OFFSET,-8,-7,-6,-5,-4)
     MenuItem("Use sonic2?", SONIC2_ENABLED)
       MenuPick(SONIC2_ENABLED, No, Yes)
     MenuItem("sonic2 addr", SONIC2_ADDR)
-      MenuPick(SONIC2_ADDR,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14)
+      MenuPick(SONIC2_ADDR,0,2,3,4,5,6,7,8,9,A,B,C,D,E)
     MenuItem("Use sonic3?", SONIC3_ENABLED)
       MenuPick(SONIC3_ENABLED, No, Yes)
     MenuItem("sonic3 addr", SONIC3_ADDR)
-      MenuPick(SONIC3_ADDR,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14)
-    MenuRecompile("Save now?", recompile)
+      MenuPick(SONIC3_ADDR,0,2,3,4,5,6,7,8,9,A,B,C,D,E)
+    MenuRecompile("Recompile?", recompile)
       MenuPick(Cancel,Yes)
   EndSubMenu
 EndMenu
