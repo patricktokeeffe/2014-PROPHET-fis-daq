@@ -111,11 +111,13 @@ Public FIS_pmt_overflow As Boolean
 Public FIS_pmt_counts
 Units FIS_pmt_counts = counts
 
-Public fis_flow(3)
+Public fis_flow(4)
 Alias fis_flow(1) = FIS_flow_tot
-Alias fis_flow(2) = FIS_flow_O2
-Alias fis_flow(3) = FIS_flow_std
+Alias fis_flow(2) = FIS_flow_samp
+Alias fis_flow(3) = FIS_flow_O2
+Alias fis_flow(4) = FIS_flow_std
 Units FIS_flow_tot = sLpm
+Units FIS_flow_samp = sLpm
 Units FIS_flow_O2 = sLpm
 Units FIS_flow_std = sccm
 
@@ -379,6 +381,8 @@ DataTable(stats,True,4)
   CardOut(1,-1)
   Average(1,FIS_flow_tot,FP2,FIS_flow_tot=NAN)
   StdDev (1,FIS_flow_tot,FP2,FIS_flow_tot=NAN)
+  Average(1,FIS_flow_samp,FP2,FIS_flow_samp=NAN)
+  StdDev (1,FIS_flow_samp,FP2,FIS_flow_samp=NAN)
   Average(1,FIS_flow_O2,FP2,FIS_flow_O2=NAN)
   StdDev (1,FIS_flow_O2,FP2,FIS_flow_O2=NAN)
   Average(1,FIS_flow_std,FP2,FIS_flow_std=NAN) 'XXX should the standard only be
@@ -734,6 +738,7 @@ BeginProg
         FIS_FLOW_O2_MULT,FIS_FLOW_O2_OFFSET)
     VoltDiff(FIS_flow_std,1,mV5000,FIS_FLOW_STD_DF,True,0,INTEG, _
         FIS_FLOW_STD_MULT,FIS_FLOW_STD_OFFSET)
+    FIS_flow_samp = FIS_flow_tot - FIS_flow_O2
     
     'pretend SE 27, SE 28 are TTL inputs
     VoltSe(FIS_state_std,1,mV5000,FIS_STATE_STD_SE,False,0,INTEG,1,0)
