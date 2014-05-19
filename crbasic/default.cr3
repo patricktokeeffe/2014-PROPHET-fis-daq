@@ -407,8 +407,8 @@ DataTable(stats,True,4)
   StdDev (1,FIS_flow_samp,FP2,FIS_flow_samp=NAN)
   Average(1,FIS_flow_O2,FP2,FIS_flow_O2=NAN)
   StdDev (1,FIS_flow_O2,FP2,FIS_flow_O2=NAN)
-  Average(1,FIS_flow_std,FP2,FIS_flow_std=NAN) 'XXX should the standard only be
-  StdDev(1,FIS_flow_std,FP2,FIS_flow_std=NAN)  '    included when active?
+  Average(1,FIS_flow_std,FP2,FIS_flow_std=NAN OR NOT FIS_std_ON)
+  StdDev (1,FIS_flow_std,FP2,FIS_flow_std=NAN OR NOT FIS_std_ON)
 
   Median (1,wxt_WD,WXT_MEDNUM,FP2,wxt_WD=NAN OR inbetween_wxt_scan)
   Average(1,wxt_WS,FP2,wxt_WS=NAN OR inbetween_wxt_scan)
