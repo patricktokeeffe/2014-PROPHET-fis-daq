@@ -143,6 +143,8 @@ Dim fis_state(2) 'HACK for reading TTL with SE 27,28 b/c too few control ports
 Alias fis_state(1) = FIS_state_std
 Alias fis_state(2) = FIS_state_zero
 
+Public disable_sonic1 As Boolean
+Public disable_irga1 As Boolean
 Public sonic_irga(12)
 Alias sonic_irga(1)  = sonic1_Ux
 Alias sonic_irga(2)  = sonic1_Uy
@@ -170,6 +172,7 @@ Units irga1_CO2_signal = ratio
 Units irga1_H2O_signal = ratio
 
 #If (SONIC2_ENABLED) Then
+  Public disable_sonic2 As Boolean
   Public sonic2(5)
   Alias sonic2(1) = sonic2_Ux
   Alias sonic2(2) = sonic2_Uy
@@ -182,6 +185,7 @@ Units irga1_H2O_signal = ratio
 #EndIf
 
 #If (SONIC3_ENABLED) Then
+  Public disable_sonic3 As Boolean
   Public sonic3(5)
   Alias sonic3(1) = sonic3_Ux
   Alias sonic3(2) = sonic3_Uy
@@ -264,6 +268,37 @@ Units num_clock_change = occurrences
 Dim i
 Dim just_had_wxt_scan As Boolean
 Dim inbetween_wxt_scan As Boolean
+
+Dim dummy(4) = {0, 0, 0, 0}
+Dim work_out(12)
+Alias work_out(1) = sonic1_WS_sclr_Avg
+Alias work_out(2) = sonic1_WS_rslt_Avg
+Alias work_out(3) = sonic1_WD_rslt_Avg
+Alias work_out(4) = sonic1_WD_csi_Std
+Units sonic1_WS_sclr_Avg = m/s
+Units sonic1_WS_rslt_Avg = m/s
+Units sonic1_WD_rslt_Avg = degEofTN
+Units sonic1_WD_csi_Std = degrees
+#If (SONIC2_ENABLED) Then
+  Alias work_out(5) = sonic2_WS_sclr_Avg
+  Alias work_out(6) = sonic2_WS_rslt_Avg
+  Alias work_out(7) = sonic2_WD_rslt_Avg
+  Alias work_out(8) = sonic2_WD_csi_Std
+  Units sonic2_WS_sclr_Avg = m/s
+  Units sonic2_WS_rslt_Avg = m/s
+  Units sonic2_WD_rslt_Avg = degEofTN
+  Units sonic2_WD_csi_Std degrees
+#EndIf
+#If (SONIC3_ENABLED) Then
+  Alias work_out(9)  = sonic3_WS_sclr_Avg
+  Alias work_out(10) = sonic3_WS_rslt_Avg
+  Alias work_out(11) = sonic3_WD_rslt_Avg
+  Alias work_out(12) = sonic3_WD_csi_Std
+  Units sonic3_WS_sclr_Avg = m/s
+  Units sonic3_WS_rslt_Avg = m/s
+  Units sonic3_WD_rslt_Avg = degEofTN
+  Units sonic3_WD_csi_Std = degrees
+#EndIf
 
 '========================= SETTINGS RETENTION ================================
 Dim filehandle As Long
@@ -398,6 +433,23 @@ DataTable(ts_wxt,True,8)
   Sample(1,wxt_rain_int,FP2)
 EndTable
 
+DataTable(work,True,2)
+  TableHide
+  DataInterval(0,STATS_INTV,Min,10)
+  WindVector(1,-1*sonic1_Uy,sonic1_Ux,IEEE4,disable_sonic1,0,1,2)
+  #If (SONIC2_ENABLED) Then
+    WindVector(1,-1*sonic2_Uy,sonic2_Ux,IEEE4,disable_sonic2,0,1,2)
+  #Else
+    Sample(4,dummy(1),FP2)
+  #EndIf
+  #If (SONIC3_ENABLED) Then
+    WindVector(1,-1*sonic3_Uy,sonic3_Ux,IEEE4,disable_sonic3,0,1,2)
+  #Else
+    Sample(4,dummy(1),FP2)
+    FieldNames("dummy2(4)")
+  #EndIf
+EndTable
+
 DataTable(stats,True,4)
   DataInterval(0,STATS_INTV,Min,10)
   CardOut(1,-1)
@@ -422,6 +474,39 @@ DataTable(stats,True,4)
   Average(1,flush_volFlow,FP2,flush_volFlow=NAN)
   Average(1,flush_delay,FP2,flush_delay=NAN)
   Average(1,flush_Re,IEEE4,flush_Re=NAN)
+
+  Average(1,sonic1_Ts,FP2,sonic1_Ts=NAN)
+  StdDev (1,sonic1_Ts,FP2,sonic1_Ts=NAN)
+  StdDev (1,sonic1_Uz,FP2,sonic1_Uz=NAN)
+  Sample (1,sonic1_WS_sclr_Avg,FP2)
+  Sample (1,sonic1_WS_rslt_Avg,FP2)
+  Sample (1,sonic1_WD_rslt_Avg,FP2)
+  Sample (1,sonic1_WD_csi_Std,FP2)
+  Average(1,irga1_CO2,FP2,irga1_CO2=NAN)
+  Average(1,irga1_H2O,FP2,irga1_H2O=NAN)
+  Average(1,irga1_amb_tmpr,FP2,irga1_amb_tmpr=NAN)
+  Average(1,irga1_amb_press,FP2,irga1_amb_press=NAN)
+  Average(1,irga1_CO2_signal,FP2,irga1_CO2_signal=NAN)
+  Average(1,irga1_H2O_signal,FP2,irga1_H2O_signal=NAN)
+
+  #If (SONIC2_ENABLED) Then
+    Average(1,sonic2_Ts,FP2,sonic2_Ts=NAN)
+    StdDev (1,sonic2_Ts,FP2,sonic2_Ts=NAN)
+    StdDev (1,sonic2_Uz,FP2,sonic2_Uz=NAN)
+    Sample (1,sonic2_WS_sclr_Avg,FP2)
+    Sample (1,sonic2_WS_rslt_Avg,FP2)
+    Sample (1,sonic2_WD_rslt_Avg,FP2)
+    Sample (1,sonic2_WD_csi_Std,FP2)
+  #EndIf
+  #If (SONIC3_ENABLED) Then
+    Average(1,sonic3_Ts,FP2,sonic3_Ts=NAN)
+    StdDev (1,sonic3_Ts,FP2,sonic3_Ts=NAN)
+    StdDev (1,sonic3_Uz,FP2,sonic3_Uz=NAN)
+    Sample (1,sonic3_WS_sclr_Avg,FP2)
+    Sample (1,sonic3_WS_rslt_Avg,FP2)
+    Sample (1,sonic3_WD_rslt_Avg,FP2)
+    Sample (1,sonic3_WD_csi_Std,FP2)
+  #EndIf
 EndTable
 
 DataTable(gps_daily,TRUE,30)
@@ -787,13 +872,17 @@ BeginProg
     If TimeIntoInterval(pre_ignore,fis_cal_int,Min) Then FIS_cal_filter = True
 
     EC100(sonic_irga(1),EC100_ADDR,EC100_CMD)
+    disable_sonic1 = sonic1_diag > 0
+    disable_irga1 = irga1_diag > 0
     irga1_CO2 /= MW_CO2 'mg/m^3 --> mmol/m^3
     irga1_H2O *= (1000/MW_H2O) 'g/m^3 --> mmol/m^3
     #If (SONIC2_ENABLED) Then
       CSAT3(sonic2(1),1,SONIC2_ADDR,CSAT3_CMD,CSAT3_OPT)
+      disable_sonic2 = (sonic2_diag AND &hF000)
     #EndIf
     #If (SONIC3_ENABLED) Then
       CSAT3(sonic3(1),1,SONIC3_ADDR,CSAT3_CMD,CSAT3_OPT)
+      disable_sonic3 = (sonic3_diag AND &hF000)
     #EndIf
 
     SerialInRecord(FIS_PMT_COM,pmt_record,0,4,0,pmt_bytes,11)
@@ -851,11 +940,19 @@ BeginProg
     flush_delay = IIF(tube_volume > 0, estimate_lag(flush_volFlow), NAN)
     flush_Re = IIF(flush_volFlow > 0, _
       reynolds_num(flush_volFlow, flush_tmpr, flush_press), 0)
-    
-    'disable_sonic1 = sonic1_diag > 0
-    'disable_irga1 = irga1_diag > 0
-    
+
     CallTable(ts_fast)
+    CallTable(work)
+    If (work.Output(1,1)) Then
+      GetRecord(work_out(1),work,1)
+      sonic1_WD_rslt_Avg=(sonic1_WD_rslt_Avg+IIF(sonic1_azimuth<0,0,sonic1_azimuth)) MOD 360
+      #If (SONIC2_ENABLED) Then
+        sonic2_WD_rslt_Avg=(sonic2_WD_rslt_Avg+IIF(sonic2_azimuth<0,0,sonic2_azimuth)) MOD 360
+      #EndIf
+      #If (SONIC3_ENABLED) Then
+        sonic3_WD_rslt_Avg=(sonic3_WD_rslt_Avg+IIF(sonic3_azimuth<0,0,sonic3_azimuth)) MOD 360
+      #EndIf
+    EndIf
     CallTable(stats)
 
     If (save_changes) Then
