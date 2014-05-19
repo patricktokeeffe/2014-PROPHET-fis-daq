@@ -121,20 +121,27 @@ Units FIS_flow_samp = sLpm
 Units FIS_flow_O2 = sLpm
 Units FIS_flow_std = sccm
 
-Dim fis_sched(4) As Long 'simplify scheduling, use Long to stop annoying compiler warnings
+Dim fis_cal_counter
+Public FIS_cal_event 'dual role incremental counter / flag
+
+Public fis_status(3) As Boolean
+Alias fis_status(1) = FIS_std_ON
+Alias fis_status(2) = FIS_zero_ON
+Alias fis_status(3) = FIS_cal_filter
+
+Dim fis_sched(6) As Long 'for scheduling, use Long to stop annoying compiler warnings
 Alias fis_sched(1) = fis_cal_int
 Alias fis_sched(2) = fis_turn_std_on
 Alias fis_sched(3) = fis_turn_zero_off
 Alias fis_sched(4) = fis_turn_std_off
+Alias fis_sched(5) = pre_ignore
+Alias fis_sched(6) = post_ignore
 Dim fis_ctrl(2) 'HACK for sending TTL with CAO b/c too few control ports
 Alias fis_ctrl(1) = FIS_ctrl_zero
 Alias fis_ctrl(2) = FIS_ctrl_std
 Dim fis_state(2) 'HACK for reading TTL with SE 27,28 b/c too few control ports
 Alias fis_state(1) = FIS_state_std
 Alias fis_state(2) = FIS_state_zero
-Public fis_status(2) As Boolean
-Alias fis_status(1) = FIS_std_ON
-Alias fis_status(2) = FIS_zero_ON
 
 Public sonic_irga(12)
 Alias sonic_irga(1)  = sonic1_Ux
@@ -261,7 +268,8 @@ Dim inbetween_wxt_scan As Boolean
 '========================= SETTINGS RETENTION ================================
 Dim filehandle As Long
 Const SETTINGS_FILE = "CPU:umbs_settings.dat"
-Const NUM_SETTINGS = {14}
+Const COUNTER_FILE = "CPU:umbs_calcounter.dat"
+Const NUM_SETTINGS = {18}
 Const WRITEFILE = 0
 Const READFILE = 1
 
@@ -280,6 +288,10 @@ Alias settings(11) = fis_cal_interval
 Alias settings(12) = fis_cal_zero_dur
 Alias settings(13) = fis_cal_both_dur
 Alias settings(14) = fis_cal_std_dur
+Alias settings(15) = fis_cal_sf 'start of cycle filter
+Alias settings(16) = fis_cal_ptf 'pre-transition filter
+Alias settings(17) = fis_cal_atf 'after-transition filter
+Alias settings(18) = fis_cal_ef 'end of cycle filter
 Units sonic1_azimuth = degEofTN
 Units sonic2_azimuth = degEofTN
 Units sonic3_azimuth = degEofTN
@@ -294,6 +306,10 @@ Units fis_cal_interval = hr
 Units fis_cal_zero_dur = min
 Units fis_cal_both_dur = min
 Units fis_cal_std_dur = min
+Units fis_cal_sf = sec
+Units fis_cal_ptf = sec
+Units fis_cal_atf = sec
+Units fis_cal_ef = sec
 
 Dim choice(NUM_SETTINGS)
 Alias choice(1)  = ch_sonic1_azimuth
@@ -310,6 +326,10 @@ Alias choice(11) = ch_fis_cal_interval
 Alias choice(12) = ch_fis_cal_zero_dur
 Alias choice(13) = ch_fis_cal_both_dur
 Alias choice(14) = ch_fis_cal_std_dur
+Alias choice(15) = ch_fis_cal_sf
+Alias choice(16) = ch_fis_cal_ptf
+Alias choice(17) = ch_fis_cal_atf
+Alias choice(18) = ch_fis_cal_ef
 
 
 '============================= DATA TABLES ===================================
@@ -513,6 +533,12 @@ DisplayMenu("FIS DAQ", -1)
       MenuItem("Zero duration", fis_cal_zero_dur)
       MenuItem("Z/S duration", fis_cal_both_dur)
       MenuItem("Std duration", fis_cal_std_dur)
+      SubMenu("Filtering")
+        MenuItem("Start of cycle", fis_cal_sf)
+        MenuItem("Pre-transition", fis_cal_ptf)
+        MenuItem("Post-transition", fis_cal_atf)
+        MenuItem("End of cycle", fis_cal_ef)
+      EndSubMenu
     EndSubMenu
     SubMenu("Apply/cancel")
       MenuItem("Save now?", save_changes)
@@ -579,6 +605,10 @@ Sub set_default_choices()
   ch_fis_cal_zero_dur = 5 'min
   ch_fis_cal_both_dur = 5
   ch_fis_cal_std_dur = 5
+  ch_fis_cal_sf = 120 'sec
+  ch_fis_cal_ptf = 5
+  ch_fis_cal_atf = 15
+  ch_fis_cal_ef = 5
 EndSub
 
 Sub populate_choices()
@@ -598,6 +628,10 @@ Sub save_current_choices()
   If (fis_cal_zero_dur < 0) Then fis_cal_zero_dur = 5
   If (fis_cal_both_dur < 0) Then fis_cal_both_dur = 5
   If (fis_cal_std_dur < 0) Then fis_cal_std_dur = 5
+  If (fis_cal_sf < 0) Then fis_cal_sf = 120
+  If (fis_cal_ptf < 0) Then fis_cal_ptf = 5
+  If (fis_cal_atf < 0) Then fis_cal_atf = 15
+  If (fis_cal_ef < 0) Then fis_cal_ef = 5
 
   'treat azimuths differently since 0 is a valid azimuth & enforce integer values
   sonic1_azimuth = IIF(sonic1_azimuth < 0, -1, FIX(sonic1_azimuth))
@@ -634,8 +668,24 @@ Sub reset_settings()
   load_settings()
 EndSub
 
+Sub save_counter()
+  Calfile(fis_cal_counter,1,COUNTER_FILE,WRITEFILE)
+EndSub
+
+Sub load_counter()
+  filehandle = FileOpen(COUNTER_FILE,"rb",0)
+  FileClose(filehandle)
+  If (filehandle = 0) Then 'file missing
+    fis_cal_counter = 0
+    save_counter()
+  Else
+    Calfile(fis_cal_counter,1,COUNTER_FILE,READFILE)
+  EndIf
+EndSub
+
 Sub setup()
   load_settings()
+  load_counter()
   SerialOpen(TSI_COM,TSI_BAUD,TSI_FORMAT,0,TSI_BUFF)  
   SerialOpen(FIS_PMT_COM,PMT_BAUD,PMT_FORMAT,0,PMT_BUFF)
   start_pmt()
@@ -694,15 +744,29 @@ BeginProg
     'calibration schedule
     If TimeIntoInterval(0,fis_cal_int,Min) Then
       FIS_ctrl_zero = 5000 'at start of interval, turn on zero
+      fis_cal_counter += 1 'increment the (hidden) event counter
+      FIS_cal_event = fis_cal_counter 'set the event flag (>0 = true)
+      FIS_cal_filter = True 'activate crappy-data filter
+      post_ignore = fis_cal_sf 'then set filter expiration
+      pre_ignore = fis_turn_std_on - fis_cal_ptf 'and reactivation times
     ElseIf TimeIntoInterval(fis_turn_std_on,fis_cal_int,Min) Then
       FIS_ctrl_std = 5000 'after zero duration, turn on standard
+      post_ignore = fis_turn_std_on + fis_cal_atf 'reset filter expiration
+      pre_ignore = fis_turn_zero_off - fis_cal_ptf 'and reactivation times
     ElseIf TimeIntoInterval(fis_turn_zero_off,fis_cal_int,Min) Then
       FIS_ctrl_zero = 0 'after zero+both duration, turn off zero
+      post_ignore = fis_turn_zero_off + fis_cal_atf 'reset filter expiration
+      pre_ignore = fis_turn_std_off - fis_cal_ef 'and reactivation times
     ElseIf TimeIntoInterval(fis_turn_std_off,fis_cal_int,Min) Then
       FIS_ctrl_std = 0 'after zero+both+std duration, turn off standard
+      FIS_cal_event = 0 'reset event flag false (0)
+      FIS_cal_filter = False
     EndIf
     ExciteCAO(FIS_CTRL_ZERO_CAO,FIS_ctrl_zero,True)
     ExciteCAO(FIS_CTRL_STD_CAO,FIS_ctrl_std,True)
+    'first update out "TTL outputs" then worry about setting the filter flag
+    If TimeIntoInterval(post_ignore,fis_cal_int,Min) Then FIS_cal_filter = False
+    If TimeIntoInterval(pre_ignore,fis_cal_int,Min) Then FIS_cal_filter = True
 
     EC100(sonic_irga(1),EC100_ADDR,EC100_CMD)
     irga1_CO2 /= MW_CO2 'mg/m^3 --> mmol/m^3
