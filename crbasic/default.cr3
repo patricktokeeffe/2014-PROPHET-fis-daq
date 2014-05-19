@@ -56,7 +56,6 @@ Const TUBE_AREA = PI*FLUSH_TUBE_ID*FLUSH_TUBE_ID/4 'in^2
 
 'Operational configuration
 Const FAST_INTV = 100 'ms = 10 Hz
-Const SLOW_INTV = 1 'sec = 1 Hz
 Const WXT_INTV = 15 'sec
 Const STATS_INTV = 30 'min
 Const INTEG = 250
@@ -317,7 +316,7 @@ Alias choice(14) = ch_fis_cal_std_dur
 '     Presumably, if a boolean is null, something went very wrong so don't
 '     worry about it and for summary tables, null values are excluded so we 
 '     don't care as much about sentinal values.
-DataTable(ts_fast,True,-1)
+DataTable(ts_fast,True,600)
   DataInterval(0,FAST_INTV,mSec,10)
   CardOut(1,-1)
   Sample(1,FIS_pmt_counts,FP2)
@@ -362,7 +361,7 @@ DataTable(ts_fast,True,-1)
   Sample(1,flush_press,FP2)
 EndTable
 
-DataTable(ts_wxt,True,-1)
+DataTable(ts_wxt,True,8)
   DataInterval(0,WXT_INTV,Sec,10)
   CardOut(1,-1)
   Sample(1,wxt_WD,FP2)
@@ -375,20 +374,20 @@ DataTable(ts_wxt,True,-1)
   Sample(1,wxt_rain_int,FP2)
 EndTable
 
-DataTable(stats,True,-1)
+DataTable(stats,True,4)
   DataInterval(0,STATS_INTV,Min,10)
   CardOut(1,-1)
   Average(1,FIS_flow_tot,FP2,FIS_flow_tot=NAN)
-  StdDev(1,FIS_flow_tot,FP2,FIS_flow_tot=NAN)
+  StdDev (1,FIS_flow_tot,FP2,FIS_flow_tot=NAN)
   Average(1,FIS_flow_O2,FP2,FIS_flow_O2=NAN)
-  StdDev(1,FIS_flow_O2,FP2,FIS_flow_O2=NAN)
+  StdDev (1,FIS_flow_O2,FP2,FIS_flow_O2=NAN)
   Average(1,FIS_flow_std,FP2,FIS_flow_std=NAN) 'XXX should the standard only be
   StdDev(1,FIS_flow_std,FP2,FIS_flow_std=NAN)  '    included when active?
 
-  Median(1,wxt_WD,WXT_MEDNUM,FP2,wxt_WD=NAN OR inbetween_wxt_scan)
+  Median (1,wxt_WD,WXT_MEDNUM,FP2,wxt_WD=NAN OR inbetween_wxt_scan)
   Average(1,wxt_WS,FP2,wxt_WS=NAN OR inbetween_wxt_scan)
   Average(1,wxt_tmpr,FP2,wxt_tmpr=NAN OR inbetween_wxt_scan)
-  Median(1,wxt_RH,WXT_MEDNUM,FP2,wxt_RH=NAN OR inbetween_wxt_scan)
+  Median (1,wxt_RH,WXT_MEDNUM,FP2,wxt_RH=NAN OR inbetween_wxt_scan)
   Average(1,wxt_press,IEEE4,wxt_press=NAN OR inbetween_wxt_scan)
 
   Average(1,flush_massFlow,FP2,flush_massFlow=NAN)
@@ -396,11 +395,12 @@ DataTable(stats,True,-1)
   Average(1,flush_press,FP2,flush_press=NAN)
   Average(1,flush_volFlow,FP2,flush_volFlow=NAN)
   Average(1,flush_delay,FP2,flush_delay=NAN)
+  Average(1,flush_Re,IEEE4,flush_Re=NAN)
 EndTable
 
 DataTable(gps_daily,TRUE,30)
   DataInterval (0,1,Day,10)
-  CardOut(0,90)
+  CardOut(0,150)
   Median(1,(lat_deg + lat_min/60),DAILY_MEDNUM,IEEE4,(lat_deg=NAN OR lat_min=NAN))
     FieldNames("latitude_Med")
     Units latitude_Med = degN
@@ -417,8 +417,8 @@ DataTable(gps_daily,TRUE,30)
 EndTable
 
 DataTable(info,True,100)
-  CardOut(1,100)
-  Sample(1,UTC_OFFSET,FP2)
+  CardOut(1,1000)
+  Sample(1,UTC_OFFSET,FP2) 'HINT need sign so not UINT2
     FieldNames("UTC_offset")
     Units UTC_OFFSET = hours
   Sample(1,EC100_ADDR,UINT2)
@@ -429,8 +429,10 @@ DataTable(info,True,100)
     FieldNames("sonic3_SDM_address")
   Sample(1,TSI_STP_T,FP2)
     FieldNames("flowmeter_STP_tmpr")
+    Units flowmeter_STP_tmpr = degC
   Sample(1,TSI_STP_P,FP2)
     FieldNames("flowmeter_STP_press")
+    Units flowmeter_STP_press = kPa
   Sample(1,sonic1_azimuth,UINT2)
   Sample(1,sonic1_height,FP2)
   #If (SONIC2_ENABLED) Then
@@ -448,7 +450,19 @@ DataTable(info,True,100)
   Sample(1,flush_tube_length,FP2)
   Sample(1,FLUSH_TUBE_ID,FP2)
     FieldNames("flush_tube_ID")
-    Units flush_tube_ID = in
+    Units FLUSH_TUBE_ID = in
+  Sample(1,Status.SerialNumber,UINT2)
+    FieldNames("SerialNumber")
+  Sample(1,Status.OSVersion,String)
+    FieldNames("OSVersion")
+  Sample(1,Status.CompileResults,String)
+    FieldNames("CompileResults")
+  Sample(1,Status.CardStatus,String)
+    FieldNames("CardStatus")
+  Sample(1,Status.RunSignature,UINT2)
+    FieldNames("RunSig")
+  Sample(1,Status.ProgSignature,UINT2)
+    FieldNames("ProgSig")
 EndTable
 
 
