@@ -759,7 +759,7 @@ Sub save_current_choices()
   If (fis_cal_Sfilt < 0) Then fis_cal_Sfilt = DEF_FIS_CAL_SFILT
   If (fis_cal_Efilt < 0) Then fis_cal_Efilt = DEF_FIS_CAL_EFILT
 
-  'treat azimuths differently since 0 is a valid azimuth & enforce integer values
+  'treat azimuths different since 0 is  valid azimuth & enforce integer vals
   sonic1_azimuth = IIF(sonic1_azimuth < 0, -1, FIX(sonic1_azimuth) MOD 360)
   sonic2_azimuth = IIF(sonic2_azimuth < 0, -1, FIX(sonic2_azimuth) MOD 360)
   sonic3_azimuth = IIF(sonic3_azimuth < 0, -1, FIX(sonic3_azimuth) MOD 360)
@@ -818,8 +818,8 @@ EndSub
 
 
 '================================= FUNCTIONS =================================
-'TSI Models 4040/4043/4045 General Purpose Thermal Mass Flowmeter Operation and
-'    Service Manual. Appendix B. August 2001. Revision D
+'TSI Models 4040/4043/4045 General Purpose Thermal Mass Flowmeter Operation
+'    and Service Manual. Appendix B. August 2001. Revision D
 '[StdFlow] = std L/min @ TSI specs, [Tmpr] = C, [Press] = kPa
 Function volumetric_flow(StdFlow, Tmpr, Press) As Float 'Lpm
   Return (StdFlow * ((273.15+Tmpr)/(273.15+TSI_STP_T)) * (TSI_STP_P/Press))
@@ -1041,3 +1041,4 @@ BeginProg
     just_had_wxt_scan = True
   NextScan
 EndProg
+
