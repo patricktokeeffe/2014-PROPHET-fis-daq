@@ -971,10 +971,22 @@ BeginProg
       flush_tmpr = flush_massFlow
       flush_massFlow = 0
     EndIf
-    flush_volFlow = volumetric_flow(flush_massFlow, flush_tmpr, flush_press)
-    flush_delay = IIF(tube_volume > 0, estimate_lag(flush_volFlow), NAN)
-    flush_Re = IIF(flush_volFlow > 0, _
-      reynolds_num(flush_volFlow, flush_tmpr, flush_press), 0)
+    'HACK still possible for datalogger to hiccup if MSB of flow is 0x00 so 
+    'we also conduct naive sanity check on temperature value and throw out
+    'data if suspect
+    If (flush_tmpr > 50) Then '>122*F ?
+      flush_massFlow = NAN
+      flush_press = NAN
+      flush_tmpr = NAN
+      flush_volFlow = NAN
+      flush_delay = NAN
+      flush_Re = NAN
+    Else
+      flush_volFlow = volumetric_flow(flush_massFlow, flush_tmpr, flush_press)
+      flush_delay = IIF(tube_volume > 0, estimate_lag(flush_volFlow), NAN)
+      flush_Re = IIF(flush_volFlow > 0, _
+        reynolds_num(flush_volFlow, flush_tmpr, flush_press), 0)
+    EndIf
 
     CallTable(ts_fast)
     CallTable(work)
