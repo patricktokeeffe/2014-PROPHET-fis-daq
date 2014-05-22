@@ -102,6 +102,24 @@ Const TSI_ENDWORD = &hFFFF
 Const TSI_STP_T = 21.1 'degC
 Const TSI_STP_P = 101.3 'kPa
 
+Const DEF_SONIC1_AZIMUTH = -1  'default settings values
+Const DEF_SONIC2_AZIMUTH = -1
+Const DEF_SONIC3_AZIMUTH = -1
+Const DEF_WXT_AZIMUTH = -1
+Const DEF_SONIC1_HEIGHT = 0
+Const DEF_SONIC2_HEIGHT = 0
+Const DEF_SONIC3_HEIGHT = 0
+Const DEF_WXT_HEIGHT = 0
+Const DEF_FLUSH_TUBE_LENGTH = 0
+Const DEF_FIS_STD_CONC = 0
+Const DEF_FIS_CAL_INTERVAL = 8 'hr
+Const DEF_FIS_CAL_ZERO_DUR = 5 'min
+Const DEF_FIS_CAL_BOTH_DUR = 5 'min
+Const DEF_FIS_CAL_STD_DUR = 5 'min
+Const DEF_FIS_CAL_PREFILT = 175 'sec
+Const DEF_FIS_CAL_POSTFILT = 5 'sec
+
+
 '============================= VARIABLES =====================================
 Dim pmt_record As String * 4
 Dim pmt_bytes
@@ -701,24 +719,22 @@ Sub stop_pmt()
 EndSub
 
 Sub set_default_choices()
-  ch_sonic1_azimuth = -1
-  ch_sonic2_azimuth = -1
-  ch_sonic3_azimuth = -1
-  ch_wxt_azimuth = -1
-  ch_sonic1_height = 0
-  ch_sonic2_height = 0
-  ch_sonic3_height =0
-  ch_wxt_height = 0
-  ch_flush_tube_length = 0
-  ch_fis_std_conc = 0
-  ch_fis_cal_interval = 4 'hr
-  ch_fis_cal_zero_dur = 5 'min
-  ch_fis_cal_both_dur = 5
-  ch_fis_cal_std_dur = 5
-  ch_fis_cal_sf = 120 'sec
-  ch_fis_cal_ptf = 5
-  ch_fis_cal_atf = 15
-  ch_fis_cal_ef = 5
+  ch_sonic1_azimuth = DEF_SONIC1_AZIMUTH
+  ch_sonic2_azimuth = DEF_SONIC2_AZIMUTH
+  ch_sonic3_azimuth = DEF_SONIC3_AZIMUTH
+  ch_wxt_azimuth = DEF_WXT_AZIMUTH
+  ch_sonic1_height = DEF_SONIC1_HEIGHT
+  ch_sonic2_height = DEF_SONIC2_HEIGHT
+  ch_sonic3_height = DEF_SONIC3_HEIGHT
+  ch_wxt_height = DEF_WXT_HEIGHT
+  ch_flush_tube_length = DEF_FLUSH_TUBE_LENGTH
+  ch_fis_std_conc = DEF_FIS_STD_CONC
+  ch_fis_cal_interval = DEF_FIS_CAL_INTERVAL
+  ch_fis_cal_zero_dur = DEF_FIS_CAL_ZERO_DUR
+  ch_fis_cal_both_dur = DEF_FIS_CAL_BOTH_DUR
+  ch_fis_cal_std_dur = DEF_FIS_CAL_STD_DUR
+  ch_fis_cal_prefilt = DEF_FIS_CAL_PREFILT
+  ch_fis_cal_postfilt = DEF_FIS_CAL_POSTFILT
 EndSub
 
 Sub populate_choices()
@@ -728,20 +744,18 @@ EndSub
 Sub save_current_choices()
   Move(settings(1),NUM_SETTINGS,choice(1),NUM_SETTINGS)
   'simplest possible input validation
-  If (sonic1_height < 0) Then sonic1_height = 0
-  If (sonic2_height < 0) Then sonic2_height = 0
-  If (sonic3_height < 0) Then sonic3_height = 0
-  If (wxt_height < 0) Then wxt_height = 0
-  If (flush_tube_length < 0) Then flush_tube_length = 0
-  If (fis_std_conc < 0) Then fis_std_conc = 0
-  If (fis_cal_interval < 0) Then fis_cal_interval = 4
-  If (fis_cal_zero_dur < 0) Then fis_cal_zero_dur = 5
-  If (fis_cal_both_dur < 0) Then fis_cal_both_dur = 5
-  If (fis_cal_std_dur < 0) Then fis_cal_std_dur = 5
-  If (fis_cal_sf < 0) Then fis_cal_sf = 120
-  If (fis_cal_ptf < 0) Then fis_cal_ptf = 5
-  If (fis_cal_atf < 0) Then fis_cal_atf = 15
-  If (fis_cal_ef < 0) Then fis_cal_ef = 5
+  If (sonic1_height < 0) Then sonic1_height = DEF_SONIC1_HEIGHT
+  If (sonic2_height < 0) Then sonic2_height = DEF_SONIC2_HEIGHT
+  If (sonic3_height < 0) Then sonic3_height = DEF_SONIC3_HEIGHT
+  If (wxt_height < 0) Then wxt_height = DEF_WXT_HEIGHT
+  If (flush_tube_length < 0) Then flush_tube_length = DEF_FLUSH_TUBE_LENGTH
+  If (fis_std_conc < 0) Then fis_std_conc = DEF_FIS_STD_CONC
+  If (fis_cal_interval < 0) Then fis_cal_interval = DEF_FIS_CAL_INTERVAL
+  If (fis_cal_zero_dur < 0) Then fis_cal_zero_dur = DEF_FIS_CAL_ZERO_DUR
+  If (fis_cal_both_dur < 0) Then fis_cal_both_dur = DEF_FIS_CAL_BOTH_DUR
+  If (fis_cal_std_dur < 0) Then fis_cal_std_dur = DEF_FIS_CAL_STD_DUR
+  If (fis_cal_prefilt < 0) Then fis_cal_prefilt = DEF_FIS_CAL_PREFILT
+  If (fis_cal_postfilt < 0) Then fis_cal_postfilt = DEF_FIS_CAL_POSTFILT
 
   'treat azimuths differently since 0 is a valid azimuth & enforce integer values
   sonic1_azimuth = IIF(sonic1_azimuth < 0, -1, FIX(sonic1_azimuth) MOD 360)
