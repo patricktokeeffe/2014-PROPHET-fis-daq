@@ -1,0 +1,48 @@
+
+
+
+
+
+Version 1.0.1 [
+==========================================
+
+Issues resolved:
+----------------
+
+- Flush tube delay time estimate calculation was corrected. (12945fe6)
+- Reduced number of significant figures retained in mean barometric pressure
+  from weather transmitter (stats/wxt_press_Avg) from ~5 decimal places to 1
+  decimal place since device only reports 2 decimal places. (062a20bb)
+- Explicitly exclude null values (NAN) from half-hour WD/WS values calculated
+  for all three sonic anemometers. (b91aaf4e)
+- Modify storage type from unsigned integer to 2-byte floating point for all
+  sonic anemometers and the weather transmitter in `info` table to permit 
+  proper storage of the value-not-set sentinal (-1). (2749ac0e)
+
+Enhancements:
+-------------
+
+- Adjust the half-hour WD values from weather transmitter (stats/wxt_WD_Med)
+  to account for the device's orientation. (757d482a)
+- Change field name to clarify the serial number recorded is for the datalogger
+  (info/SerialNumber -> LoggerSN). (b978b3b3)
+
+
+
+Version 1.0 [build 2014-05-22T20:55:33-05]
+==========================================
+
+First version deployed at UMBS PROPHET site. Settings (azimuths, heights,
+flush tube length) NOT set. Run overnight for some take-home data, which was
+deleted from DAQ monitoring laptop prior to departure. Measurements were set
+in the program settings the morning of 2014-05-23 then program was restarted
+and began officially operating. 
+
+Known issues:
+-------------
+
+- Flush tube delay time estimate calculation is inverted: divide 1 by value
+  recorded in table (stats/flush_delay_Avg) to obtain correct delay estimate.
+  Disregard standard deviation values (stats/flush_delay_Std). 
+- Null values (NAN) were not explicitly excluded from WD/WS calculations so
+  some half-hour values in `stats` table are NAN (all of sonic1). 
