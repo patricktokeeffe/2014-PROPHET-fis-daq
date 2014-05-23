@@ -290,30 +290,31 @@ Dim just_had_wxt_scan As Boolean
 Dim inbetween_wxt_scan As Boolean
 
 Dim dummy(4) = {0, 0, 0, 0}
-Dim work_out(12)
-Alias work_out(1) = sonic1_WS_sclr_Avg
-Alias work_out(2) = sonic1_WS_rslt_Avg
-Alias work_out(3) = sonic1_WD_rslt_Avg
-Alias work_out(4) = sonic1_WD_csi_Std
+Dim work_out(13)
+Alias work_out(1) = wxt_WD_Med
+Alias work_out(2) = sonic1_WS_sclr_Avg
+Alias work_out(3) = sonic1_WS_rslt_Avg
+Alias work_out(4) = sonic1_WD_rslt_Avg
+Alias work_out(5) = sonic1_WD_csi_Std
 Units sonic1_WS_sclr_Avg = m/s
 Units sonic1_WS_rslt_Avg = m/s
 Units sonic1_WD_rslt_Avg = degEofTN
 Units sonic1_WD_csi_Std = degrees
 #If (SONIC2_ENABLED) Then
-  Alias work_out(5) = sonic2_WS_sclr_Avg
-  Alias work_out(6) = sonic2_WS_rslt_Avg
-  Alias work_out(7) = sonic2_WD_rslt_Avg
-  Alias work_out(8) = sonic2_WD_csi_Std
+  Alias work_out(6) = sonic2_WS_sclr_Avg
+  Alias work_out(7) = sonic2_WS_rslt_Avg
+  Alias work_out(8) = sonic2_WD_rslt_Avg
+  Alias work_out(9) = sonic2_WD_csi_Std
   Units sonic2_WS_sclr_Avg = m/s
   Units sonic2_WS_rslt_Avg = m/s
   Units sonic2_WD_rslt_Avg = degEofTN
   Units sonic2_WD_csi_Std = degrees
 #EndIf
 #If (SONIC3_ENABLED) Then
-  Alias work_out(9)  = sonic3_WS_sclr_Avg
-  Alias work_out(10) = sonic3_WS_rslt_Avg
-  Alias work_out(11) = sonic3_WD_rslt_Avg
-  Alias work_out(12) = sonic3_WD_csi_Std
+  Alias work_out(10) = sonic3_WS_sclr_Avg
+  Alias work_out(11) = sonic3_WS_rslt_Avg
+  Alias work_out(12) = sonic3_WD_rslt_Avg
+  Alias work_out(13) = sonic3_WD_csi_Std
   Units sonic3_WS_sclr_Avg = m/s
   Units sonic3_WS_rslt_Avg = m/s
   Units sonic3_WD_rslt_Avg = degEofTN
@@ -455,6 +456,7 @@ EndTable
 DataTable(work,True,2)
   TableHide
   DataInterval(0,STATS_INTV,Min,10)
+  Median (1,wxt_WD,WXT_MEDNUM,FP2,wxt_WD=NAN OR inbetween_wxt_scan)
   WindVector(1,-1*sonic1_Uy,sonic1_Ux,IEEE4,disable_sonic1,0,1,2)
   #If (SONIC2_ENABLED) Then
     WindVector(1,-1*sonic2_Uy,sonic2_Ux,IEEE4,disable_sonic2,0,1,2)
@@ -481,7 +483,7 @@ DataTable(stats,True,4)
   Average(1,FIS_flow_std,FP2,FIS_flow_std=NAN OR NOT FIS_std_ON)
   StdDev (1,FIS_flow_std,FP2,FIS_flow_std=NAN OR NOT FIS_std_ON)
 
-  Median (1,wxt_WD,WXT_MEDNUM,FP2,wxt_WD=NAN OR inbetween_wxt_scan)
+  Sample (1,wxt_WD_Med,FP2)
   Average(1,wxt_WS,FP2,wxt_WS=NAN OR inbetween_wxt_scan)
   Average(1,wxt_tmpr,FP2,wxt_tmpr=NAN OR inbetween_wxt_scan)
   Median (1,wxt_RH,WXT_MEDNUM,FP2,wxt_RH=NAN OR inbetween_wxt_scan)
@@ -992,6 +994,7 @@ BeginProg
     CallTable(work)
     If (work.Output(1,1)) Then
       GetRecord(work_out(1),work,1)
+      wxt_WD_Med = (wxt_WD_Med+IIF(wxt_azimuth<0,0,wxt_azimuth)) MOD 360
       sonic1_WD_rslt_Avg=(sonic1_WD_rslt_Avg+IIF(sonic1_azimuth<0,0,sonic1_azimuth)) MOD 360
       #If (SONIC2_ENABLED) Then
         sonic2_WD_rslt_Avg=(sonic2_WD_rslt_Avg+IIF(sonic2_azimuth<0,0,sonic2_azimuth)) MOD 360
