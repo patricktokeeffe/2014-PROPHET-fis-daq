@@ -599,7 +599,7 @@ DataTable(info,True,100)
     FieldNames("flush_tube_ID")
     Units FLUSH_TUBE_ID = in
   Sample(1,Status.SerialNumber,UINT2)
-    FieldNames("SerialNumber")
+    FieldNames("LoggerSN")
   Sample(1,Status.OSVersion,String)
     FieldNames("OSVersion")
   Sample(1,Status.CompileResults,String)
