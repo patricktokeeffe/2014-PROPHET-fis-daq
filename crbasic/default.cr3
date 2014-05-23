@@ -896,7 +896,7 @@ BeginProg
     'ensure is is known OFF state after exiting final step
     If TimeIntoInterval(filter_off,cal_int,Sec) Then FIS_cal_filter = False
     If TimeIntoInterval(filter_on,cal_int,Sec) Then FIS_cal_filter = True
-    If TimeIntoInterval(turn_std_off,cal_int,Min) Then
+    If TimeIntoInterval(turn_std_off,cal_int,Sec) Then
       FIS_ctrl_std = 0
       'HINT guaranteed last in sequence b/c negative durations prohibited
       FIS_cal_filter = False
