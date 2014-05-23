@@ -827,7 +827,7 @@ EndFunction
 
 '[VolFlow] = L/min
 Function estimate_lag(VolFlow) As Float 'sec
-  Return (VolFlow / (60 * tube_volume))  '(L/min)*(min/60sec) / L
+  Return (60 * tube_volume / VolFlow))  '(60sec/min)(L)(min/L)
 EndFunction
 
 'https://en.wikipedia.org/wiki/Viscosity
