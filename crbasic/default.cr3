@@ -568,17 +568,17 @@ DataTable(info,True,100)
   Sample(1,TSI_STP_P,FP2)
     FieldNames("flowmeter_STP_press")
     Units flowmeter_STP_press = kPa
-  Sample(1,sonic1_azimuth,UINT2)
+  Sample(1,sonic1_azimuth,FP2)
   Sample(1,sonic1_height,FP2)
   #If (SONIC2_ENABLED) Then
-    Sample(1,sonic2_azimuth,UINT2)
+    Sample(1,sonic2_azimuth,FP2)
     Sample(1,sonic2_height,FP2)
   #EndIf
   #If (SONIC3_ENABLED) Then
-    Sample(1,sonic3_azimuth,UINT2)
+    Sample(1,sonic3_azimuth,FP2)
     Sample(1,sonic3_height,FP2)
   #EndIf
-  Sample(1,wxt_azimuth,UINT2)
+  Sample(1,wxt_azimuth,FP2)
     FieldNames("wxt510_azimuth")
   Sample(1,wxt_height,FP2)
     FieldNames("wxt510_height")
