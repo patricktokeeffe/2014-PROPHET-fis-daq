@@ -15,9 +15,9 @@ ConstTable
   Const SDM_SPEED = 30 'usec; 8-3000
 
   Const UTC_OFFSET = -5 'Eastern Standard Time
-  Const SONIC2_ENABLED = False  
+  Const SONIC2_ENABLED = True  
   Const SONIC2_ADDR = 3 'default SDM address
-  Const SONIC3_ENABLED = False
+  Const SONIC3_ENABLED = True 
   Const SONIC3_ADDR = 4 '<-- change sonic config
 EndConstTable
 
