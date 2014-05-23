@@ -307,7 +307,7 @@ Units sonic1_WD_csi_Std = degrees
   Units sonic2_WS_sclr_Avg = m/s
   Units sonic2_WS_rslt_Avg = m/s
   Units sonic2_WD_rslt_Avg = degEofTN
-  Units sonic2_WD_csi_Std degrees
+  Units sonic2_WD_csi_Std = degrees
 #EndIf
 #If (SONIC3_ENABLED) Then
   Alias work_out(9)  = sonic3_WS_sclr_Avg
