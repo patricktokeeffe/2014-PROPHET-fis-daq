@@ -485,7 +485,7 @@ DataTable(stats,True,4)
   Average(1,wxt_WS,FP2,wxt_WS=NAN OR inbetween_wxt_scan)
   Average(1,wxt_tmpr,FP2,wxt_tmpr=NAN OR inbetween_wxt_scan)
   Median (1,wxt_RH,WXT_MEDNUM,FP2,wxt_RH=NAN OR inbetween_wxt_scan)
-  Average(1,wxt_press,IEEE4,wxt_press=NAN OR inbetween_wxt_scan)
+  Average(1,wxt_press,FP2,wxt_press=NAN OR inbetween_wxt_scan)
 
   Average(1,flush_massFlow,FP2,flush_massFlow=NAN)
   StdDev (1,flush_massFlow,FP2,flush_massFlow=NAN)
