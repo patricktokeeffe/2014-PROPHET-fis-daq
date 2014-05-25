@@ -453,7 +453,7 @@ DataTable(ts_wxt,True,8)
 EndTable
 
 DataTable(work,True,2)
-  TableHide
+  'TableHide
   DataInterval(0,STATS_INTV,Min,10)
   WindVector(1,-1*sonic1_Uy,sonic1_Ux,IEEE4,disable_sonic1,0,1,2)
   #If (SONIC2_ENABLED) Then

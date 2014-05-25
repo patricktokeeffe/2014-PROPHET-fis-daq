@@ -3,6 +3,7 @@ Version 1.0.1
 
 - Increases SDM clock speed from default value of 30 to 150 to (hopefully)
   resolve the issue causing Ux = -99999 from the sonic/IRGA unit.
+- Unhides working table for diagnostic assessment
 
 
 Version 1.0
