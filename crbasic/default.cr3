@@ -912,6 +912,7 @@ BeginProg
     EC100(sonic_irga(1),EC100_ADDR,EC100_CMD)
     disable_sonic1 = (sonic1_diag > 0) OR (sonic1_Ux = NAN) OR _
         (sonic1_Uy = NAN) OR (sonic1_Uz = NAN)
+    If (sonic1_Ux = -99999) Then (disable_sonic1 = True) 'HACK see changelog
     disable_irga1 = irga1_diag > 0
     irga1_CO2 /= MW_CO2 'mg/m^3 --> mmol/m^3
     irga1_H2O *= (1000/MW_H2O) 'g/m^3 --> mmol/m^3

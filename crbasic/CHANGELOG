@@ -1,10 +1,5 @@
-
-
-
-
-
-Version 1.0.1 [
-==========================================
+Version 1.1
+===========
 
 Issues resolved:
 ----------------
@@ -30,6 +25,43 @@ Enhancements:
 - Save mean Reynolds number calculated each half-hour as integer (e43a206f)
 
 
+Version 1.0.5
+=============
+
+- Resets SDM clock speed to default (3000->30).
+- Adds hackish check for Ux = -99999 and sets disable flag if true.
+
+
+Version 1.0.4
+=============
+
+- Further decreases SDM clock speed 300->3000.
+
+
+Version 1.0.3
+=============
+
+- Further decreases SDM clock speed 150->300.
+
+
+Version 1.0.2
+=============
+
+- Unhide data table `work` to aid diagnosing sonic1 behavior.
+- Omit non-sonic variables from `ts_fast` data table and limit to ~3 hours of
+  collection time to permit collecting table for diagnosing sonic1 issue.
+
+
+Version 1.0.1
+=============
+
+- Decreases SDM clock speed from default value of 30 to 150 to (hopefully)
+  resolve the issue causing Ux = -99999 from the sonic/IRGA unit.
+- Unhides working table for diagnostic assessment.
+- Removes non-sonic data from high-frequency time series table and sets an
+  explicit size of 100,000 records (~3 hrs) to enable retrieval of time series
+  data for diagnosing sonic1 issue.
+
 
 Version 1.0
 ===========
@@ -40,11 +72,19 @@ deleted from DAQ monitoring laptop prior to departure. Measurements were set
 in the program settings the morning of 2014-05-23 then program was restarted
 and began officially operating. 
 
-Known issues:
--------------
+Known issues
+------------
 
 - Flush tube delay time estimate calculation is inverted: divide 1 by value
   recorded in table (stats/flush_delay_Avg) to obtain correct delay estimate.
   Disregard standard deviation values (stats/flush_delay_Std). 
 - Null values (NAN) were not explicitly excluded from WD/WS calculations so
   some half-hour values in `stats` table are NAN (all of sonic1). 
+- The first value (Ux) reported by sonic/IRGA (EC150/CSAT3A/EC100) is -99999
+  a minute fraction (0.07%) of the time. This is still enough, however, to 
+  cause calculated mean wind speed to be null values (NAN), mean wind direction
+  to be zero (when adjusted for azimuth, 353), and standard deviation of wind 
+  direction to be 0. 
+    This issue is particularly troublesome because the diagnostic flag is NOT
+  set high when Ux = -99999 and, there is no indication in the user manual this
+  behavior should ever occur. 
