@@ -31,8 +31,8 @@ Enhancements:
 
 
 
-Version 1.0 [build 2014-05-22T20:55:33-05]
-==========================================
+Version 1.0
+===========
 
 First version deployed at UMBS PROPHET site. Settings (azimuths, heights,
 flush tube length) NOT set. Run overnight for some take-home data, which was
