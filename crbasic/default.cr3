@@ -12,7 +12,7 @@
 '=========================== CONST TABLE SETTINGS ============================
 ConstTable
   Const FLUSH_TUBE_ID = 0.5 'I.D. of flush line, inches
-  Const SDM_SPEED = 3000 'usec; 8-3000
+  Const SDM_SPEED = 30 'usec; 8-3000
 
   Const UTC_OFFSET = -5 'Eastern Standard Time
   Const SONIC2_ENABLED = True  
@@ -908,6 +908,7 @@ BeginProg
 
     EC100(sonic_irga(1),EC100_ADDR,EC100_CMD)
     disable_sonic1 = sonic1_diag > 0
+    If (sonic1_Ux = -99999) Then (disable_sonic1 = True) 'HACK see changelog
     disable_irga1 = irga1_diag > 0
     irga1_CO2 /= MW_CO2 'mg/m^3 --> mmol/m^3
     irga1_H2O *= (1000/MW_H2O) 'g/m^3 --> mmol/m^3

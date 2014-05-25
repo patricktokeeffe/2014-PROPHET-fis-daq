@@ -1,3 +1,10 @@
+Version 1.0.5
+=============
+
+- Resets SDM clock speed to default (3000->30).
+- Adds hackish check for Ux = -99999 and sets disable flag if true.
+
+
 Version 1.0.4
 =============
 
