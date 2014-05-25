@@ -18,6 +18,7 @@ Issues resolved:
 - Modify storage type from unsigned integer to 2-byte floating point for all
   sonic anemometers and the weather transmitter in `info` table to permit 
   proper storage of the value-not-set sentinal (-1). (2749ac0e)
+- Add units for half-hour WD values from weather transmitter (be2652d6)
 
 Enhancements:
 -------------

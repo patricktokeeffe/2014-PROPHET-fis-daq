@@ -305,6 +305,7 @@ Alias work_out(11) = sonic3_WS_rslt_Avg
 Alias work_out(12) = sonic3_WD_rslt_Avg
 Alias work_out(13) = sonic3_WD_csi_Std
 Alias work_out(14) = flush_Re_Avg
+Units wxt_WD_Med = degEofTN
 Units sonic1_WS_sclr_Avg = m/s
 Units sonic1_WS_rslt_Avg = m/s
 Units sonic1_WD_rslt_Avg = degEofTN
