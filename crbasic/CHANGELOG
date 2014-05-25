@@ -1,0 +1,30 @@
+Version 1.0.1
+=============
+
+- Increases SDM clock speed from default value of 30 to 150 to (hopefully)
+  resolve the issue causing Ux = -99999 from the sonic/IRGA unit.
+
+
+Version 1.0
+===========
+
+First version deployed at UMBS PROPHET site. Settings (azimuths, heights,
+flush tube length) NOT set. Run overnight for some take-home data, which was
+deleted from DAQ monitoring laptop prior to departure. Measurements were set
+in the program settings the morning of 2014-05-23 then program was restarted
+and began officially operating. 
+
+Known issues
+------------
+
+- Flush tube delay time estimate calculation is inverted: divide 1 by value
+  recorded in table (stats/flush_delay_Avg) to obtain correct delay estimate.
+  Disregard standard deviation values (stats/flush_delay_Std). 
+- Null values (NAN) were not explicitly excluded from WD/WS calculations so
+  some half-hour values in `stats` table are NAN (all of sonic1). 
+- The first value (Ux) reported by sonic/IRGA (EC150/CSAT3A/EC100) is -99999
+  a significant fraction of the time. This causes calculated mean wind speed
+  to be null values (NAN), mean wind direction to be zero (when adjusted for
+  azimuth, 353), and standard deviation of wind direction to be 0. 
+    This issue is particularly troublesome because the diagnostic flag is NOT
+  set high when Ux = -99999 and, there is 
