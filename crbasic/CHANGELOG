@@ -1,11 +1,22 @@
+Version 1.0.2
+=============
+
+- Unhide data table `work` to aid diagnosing sonic1 behavior.
+- Omit non-sonic variables from `ts_fast` data table and limit to ~3 hours of
+  collection time to permit collecting table for diagnosing sonic1 issue.
+
+
 Version 1.0.1
 =============
 
 - Increases SDM clock speed from default value of 30 to 150 to (hopefully)
   resolve the issue causing Ux = -99999 from the sonic/IRGA unit.
-- Unhides working table for diagnostic assessment
+- Unhides working table for diagnostic assessment.
+- Removes non-sonic data from high-frequency time series table and sets an
+  explicit size of 100,000 records (~3 hrs) to enable retrieval of time series
+  data for diagnosing sonic1 issue.
 
-
+  
 Version 1.0
 ===========
 
