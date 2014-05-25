@@ -12,7 +12,7 @@
 '=========================== CONST TABLE SETTINGS ============================
 ConstTable
   Const FLUSH_TUBE_ID = 0.5 'I.D. of flush line, inches
-  Const SDM_SPEED = 30 'usec; 8-3000
+  Const SDM_SPEED = 150 'usec; 8-3000
 
   Const UTC_OFFSET = -5 'Eastern Standard Time
   Const SONIC2_ENABLED = True  
