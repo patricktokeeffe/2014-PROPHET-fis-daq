@@ -290,36 +290,35 @@ Dim just_had_wxt_scan As Boolean
 Dim inbetween_wxt_scan As Boolean
 
 Dim dummy(4) = {0, 0, 0, 0}
-Dim work_out(13)
-Alias work_out(1) = wxt_WD_Med
-Alias work_out(2) = sonic1_WS_sclr_Avg
-Alias work_out(3) = sonic1_WS_rslt_Avg
-Alias work_out(4) = sonic1_WD_rslt_Avg
-Alias work_out(5) = sonic1_WD_csi_Std
+Dim work_out(14)
+Alias work_out(1)  = wxt_WD_Med
+Alias work_out(2)  = sonic1_WS_sclr_Avg
+Alias work_out(3)  = sonic1_WS_rslt_Avg
+Alias work_out(4)  = sonic1_WD_rslt_Avg
+Alias work_out(5)  = sonic1_WD_csi_Std
+Alias work_out(6)  = sonic2_WS_sclr_Avg
+Alias work_out(7)  = sonic2_WS_rslt_Avg
+Alias work_out(8)  = sonic2_WD_rslt_Avg
+Alias work_out(9)  = sonic2_WD_csi_Std
+Alias work_out(10) = sonic3_WS_sclr_Avg
+Alias work_out(11) = sonic3_WS_rslt_Avg
+Alias work_out(12) = sonic3_WD_rslt_Avg
+Alias work_out(13) = sonic3_WD_csi_Std
+Alias work_out(14) = flush_Re_Avg
 Units sonic1_WS_sclr_Avg = m/s
 Units sonic1_WS_rslt_Avg = m/s
 Units sonic1_WD_rslt_Avg = degEofTN
 Units sonic1_WD_csi_Std = degrees
-#If (SONIC2_ENABLED) Then
-  Alias work_out(6) = sonic2_WS_sclr_Avg
-  Alias work_out(7) = sonic2_WS_rslt_Avg
-  Alias work_out(8) = sonic2_WD_rslt_Avg
-  Alias work_out(9) = sonic2_WD_csi_Std
-  Units sonic2_WS_sclr_Avg = m/s
-  Units sonic2_WS_rslt_Avg = m/s
-  Units sonic2_WD_rslt_Avg = degEofTN
-  Units sonic2_WD_csi_Std = degrees
-#EndIf
-#If (SONIC3_ENABLED) Then
-  Alias work_out(10) = sonic3_WS_sclr_Avg
-  Alias work_out(11) = sonic3_WS_rslt_Avg
-  Alias work_out(12) = sonic3_WD_rslt_Avg
-  Alias work_out(13) = sonic3_WD_csi_Std
-  Units sonic3_WS_sclr_Avg = m/s
-  Units sonic3_WS_rslt_Avg = m/s
-  Units sonic3_WD_rslt_Avg = degEofTN
-  Units sonic3_WD_csi_Std = degrees
-#EndIf
+Units sonic2_WS_sclr_Avg = m/s
+Units sonic2_WS_rslt_Avg = m/s
+Units sonic2_WD_rslt_Avg = degEofTN
+Units sonic2_WD_csi_Std = degrees
+Units sonic3_WS_sclr_Avg = m/s
+Units sonic3_WS_rslt_Avg = m/s
+Units sonic3_WD_rslt_Avg = degEofTN
+Units sonic3_WD_csi_Std = degrees
+Units flush_Re_Avg = dimless
+
 
 '========================= SETTINGS RETENTION ================================
 Dim filehandle As Long
@@ -469,6 +468,7 @@ DataTable(work,True,2)
     Sample(4,dummy(1),FP2)
     FieldNames("dummy2(4)")
   #EndIf
+  Average(1,flush_Re,IEEE4,flush_Re=NAN)
 EndTable
 
 DataTable(stats,True,4)
@@ -497,7 +497,7 @@ DataTable(stats,True,4)
   StdDev (1,flush_volFlow,FP2,flush_volFlow=NAN)
   Average(1,flush_delay,FP2,flush_delay=NAN)
   StdDev (1,flush_delay,FP2,flush_delay=NAN)
-  Average(1,flush_Re,IEEE4,flush_Re=NAN)
+  Sample (1,flush_Re_Avg,IEEE4)
 
   Average(1,sonic1_Ts,FP2,sonic1_Ts=NAN)
   StdDev (1,sonic1_Ts,FP2,sonic1_Ts=NAN)
@@ -1005,6 +1005,7 @@ BeginProg
       #If (SONIC3_ENABLED) Then
         sonic3_WD_rslt_Avg=(sonic3_WD_rslt_Avg+IIF(sonic3_azimuth<0,0,sonic3_azimuth)) MOD 360
       #EndIf
+      flush_Re_Avg = FIX(flush_Re_Avg)
     EndIf
     CallTable(stats)
 

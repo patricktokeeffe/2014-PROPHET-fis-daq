@@ -26,6 +26,7 @@ Enhancements:
   to account for the device's orientation. (757d482a)
 - Change field name to clarify the serial number recorded is for the datalogger
   (info/SerialNumber -> LoggerSN). (b978b3b3)
+- Save mean Reynolds number calculated each half-hour as integer (e43a206f)
 
 
 
