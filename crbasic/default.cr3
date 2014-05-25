@@ -910,21 +910,18 @@ BeginProg
     ExciteCAO(FIS_CTRL_STD_CAO,FIS_ctrl_std,True)
 
     EC100(sonic_irga(1),EC100_ADDR,EC100_CMD)
-    disable_sonic1 = (sonic1_diag > 0) OR (sonic1_Ux = NAN) OR _
-        (sonic1_Uy = NAN) OR (sonic1_Uz = NAN)
+    disable_sonic1 = sonic1_diag > 0
     If (sonic1_Ux = -99999) Then (disable_sonic1 = True) 'HACK see changelog
     disable_irga1 = irga1_diag > 0
     irga1_CO2 /= MW_CO2 'mg/m^3 --> mmol/m^3
     irga1_H2O *= (1000/MW_H2O) 'g/m^3 --> mmol/m^3
     #If (SONIC2_ENABLED) Then
       CSAT3(sonic2(1),1,SONIC2_ADDR,CSAT3_CMD,CSAT3_OPT)
-      disable_sonic2 = (sonic2_diag AND &hF000) OR (sonic2_Ux = NAN) OR _
-          (sonic2_Uy = NAN) OR (sonic2_Uz = NAN)
+      disable_sonic2 = (sonic2_diag AND &hF000)
     #EndIf
     #If (SONIC3_ENABLED) Then
       CSAT3(sonic3(1),1,SONIC3_ADDR,CSAT3_CMD,CSAT3_OPT)
-      disable_sonic3 = (sonic3_diag AND &hF000) OR (sonic3_Ux = NAN) OR _
-          (sonic3_Uy = NAN) OR (sonic3_Uz = NAN)
+      disable_sonic3 = (sonic3_diag AND &hF000)
     #EndIf
 
     SerialInRecord(FIS_PMT_COM,pmt_record,0,4,0,pmt_bytes,11)

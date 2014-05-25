@@ -8,8 +8,6 @@ Issues resolved:
 - Reduced number of significant figures retained in mean barometric pressure
   from weather transmitter (stats/wxt_press_Avg) from ~5 decimal places to 1
   decimal place since device only reports 2 decimal places. (062a20bb)
-- Explicitly exclude null values (NAN) from half-hour WD/WS values calculated
-  for all three sonic anemometers. (b91aaf4e)
 - Modify storage type from unsigned integer to 2-byte floating point for all
   sonic anemometers and the weather transmitter in `info` table to permit 
   proper storage of the value-not-set sentinal (-1). (2749ac0e)
