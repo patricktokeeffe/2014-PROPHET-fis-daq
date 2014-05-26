@@ -59,6 +59,7 @@ Const FAST_INTV = 100 'ms = 10 Hz
 Const WXT_INTV = 15 'sec
 Const STATS_INTV = 30 'min
 Const INTEG = 250
+Const STOPRING = 0 'CardOut: 0-ring mode, 1-stop fill
 
 'FIS photomultiplier tube
 Const PMT_INTEG = 10  '# of 10ms intervals to sum per reading; = 10 Hz
@@ -395,7 +396,7 @@ Alias choice(16) = ch_fis_cal_Efilt
 '     don't care as much about sentinal values.
 DataTable(ts_fast,True,600)
   DataInterval(0,FAST_INTV,mSec,10)
-  CardOut(1,-1)
+  CardOut(STOPRING,-1)
   Sample(1,FIS_pmt_counts,FP2)
   Sample(1,FIS_pmt_overflow,Boolean)
   Sample(1,FIS_flow_tot,IEEE4)
@@ -442,7 +443,7 @@ EndTable
 
 DataTable(ts_wxt,True,8)
   DataInterval(0,WXT_INTV,Sec,10)
-  CardOut(1,-1)
+  CardOut(STOPRING,-1)
   Sample(1,wxt_WD,FP2)
   Sample(1,wxt_WS,FP2)
   Sample(1,wxt_tmpr,FP2)
@@ -474,7 +475,7 @@ EndTable
 
 DataTable(stats,True,4)
   DataInterval(0,STATS_INTV,Min,10)
-  CardOut(1,-1)
+  CardOut(STOPRING,-1)
   Average(1,FIS_flow_tot,FP2,FIS_flow_tot=NAN)
   StdDev (1,FIS_flow_tot,FP2,FIS_flow_tot=NAN)
   Average(1,FIS_flow_samp,FP2,FIS_flow_samp=NAN)
@@ -536,7 +537,7 @@ EndTable
 
 DataTable(gps_daily,TRUE,30)
   DataInterval (0,1,Day,10)
-  CardOut(0,150)
+  CardOut(STOPRING,150)
   Median(1,(lat_deg + lat_min/60),DAILY_MEDNUM,IEEE4,(lat_deg=NAN OR lat_min=NAN))
     FieldNames("latitude_Med")
     Units latitude_Med = degN
@@ -553,7 +554,7 @@ DataTable(gps_daily,TRUE,30)
 EndTable
 
 DataTable(info,True,100)
-  CardOut(1,1000)
+  CardOut(STOPRING,1000)
   Sample(1,UTC_OFFSET,FP2) 'HINT need sign so not UINT2
     FieldNames("UTC_offset")
     Units UTC_OFFSET = hours
