@@ -41,6 +41,8 @@ Enhancements:
   types, so FIS sensitivity can be evaluated as soon as calibration event ends.
   Previous only option was to collect `ts_fast` data table, which isn't very 
   practical since fill rate exceeds transfer rate even over ethernet.
+- Store `FIS_cal_event` as 2-byte unsigned integer since always >=0 and max
+  value (65535) represents 60 years @ 3 events/day. Saves 2 bytes in `ts_fast`.
 
 
 Version 1.0.5

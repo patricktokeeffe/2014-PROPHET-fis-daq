@@ -147,7 +147,7 @@ Units FIS_flow_samp = sLpm
 Units FIS_flow_O2 = sLpm
 Units FIS_flow_std = sccm
 
-Public FIS_cal_event 'dual role incremental counter / flag
+Public FIS_cal_event As Long 'dual role incremental counter / flag
 Public fis_status(3) As Boolean
 Alias fis_status(1) = FIS_std_ON
 Alias fis_status(2) = FIS_zero_ON
@@ -436,7 +436,7 @@ DataTable(ts_fast,True,600)
   Sample(1,FIS_zero_ON,Boolean)
   Sample(1,FIS_std_ON,Boolean)
   Sample(1,FIS_cal_filter,Boolean)
-  Sample(1,FIS_cal_event,IEEE4)
+  Sample(1,FIS_cal_event,UINT2)
   
   Sample(1,sonic1_Ux,IEEE4)
   Sample(1,sonic1_Uy,IEEE4)
