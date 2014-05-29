@@ -18,6 +18,7 @@ Issues resolved:
   values are null. Logger returns 0/0 which, if corrected for azimuth, looks
   like real values. (sonics only)
 - Ensure WD values from sonics, weather transmitter are always whole numbers.
+- Replace instances of -99999 with null value (NAN) in the case of `sonic1_Ux`.
 
 
 Enhancements:

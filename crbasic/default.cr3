@@ -947,7 +947,10 @@ BeginProg
 
     EC100(sonic_irga(1),EC100_ADDR,EC100_CMD)
     disable_sonic1 = sonic1_diag > 0
-    If (sonic1_Ux = -99999) Then (disable_sonic1 = True) 'HACK see changelog
+    If (sonic1_Ux = -99999) Then 'HACK see changelog for v1.0.5, 1.1
+      disable_sonic1 = True
+      sonic1_Ux = NAN
+    EndIf
     disable_irga1 = irga1_diag > 0
     If (irga1_CO2=NAN OR irga1_H2O=NAN) Then
       disable_irga1 = True
