@@ -856,7 +856,7 @@ Function reynolds_num(VolFlow, Tmpr, Press) As Float 'dimless
   mu = dynamic_viscosity(Tmpr)
   rho = density_of_air(Tmpr, Press)
   '(kg/m^3)(L/min)(in)(m*s/kg)(1/in^2) * (min/60 sec)(39.37in/m)(m^3/1000L)
-  Return FIX((rho*VolFlow*FLUSH_TUBE_ID*39.37) / (mu*TUBE_AREA*60*1000))
+  Return Round((rho*VolFlow*FLUSH_TUBE_ID*39.37)/(mu*TUBE_AREA*60*1000), -1)
 EndFunction
   
 
@@ -1006,7 +1006,7 @@ BeginProg
       #If (SONIC3_ENABLED) Then
         sonic3_WD_rslt_Avg=(sonic3_WD_rslt_Avg+IIF(sonic3_azimuth<0,0,sonic3_azimuth)) MOD 360
       #EndIf
-      flush_Re_Avg = FIX(flush_Re_Avg)
+      flush_Re_Avg = Round(flush_Re_Avg, -1)
     EndIf
     CallTable(stats)
 
