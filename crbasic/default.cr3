@@ -998,7 +998,8 @@ BeginProg
     CallTable(work)
     If (work.Output(1,1)) Then
       GetRecord(work_out(1),work,1)
-      wxt_WD_Med = (wxt_WD_Med+IIF(wxt_azimuth<0,0,wxt_azimuth)) MOD 360
+      wxt_WD_Med = (Round(wxt_WD_Med, 0) + _
+                                IIF(wxt_azimuth < 0, 0, wxt_azimuth)) MOD 360
       If(sonic1_WS_sclr_Avg = NAN AND sonic1_WS_rslt_Avg = NAN) Then
         sonic1_WD_rslt_Avg = NAN
         sonic1_WD_csi_Std = NAN

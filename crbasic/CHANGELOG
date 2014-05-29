@@ -17,7 +17,7 @@ Issues resolved:
 - Store mean and std. dev of wind directions as null values (NAN) if wind speed
   values are null. Logger returns 0/0 which, if corrected for azimuth, looks
   like real values. (sonics only)
-- Ensure WD values from sonics
+- Ensure WD values from sonics, weather transmitter are always whole numbers.
 
 
 Enhancements:
