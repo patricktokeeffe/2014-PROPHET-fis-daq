@@ -10,6 +10,13 @@
 ' Contact: Patrick O'Keeffe <pokeeffe@wsu.edu>
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
+'HINT a post-commit hook inserts a readable reference to that commit in the
+'VERSION string constant below. This only affects the working tree file (which
+'is pushed to the datalogger) because a clean filter ensures that reference is
+'removed prior to check-in.
+Const VERSION = "" 'DON'T TOUCH THIS LINE PUNK!
+
+
 '=========================== CONST TABLE SETTINGS ============================
 ConstTable
   Const FLUSH_TUBE_ID = 0.5 'I.D. of flush line, inches
@@ -630,6 +637,8 @@ DataTable(info,True,100)
     FieldNames("RunSig")
   Sample(1,Status.ProgSignature,UINT2)
     FieldNames("ProgSig")
+  Sample(1,VERSION,String)
+    FieldNames("ProgVersion")
 EndTable
 
 
