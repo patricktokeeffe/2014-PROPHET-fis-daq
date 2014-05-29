@@ -1,8 +1,18 @@
+Version 1.1.1
+=============
+
+Hot fixes
+---------
+
+- Remove duplicate variable declaration; not causing any apparent issues but
+  still not correct.
+
+
 Version 1.1
 ===========
 
-Issues resolved:
-----------------
+Issues resolved
+---------------
 
 - Flush tube delay time estimate calculation was corrected.
 - Reduced number of significant figures retained in mean barometric pressure
@@ -21,8 +31,8 @@ Issues resolved:
 - Replace instances of -99999 with null value (NAN) in the case of `sonic1_Ux`.
 
 
-Enhancements:
--------------
+Enhancements
+------------
 
 - Adjust the half-hour WD values from weather transmitter (stats/wxt_WD_Med)
   to account for the device's orientation.
