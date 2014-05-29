@@ -23,7 +23,8 @@ Enhancements:
   to account for the device's orientation.
 - Change field name to clarify the serial number recorded is for the datalogger
   (info/SerialNumber -> LoggerSN).
-- Save mean Reynolds number calculated each half-hour as integer.
+- Reynolds number values are rounded to the tens digit to emphasize uncertainty
+  around values and its empirical basis.
 - Change all tables to ring-fill mode to ensure, at a minimum, half-hour values
   will be generated and retained (via scheduled collection).
 
