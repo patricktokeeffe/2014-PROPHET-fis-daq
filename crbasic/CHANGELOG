@@ -36,7 +36,11 @@ Enhancements:
   from half-hour mean values, not as an average of real-time mixing ratios.
   This is the proper method since system lacks a high-frequency temp sensor.
 - Add program version reference string--the results of `git describe`--to the
-  `info` data table. Makes it possible to easily locate associated commit. 
+  `info` data table. Makes it possible to easily locate associated commit.
+- Add data table `just_cals` with only FIS data, stored in low-resolution data
+  types, so FIS sensitivity can be evaluated as soon as calibration event ends.
+  Previous only option was to collect `ts_fast` data table, which isn't very 
+  practical since fill rate exceeds transfer rate even over ethernet.
 
 
 Version 1.0.5

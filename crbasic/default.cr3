@@ -412,6 +412,19 @@ Alias choice(16) = ch_fis_cal_Efilt
 '     Presumably, if a boolean is null, something went very wrong so don't
 '     worry about it and for summary tables, null values are excluded so we 
 '     don't care as much about sentinal values.
+DataTable(just_cals,(FIS_cal_event > 0),0)
+  DataInterval(0,FAST_INTV,mSec,10)
+  CardOut(STOPRING,18000) 'last 2 events
+  Sample(1,FIS_pmt_counts,FP2)
+  Sample(1,FIS_flow_tot,FP2)
+  Sample(1,FIS_flow_O2,FP2)
+  Sample(1,FIS_flow_std,FP2)
+  Sample(1,FIS_zero_ON,Boolean)
+  Sample(1,FIS_std_ON,Boolean)
+  Sample(1,FIS_cal_filter,Boolean)
+  Sample(1,FIS_cal_event,UINT2)
+EndTable
+
 DataTable(ts_fast,True,600)
   DataInterval(0,FAST_INTV,mSec,10)
   CardOut(STOPRING,-1)
@@ -1036,6 +1049,7 @@ BeginProg
                       reynolds_num(flush_volFlow, flush_tmpr, flush_press), 0)
     EndIf
 
+    CallTable(just_cals)
     CallTable(ts_fast)
     CallTable(work)
     If (work.Output(1,1)) Then
