@@ -31,6 +31,9 @@ Enhancements:
   around values and its empirical basis.
 - Change all tables to ring-fill mode to ensure, at a minimum, half-hour values
   will be generated and retained (via scheduled collection).
+- Add mean dry molar mixing ratio of CO2 to half-hour data table. Calculated
+  from half-hour mean values, not as an average of real-time mixing ratios.
+  This is the proper method since system lacks a high-frequency temp sensor.
 
 
 Version 1.0.5

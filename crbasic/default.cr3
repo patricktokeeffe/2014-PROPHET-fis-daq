@@ -48,6 +48,7 @@ Const L_PER_FT3 = 28.316847 'vol. conversion
 Const MW_CO2 = 44.010   'molecular weight of carbon dioxide, g/mol
 Const MW_H2O = 18.01528 'molecular weight of water vapor, g/mol
 Const R_AIR = 287.058   'specific gas constant for dry air, J/(kg K)
+Const R_ = 8.3144621e-6 'universal gas constant, (kPa m^3)/(K mmol)
 
 'part of Sutherland's fomula for deriving dynamic viscosity of air
 Const SU_CONST = 120 'K
@@ -193,6 +194,9 @@ Units irga1_amb_press = kPa
 Units irga1_CO2_signal = ratio
 Units irga1_H2O_signal = ratio
 
+Public irga1_Xco2_Avg
+Units irga1_Xco2_Avg = ppm
+
 #If (SONIC2_ENABLED) Then
   Public disable_sonic2 As Boolean
   Public sonic2(5)
@@ -292,7 +296,7 @@ Dim just_had_wxt_scan As Boolean
 Dim inbetween_wxt_scan As Boolean
 
 Dim dummy(4) = {0, 0, 0, 0}
-Dim work_out(14)
+Dim work_out(18)
 Alias work_out(1)  = wxt_WD_Med
 Alias work_out(2)  = sonic1_WS_sclr_Avg
 Alias work_out(3)  = sonic1_WS_rslt_Avg
@@ -307,6 +311,10 @@ Alias work_out(11) = sonic3_WS_rslt_Avg
 Alias work_out(12) = sonic3_WD_rslt_Avg
 Alias work_out(13) = sonic3_WD_csi_Std
 Alias work_out(14) = flush_Re_Avg
+Alias work_out(15) = irga1_CO2_Avg
+Alias work_out(16) = irga1_H2O_Avg
+Alias work_out(17) = irga1_amb_tmpr_Avg
+Alias work_out(18) = irga1_amb_press_Avg
 Units wxt_WD_Med = degEofTN
 Units sonic1_WS_sclr_Avg = m/s
 Units sonic1_WS_rslt_Avg = m/s
@@ -321,6 +329,10 @@ Units sonic3_WS_rslt_Avg = m/s
 Units sonic3_WD_rslt_Avg = degEofTN
 Units sonic3_WD_csi_Std = degrees
 Units flush_Re_Avg = dimless
+Units irga1_CO2_Avg = mmol/m^3
+Units irga1_H2O_Avg = mmol/m^3
+Units irga1_amb_tmpr_Avg = degC
+Units irga1_amb_press_Avg = kPa
 
 
 '========================= SETTINGS RETENTION ================================
@@ -472,6 +484,10 @@ DataTable(work,True,2)
     FieldNames("dummy2(4)")
   #EndIf
   Average(1,flush_Re,IEEE4,flush_Re=NAN)
+  Average(1,irga1_CO2,IEEE4,disable_irga1)
+  Average(1,irga1_H2O,IEEE4,disable_irga1)
+  Average(1,irga1_amb_tmpr,IEEE4,disable_irga1 OR irga1_amb_tmpr=NAN)
+  Average(1,irga1_amb_press,IEEE4,disable_irga1 OR irga1_amb_press=NAN)
 EndTable
 
 DataTable(stats,True,4)
@@ -509,10 +525,11 @@ DataTable(stats,True,4)
   Sample (1,sonic1_WS_rslt_Avg,FP2)
   Sample (1,sonic1_WD_rslt_Avg,FP2)
   Sample (1,sonic1_WD_csi_Std,FP2)
-  Average(1,irga1_CO2,FP2,irga1_CO2=NAN)
-  Average(1,irga1_H2O,FP2,irga1_H2O=NAN)
-  Average(1,irga1_amb_tmpr,FP2,irga1_amb_tmpr=NAN)
-  Average(1,irga1_amb_press,FP2,irga1_amb_press=NAN)
+  Sample (1,irga1_Xco2_Avg,FP2)
+  Sample (1,irga1_CO2_Avg,FP2)
+  Sample (1,irga1_H2O_Avg,FP2)
+  Sample (1,irga1_amb_tmpr_Avg,FP2)
+  Sample (1,irga1_amb_press_Avg,FP2)
   Average(1,irga1_CO2_signal,FP2,irga1_CO2_signal=NAN)
   Average(1,irga1_H2O_signal,FP2,irga1_H2O_signal=NAN)
 
@@ -858,7 +875,17 @@ Function reynolds_num(VolFlow, Tmpr, Press) As Float 'dimless
   '(kg/m^3)(L/min)(in)(m*s/kg)(1/in^2) * (min/60 sec)(39.37in/m)(m^3/1000L)
   Return Round((rho*VolFlow*FLUSH_TUBE_ID*39.37)/(mu*TUBE_AREA*60*1000), -1)
 EndFunction
-  
+
+'Derived by inverting equations in Appendix D of EC150 manual
+'[Gas] = mmol/m^3, [H2O] = mmol/m^3, [Tmpr] = C, [Press] = kPa (abs.)
+Function dry_mixing_ratio(Gas, H2O, Tmpr, Press) As Float 'ppm (umol/mol)
+  Dim rhoair 'mmol/m^3 (don't use density_of_air(..) b/c units are so far off)
+  'mmol/m^3 = (kPa)(K mmol/kPa m^3)(1/K)
+  rhoair = Press/(R_ * (Tmpr + 273.15))
+  'ppm = (umol/mol)(mmol/m^3) / (mmol/^3 - mmol/m^3)
+  Return Round(10^6 * Gas / (rhoair - H2O), 0)
+EndFunction
+
 
 '=============================== PROGRAM =====================================
 ShutDownBegin
@@ -915,8 +942,13 @@ BeginProg
     disable_sonic1 = sonic1_diag > 0
     If (sonic1_Ux = -99999) Then (disable_sonic1 = True) 'HACK see changelog
     disable_irga1 = irga1_diag > 0
-    irga1_CO2 /= MW_CO2 'mg/m^3 --> mmol/m^3
-    irga1_H2O *= (1000/MW_H2O) 'g/m^3 --> mmol/m^3
+    If (irga1_CO2=NAN OR irga1_H2O=NAN) Then
+      disable_irga1 = True
+    Else
+      irga1_CO2 /= MW_CO2 'mg/m^3 --> mmol/m^3
+      irga1_H2O *= (1000/MW_H2O) 'g/m^3 --> mmol/m^3
+    EndIf
+
     #If (SONIC2_ENABLED) Then
       CSAT3(sonic2(1),1,SONIC2_ADDR,CSAT3_CMD,CSAT3_OPT)
       disable_sonic2 = (sonic2_diag AND &hF000)
@@ -1026,6 +1058,8 @@ BeginProg
         EndIf
       #EndIf
       flush_Re_Avg = Round(flush_Re_Avg, -1)
+      irga1_Xco2_Avg = dry_mixing_ratio(irga1_CO2_Avg, irga1_H2O_Avg, _
+                                      irga1_amb_tmpr_Avg, irga1_amb_press_Avg)
     EndIf
     CallTable(stats)
 
