@@ -999,12 +999,30 @@ BeginProg
     If (work.Output(1,1)) Then
       GetRecord(work_out(1),work,1)
       wxt_WD_Med = (wxt_WD_Med+IIF(wxt_azimuth<0,0,wxt_azimuth)) MOD 360
-      sonic1_WD_rslt_Avg=(sonic1_WD_rslt_Avg+IIF(sonic1_azimuth<0,0,sonic1_azimuth)) MOD 360
+      If(sonic1_WS_sclr_Avg = NAN AND sonic1_WS_rslt_Avg = NAN) Then
+        sonic1_WD_rslt_Avg = NAN
+        sonic1_WD_csi_Std = NAN
+      Else
+        sonic1_WD_rslt_Avg = (Round(sonic1_WD_rslt_Avg, 0) + _
+                          IIF(sonic1_azimuth < 0, 0, sonic1_azimuth)) MOD 360 
+      EndIf
       #If (SONIC2_ENABLED) Then
-        sonic2_WD_rslt_Avg=(sonic2_WD_rslt_Avg+IIF(sonic2_azimuth<0,0,sonic2_azimuth)) MOD 360
+        If (sonic2_WS_sclr_Avg = NAN AND sonic2_WS_rslt_Avg = NAN) Then
+          sonic2_WD_rslt_Avg = NAN
+          sonic2_WD_csi_Std = NAN
+        Else
+          sonic2_WD_rslt_Avg = (Round(sonic2_WD_rslt_Avg, 0) + _
+                          IIF(sonic2_azimuth < 0, 0, sonic2_azimuth)) MOD 360
+        EndIf
       #EndIf
       #If (SONIC3_ENABLED) Then
-        sonic3_WD_rslt_Avg=(sonic3_WD_rslt_Avg+IIF(sonic3_azimuth<0,0,sonic3_azimuth)) MOD 360
+        If (sonic3_WS_sclr_Avg = NAN AND sonic3_WS_rslt_Avg = NAN) Then
+          sonic3_WD_rslt_Avg = NAN
+          sonic3_WD_csi_Std = NAN
+        Else
+          sonic3_WD_rslt_Avg = (Round(sonic3_WD_rslt_Avg, 0) + _
+                          IIF(sonic3_azimuth < 0, 0, sonic3_azimuth)) MOD 360
+        EndIf
       #EndIf
       flush_Re_Avg = Round(flush_Re_Avg, -1)
     EndIf
