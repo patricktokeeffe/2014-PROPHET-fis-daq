@@ -10,6 +10,11 @@
 ' Contact: Patrick O'Keeffe <pokeeffe@wsu.edu>
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
+'manually update VERSION with results of `git describe` prior to pushing to
+'datalogger but do not check-in file with other than empty string
+Const VERSION = ""
+
+
 '=========================== CONST TABLE SETTINGS ============================
 ConstTable
   Const FLUSH_TUBE_ID = 0.5 'I.D. of flush line, inches
@@ -630,6 +635,8 @@ DataTable(info,True,100)
     FieldNames("RunSig")
   Sample(1,Status.ProgSignature,UINT2)
     FieldNames("ProgSig")
+  Sample(1,VERSION,String)
+    FieldNames("ProgVersion")
 EndTable
 
 

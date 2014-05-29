@@ -34,6 +34,8 @@ Enhancements:
 - Add mean dry molar mixing ratio of CO2 to half-hour data table. Calculated
   from half-hour mean values, not as an average of real-time mixing ratios.
   This is the proper method since system lacks a high-frequency temp sensor.
+- Add program version reference string--the results of `git describe`--to the
+  `info` data table. Makes it possible to easily locate associated commit. 
 
 
 Version 1.0.5
