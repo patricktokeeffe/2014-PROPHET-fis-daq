@@ -12,6 +12,9 @@ Issues resolved:
   sonic anemometers and the weather transmitter in `info` table to permit 
   proper storage of the value-not-set sentinal (-1).
 - Add units for half-hour WD values from weather transmitter.
+- Reduce storage precision of mean altitude since GPS only provides 1 decimal
+  place in its measurements
+
 
 Enhancements:
 -------------
