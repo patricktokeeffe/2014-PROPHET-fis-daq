@@ -6,6 +6,9 @@ Hot fixes
 
 - Remove duplicate variable declaration; not causing any apparent issues but
   still not correct.
+- Add a Public version of the FIS calibration schedule offset so users can
+  easily determine the next cal time by looking at the cal interval and offset
+  in the Public table.
 
 
 Version 1.1

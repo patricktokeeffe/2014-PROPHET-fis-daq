@@ -147,11 +147,14 @@ Units FIS_flow_samp = sLpm
 Units FIS_flow_O2 = sLpm
 Units FIS_flow_std = sccm
 
-Public FIS_cal_event As Long 'dual role incremental counter / flag
 Public fis_status(3) As Boolean
 Alias fis_status(1) = FIS_std_ON
 Alias fis_status(2) = FIS_zero_ON
 Alias fis_status(3) = FIS_cal_filter
+
+Public FIS_cal_event As Long 'dual role incremental counter / flag
+Public FIS_cal_shift 'for convenience only, viewing in Public table
+Units FIS_cal_shift = hr into interval
 
 Dim fis_sched(7) As Long 'use Long to stop annoying compiler warnings
 Alias fis_sched(1) = cal_int
@@ -760,6 +763,10 @@ Sub update_cal_timers()
   turn_zero_off = turn_zero_on + fis_cal_zero_dur*60 + fis_cal_both_dur*60
   turn_std_on = cal_shift + fis_cal_zero_dur*60
   turn_std_off = turn_std_on + fis_cal_both_dur*60 + fis_cal_std_dur*60
+
+  'except this one, which is just for convenience to determine the next calibration time
+  'by looking at the Public table
+  FIS_cal_shift = cal_shift/3600
 EndSub
 
 Sub set_default_choices()
