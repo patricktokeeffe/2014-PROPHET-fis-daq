@@ -945,11 +945,11 @@ BeginProg
     EndIf
       
     VoltDiff(FIS_flow_tot,1,mV5000,FIS_FLOW_TOT_DF,True,0,INTEG, _
-        FIS_FLOW_TOT_MULT,FIS_FLOW_TOT_OFFSET)
+                                        FIS_FLOW_TOT_MULT,FIS_FLOW_TOT_OFFSET)
     VoltDiff(FIS_flow_O2,1,mV5000,FIS_FLOW_O2_DF,True,0,INTEG, _
-        FIS_FLOW_O2_MULT,FIS_FLOW_O2_OFFSET)
+                                          FIS_FLOW_O2_MULT,FIS_FLOW_O2_OFFSET)
     VoltDiff(FIS_flow_std,1,mV5000,FIS_FLOW_STD_DF,True,0,INTEG, _
-        FIS_FLOW_STD_MULT,FIS_FLOW_STD_OFFSET)
+                                        FIS_FLOW_STD_MULT,FIS_FLOW_STD_OFFSET)
     FIS_flow_samp = FIS_flow_tot - FIS_flow_O2
     
     'pretend SE 27, SE 28 are TTL inputs
@@ -991,7 +991,7 @@ BeginProg
       flush_volFlow = volumetric_flow(flush_massFlow, flush_tmpr, flush_press)
       flush_delay = IIF(tube_volume > 0, estimate_lag(flush_volFlow), NAN)
       flush_Re = IIF(flush_volFlow > 0, _
-        reynolds_num(flush_volFlow, flush_tmpr, flush_press), 0)
+                      reynolds_num(flush_volFlow, flush_tmpr, flush_press), 0)
     EndIf
 
     CallTable(ts_fast)
