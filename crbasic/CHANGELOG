@@ -14,6 +14,10 @@ Issues resolved:
 - Add units for half-hour WD values from weather transmitter.
 - Reduce storage precision of mean altitude since GPS only provides 1 decimal
   place in its measurements
+- Store mean and std. dev of wind directions as null values (NAN) if wind speed
+  values are null. Logger returns 0/0 which, if corrected for azimuth, looks
+  like real values. (sonics only)
+- Ensure WD values from sonics
 
 
 Enhancements:
