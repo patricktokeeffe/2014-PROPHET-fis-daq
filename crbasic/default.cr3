@@ -764,8 +764,8 @@ Sub update_cal_timers()
   turn_std_on = cal_shift + fis_cal_zero_dur*60
   turn_std_off = turn_std_on + fis_cal_both_dur*60 + fis_cal_std_dur*60
 
-  'except this one, which is just for convenience to determine the next calibration time
-  'by looking at the Public table
+  'except this one, which is just for convenience to determine the
+  'next calibration time by looking at the Public table
   FIS_cal_shift = cal_shift/3600
 EndSub
 
@@ -935,8 +935,10 @@ BeginProg
       filter_off = turn_zero_on + fis_cal_Sfilt 'reset filter time marks
       filter_on = turn_zero_on + fis_cal_zero_dur*60 - fis_cal_Efilt
       'HINT this timer is hit first so (only once) advance the event counter
-      cal_counter += 1 'increment hidden event counter
-      FIS_cal_event = cal_counter 'set public event flag true (e.g. >0)
+      If (FIS_cal_event = 0) Then
+        cal_counter += 1 'increment hidden event counter
+        FIS_cal_event = cal_counter 'set public event flag true (e.g. >0)
+      EndIf
     EndIf
     If TimeIntoInterval(turn_std_on,cal_int,Sec) Then
       FIS_ctrl_std = 5000
