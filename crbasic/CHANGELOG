@@ -5,6 +5,7 @@ Hot fixes
 ---------
 
 - Only increment calibration event counter once per event. 
+- Retain calibration event count across power cycles.
 
 
 Version 1.1.1

@@ -928,6 +928,7 @@ BeginProg
     If TimeIntoInterval(0,1,Day) Then
       cal_shift = (cal_shift + 3600) MOD cal_int 'advance 1 hr each day
       update_cal_timers()
+      save_calstuff()
     EndIf
     If TimeIntoInterval(turn_zero_on,cal_int,Sec) Then
       FIS_ctrl_zero = 5000 'set 5V (on)
@@ -937,6 +938,7 @@ BeginProg
       'HINT this timer is hit first so (only once) advance the event counter
       If (FIS_cal_event = 0) Then
         cal_counter += 1 'increment hidden event counter
+        save_calstuff()
         FIS_cal_event = cal_counter 'set public event flag true (e.g. >0)
       EndIf
     EndIf
