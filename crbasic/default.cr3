@@ -850,6 +850,7 @@ Sub load_calstuff()
   FileClose(filehandle)
   If (filehandle = 0) Then 'file missing
     cal_counter = 0
+    cal_shift = 0
     save_calstuff()
   Else
     Calfile(cal_counter,NUM_CALSTUFF,CALSTUFF_FILE,READFILE)
