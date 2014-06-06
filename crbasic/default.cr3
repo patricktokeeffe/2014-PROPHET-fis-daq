@@ -115,23 +115,6 @@ Const TSI_ENDWORD = &hFFFF
 Const TSI_STP_T = 21.1 'degC
 Const TSI_STP_P = 101.3 'kPa
 
-Const DEF_SONIC1_AZIMUTH = -1  'default settings values
-Const DEF_SONIC2_AZIMUTH = -1
-Const DEF_SONIC3_AZIMUTH = -1
-Const DEF_WXT_AZIMUTH = -1
-Const DEF_SONIC1_HEIGHT = 0
-Const DEF_SONIC2_HEIGHT = 0
-Const DEF_SONIC3_HEIGHT = 0
-Const DEF_WXT_HEIGHT = 0
-Const DEF_FLUSH_TUBE_LENGTH = 0
-Const DEF_FIS_STD_CONC = 0
-Const DEF_FIS_CAL_INTERVAL = 8 'hr
-Const DEF_FIS_CAL_ZERO_DUR = 4 'min
-Const DEF_FIS_CAL_BOTH_DUR = 4 'min
-Const DEF_FIS_CAL_STD_DUR = 0 'min
-Const DEF_FIS_CAL_SFILT = 60+55 'sec
-Const DEF_FIS_CAL_EFILT = 5 'sec
-
 
 '============================= VARIABLES =====================================
 Dim pmt_record As String * 4
@@ -360,6 +343,23 @@ Dim calstuff(NUM_CALSTUFF)
 Alias calstuff(1) = cal_counter
 Alias calstuff(2) = cal_shift
 Units cal_shift = sec
+
+Const DEF_SONIC1_AZIMUTH = -1  'default settings values
+Const DEF_SONIC2_AZIMUTH = -1
+Const DEF_SONIC3_AZIMUTH = -1
+Const DEF_WXT_AZIMUTH = -1
+Const DEF_SONIC1_HEIGHT = 0
+Const DEF_SONIC2_HEIGHT = 0
+Const DEF_SONIC3_HEIGHT = 0
+Const DEF_WXT_HEIGHT = 0
+Const DEF_FLUSH_TUBE_LENGTH = 0
+Const DEF_FIS_STD_CONC = 0
+Const DEF_FIS_CAL_INTERVAL = 8 'hr
+Const DEF_FIS_CAL_ZERO_DUR = 4 'min
+Const DEF_FIS_CAL_BOTH_DUR = 4 'min
+Const DEF_FIS_CAL_STD_DUR = 0 'min
+Const DEF_FIS_CAL_SFILT = 60+55 'sec
+Const DEF_FIS_CAL_EFILT = 5 'sec
 
 Dim settings(NUM_SETTINGS)
 Alias settings(1)  = sonic1_azimuth
