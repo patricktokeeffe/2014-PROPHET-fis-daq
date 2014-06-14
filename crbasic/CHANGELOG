@@ -7,6 +7,12 @@ Hot fixes
 - Only increment calibration event counter once per event. 
 - Retain calibration event count across power cycles.
 
+Enhancements
+------------
+
+- Send email alert after program compilation with useful info: compile results,
+  card status, program error count and watchdog error count
+
 
 Version 1.1.1
 =============

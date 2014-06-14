@@ -10,6 +10,11 @@
 ' Contact: Patrick O'Keeffe <pokeeffe@wsu.edu>
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
+'email configuration file "email.cr3" must be in the same working directory
+'for proper pre-compilation and MUST be on the datalogger CPU directory for
+'proper program operation; the config file is maintained in a seperate private
+'git repository
+
 'manually update VERSION with results of `git describe` prior to pushing to
 'datalogger but do not check-in file with other than empty string
 Const VERSION = ""
@@ -744,6 +749,28 @@ DisplayMenu("FIS DAQ", -1)
 EndMenu
 
 
+'================================= EMAIL =====================================
+Include "CPU:email.cr3"  'contains non-public settings
+Const CRLF = CHR(13) & CHR(10)
+Const SUBJECT = "Start-up notification from FIS DAQ"
+Const MESSAGE = ("This is the FIS DAQ datalogger. I've just finished my " & _
+  "start-up routine and would like to share this important information "& _
+  "with you: " & CRLF & CRLF)
+Public response As String * 80
+
+Sub send_startup_email()
+  Dim msg As String * 512
+  msg = MESSAGE
+  'HINT both CompileResults and CardStatus come with a trailing <CR><LF> but 
+  'CardStatus has a CRLF pair in the middle which must be stripped out
+  msg &= "Compile results: " & RTrim(Status.CompileResults(1))
+  msg &= "Card status: " & RTrim(Replace(Status.CardStatus(1), CRLF, " "))
+  msg &= CRLF & "Program error count: " & Status.ProgErrors & CRLF
+  msg &= "Watchdog error count: " & Status.WatchdogErrors & CRLF
+  EmailSend(SMTP,TO_ADDR,FROM_ADDR,SUBJECT,msg,"",USER,PASSWORD,response)
+EndSub
+
+
 '============================== SUBROUTINES ==================================
 Sub start_pmt()
   'TODO check if a continuous measurement is already in progress!
@@ -922,6 +949,7 @@ ShutDownEnd
 
 BeginProg
   setup()
+  send_startup_email()
   CallTable info
   
   Scan(FAST_INTV,mSec,0,0)
