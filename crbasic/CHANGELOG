@@ -3,6 +3,8 @@ Next Version
 
 - Data type of `FIS_pmt_counts` in `ts_fast` table changes from FP2 (2 byte) to
   IEEE4 (4 byte).
+- Redundant columns `LoggerSN` and `OSVersion` removed from `info` table; TOA5
+  header contains that info.
 
 
 Version 1.1.2
