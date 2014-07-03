@@ -1,3 +1,10 @@
+Next Version
+============
+
+- Data type of `FIS_pmt_counts` in `ts_fast` table changes from FP2 (2 byte) to
+  IEEE4 (4 byte).
+
+
 Version 1.1.2
 =============
 

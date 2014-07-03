@@ -139,7 +139,7 @@ Dim pmt_bytes
 Dim pmt_convert As Long
 
 Public FIS_pmt_overflow As Boolean
-Public FIS_pmt_counts
+Public FIS_pmt_counts As Float
 Units FIS_pmt_counts = counts
 
 Public fis_flow(4)
@@ -436,7 +436,7 @@ EndTable
 DataTable(ts_fast,True,600)
   DataInterval(0,FAST_INTV,mSec,10)
   CardOut(STOPRING,-1)
-  Sample(1,FIS_pmt_counts,FP2)
+  Sample(1,FIS_pmt_counts,IEEE4)
   Sample(1,FIS_pmt_overflow,Boolean)
   Sample(1,FIS_flow_tot,IEEE4)
   Sample(1,FIS_flow_O2,IEEE4)
