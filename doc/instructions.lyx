@@ -12421,6 +12421,19 @@ mean datalogger panel temperature
 \end_inset
 
 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addcontentsline{toc}{section}{References}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Bibliography
