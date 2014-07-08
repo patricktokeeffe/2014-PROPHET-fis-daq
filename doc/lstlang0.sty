@@ -1,0 +1,30 @@
+%% define syntax highlighting for CRBASIC code
+%% specify listing option language=[CR]Basic
+
+\lst@definelanguage[CR]{Basic}{%
+  basicstyle={\ttfamily\footnotesize},%
+  sensitive=false,%
+  upquote=true,%
+  string=[bd][\color{crbString}]{"},% TODO check how delimiters are escaped
+  showstringspaces=false,%
+  morekeywords=[1]{%
+AND, ASCII, Alias, As, Average, BeginProg, Boolean, CHR, CS7500, CSAT3,%
+Calfile, Call, CallTable, CardOut, Const, ConstTable, Covariance,%
+DataInterval, DataTable, Dim, DisplayMenu, DisplayValue, EC100, Else,%
+ElseIf, EndConstTable, EndFunction, EndIf, EndMenu, EndProg, EndSub,%
+EndSubMenu, EndTable, ExciteCAO, FieldNames, FileClose, FileManage,%
+FileOpen, Float, For, Function, GPS, GetRecord, IIF, If, Long, MOD,%
+Median, MenuItem, MenuPick, MenuRecompile, Minimum, Move, MoveBytes,%
+NOT, Next, NextScan, OR, PipeLineMode, Public, Return, Round,%
+SDI12Recorder, SDMSpeed, Sample, Scan, SerialInRecord, SerialOpen,%
+SerialOut, ShutDownBegin, ShutDownEnd, SlowSequence, SplitStr, StdDev,%
+String, Sub, SubMenu, TableHide, Then, Therm107, TimeIntoInterval, To,%
+Totalize, Units, VoltDiff, VoltSe, Wend, While, WindVector, WriteIO, XOR%},%
+  keywordstyle={[1]{\color{crbKeyword}}},%
+  otherkeywords={=, /, *, +, -, *=, /=, +=, -=, <<, >>, ^, <, >},%
+  morekeywords=[2]{=, /, *, +, -, *=, /=, +=, -=, <<, >>, ^, <, >},%
+  keywordstyle={[2]{\color{crbKeyword}}},%
+  morecomment={[l][\color{crbComment}\ttfamily\itshape]{'}}%
+}
+
+\endinput

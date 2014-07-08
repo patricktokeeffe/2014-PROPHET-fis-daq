@@ -48,31 +48,6 @@
 
 \usepackage{framed} % for framing multi-page code listings
 
-%% define syntax highlighting for CRBASIC code
-% specify listing option `language=[CR]Basic
-\definecolor{crbNormal}{RGB}{0,0,0}
-\definecolor{crbComments}{RGB}{0,128,128}
-\definecolor{crbKeywords}{RGB}{0,0,255}
-\definecolor{crbOperators}{RGB}{0,0,255}
-\definecolor{crbNumbers}{RGB}{0,0,128}
-\definecolor{crbStrings}{RGB}{255,0,255}
-\definecolor{crbBookmarks}{RGB}{0,255,255}
-\definecolor{crbVariables}{RGB}{0,0,128}
-\definecolor{crbLocalVars}{RGB}{0,128,0}
-\lstdefinelanguage[CR]{Basic}{%
-  basicstyle={\ttfamily\footnotesize},%
-  sensitive=false,%
-  upquote=true,%
-  string=[bd][\color{crbStrings}]{"},% TODO check how delimiters are escaped
-  showstringspaces=false,%
-  morekeywords=[1]{Const, Public, Dim, Alias, Units, ConstTable, EndConstTable, DataTable, EndTable, DataInterval, CardOut, Average, Covariance, WindVector, Sample, FieldNames, Totalize, DisplayMenu, SubMenu, EndSubMenu, MenuItem, MenuPick, MenuRecompile, EndMenu, Sub, EndSub, Function, Return, EndFunction, If, Then, ElseIf, Else, EndIf, While, Wend, Move, OR, AND, XOR, SDMSpeed, CallTable, WriteIO, BeginProg, Scan, SlowSequence, NextScan, EndProg, SerialOpen, SerialInRecord, As, For, Next, MoveBytes, To, EC100, CSAT3, CS7500, PipeLineMode, Call, CHR, Float, String, Long, ASCII, SplitStr, VoltDiff, Therm107, NOT, GetRecord, Median, Minimum, SerialOut, ShutDownBegin, ShutDownEnd, VoltSe, Boolean, DisplayValue, GPS, SDI12Recorder, StdDev, Calfile, FileClose, FileManage, TimeIntoInterval, ExciteCAO, MOD, IIF, FileOpen, TableHide},% TODO !
-  keywordstyle={[1]{\color{crbKeywords}}},%
-  otherkeywords={=, /, *, +, -, *=, /=, +=, -=, <<, >>, ^, <, >},%
-  morekeywords=[2]{=, /, *, +, -, *=, /=, +=, -=, <<, >>, ^, <, >},%
-  keywordstyle={[2]{\color{crbOperators}}},%
-  morecomment={[l][\color{crbComments}\ttfamily\itshape]{'}},%
-}
-
 % insist on using line, not column width, and not indenting shadow boxes
 \let\oldshadowbox\shadowbox
 \renewcommand{\shadowbox}[1]{%
