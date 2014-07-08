@@ -6426,17 +6426,26 @@ height_special "totalheight"
 status open
 
 \begin_layout Plain Layout
-\begin_inset ERT
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Argument 1
 status open
 
 \begin_layout Plain Layout
+Data table schema: info
+\end_layout
+
+\end_inset
+
+Data table schema: info (shading indicates conditional inclusion)
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:schema-info"
+
+\end_inset
 
 
-\backslash
-caption[Data table schema: info]{Data table schema: info (shading indicates
- conditional inclusion) 
-\backslash
-label{tab:schema-info}}
 \end_layout
 
 \end_inset
@@ -7974,20 +7983,26 @@ sideways false
 status open
 
 \begin_layout Plain Layout
-\begin_inset ERT
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Argument 1
 status open
 
 \begin_layout Plain Layout
+Data table schema: ts_fast
+\end_layout
+
+\end_inset
+
+Data table schema: ts_fast
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:schema-ts_fast"
+
+\end_inset
 
 
-\backslash
-caption[Data table schema: ts
-\backslash
-_fast]{Data table schema: ts
-\backslash
-_fast (shading indicates conditional inclusion) 
-\backslash
-label{tab:schema-ts_fast}}
 \end_layout
 
 \end_inset
@@ -10204,17 +10219,26 @@ height_special "totalheight"
 status open
 
 \begin_layout Plain Layout
-\begin_inset ERT
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Argument 1
 status open
 
 \begin_layout Plain Layout
+Data table schema: stats
+\end_layout
+
+\end_inset
+
+Data table schema: stats (shading indicates conditional inclusion)
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:schema-stats"
+
+\end_inset
 
 
-\backslash
-caption[Data table schema: stats]{Data table schema: stats (shading indicates
- conditional inclusion) 
-\backslash
-label{tab:schema-stats}}
 \end_layout
 
 \end_inset
