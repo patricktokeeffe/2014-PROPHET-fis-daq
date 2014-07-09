@@ -7847,18 +7847,16 @@ sonic*_Ux/Uy/Uz Three-dimensional wind speed is reported as cartesian components
 \begin_inset Newline newline
 \end_inset
 
-
-\begin_inset Flex Strong
-status collapsed
-
-\begin_layout Plain Layout
-When calculating horizontal wind direction using 
-\begin_inset Formula $\arctan(U_{y},U_{x})$
-\end_inset
-
- the results must be adjusted to compensate for the offset of the orientation
- of the ??? axis relative to geographic north by adding 
-\end_layout
+This coordinate system is an offset reflection of the conventional geographic
+ coordinate system where north is 0º, east is 90º, etc.
+ For example, to calculate wind direction in geographic coordinates, reverse
+ both horizontal components and add the device-specific offset (90º for
+ both CSAT3, CSAT3A), then adjust for the anemometer's orientation relative
+ to north (azimuth): 
+\begin_inset Formula 
+\[
+W\! D=\arctan\!2(-U_{x},-U_{y})+90+azimuth
+\]
 
 \end_inset
 
