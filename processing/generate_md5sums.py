@@ -84,4 +84,4 @@ if __name__ == '__main__':
             print line,
             md5sums.write(line)
 
-
+    raw_input('Press enter to exit.')
