@@ -70,11 +70,15 @@ if __name__ == '__main__':
         for each in filelist:
             md5 = hashlib.md5()
             hashname = each.replace(basedir, '')
-            with open(each, mode='rb') as srcfile:
-                block = srcfile.read(blocksize)
-                while len(block) > 0:
-                    md5.update(block)
+            try:
+                with open(each, mode='rb') as srcfile:
                     block = srcfile.read(blocksize)
+                    while len(block) > 0:
+                        md5.update(block)
+                        block = srcfile.read(blocksize)
+            except IOError:
+                print 'Encountered IO error, skipping %s' % each
+                continue
             hash = md5.hexdigest()
             line = hash+'  '+hashname+'\n'
             print line,
