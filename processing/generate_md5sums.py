@@ -18,8 +18,20 @@ TODO:
 import os, os.path as osp
 import sys, hashlib
 
+def sort_by_directory(filelist):
+    dirs = {}
+    sort = []
+    for ea in filelist:
+        dirname, fname = osp.dirname(ea), osp.basename(ea)
+        flist = dirs.setdefault(dirname, [])
+        flist.append(fname)
+    for ea in sorted(dirs):
+        sort.extend([osp.join(ea, f) for f in sorted(dirs[ea])])
+    return sort
+
+
 if __name__ == '__main__':
-    here = osp.abspath(osp.dirname(sys.argv[0])) + '\\'
+    here = osp.abspath(osp.dirname(sys.argv[0])) + osp.sep
     dirs_to_search = set()
     files_to_hash = set()
 
@@ -33,17 +45,18 @@ if __name__ == '__main__':
     for dir in dirs_to_search:
         for path, dirs, files in os.walk(dir):
             files_to_hash.update([osp.join(path, f) for f in files])
-    files_to_hash.discard(osp.abspath(sys.argv[0])) # remove this file
-    files_to_hash.discard(osp.join(here, 'md5sums')) # & output file
-    files_to_hash = sorted(files_to_hash)
 
     basedir = osp.dirname(osp.commonprefix(files_to_hash))+os.sep
     md5file = osp.join(basedir, 'md5sums')
-    
+
+    files_to_hash.discard(osp.abspath(sys.argv[0]))
+    files_to_hash.discard(md5file)
+    filelist = sort_by_directory(files_to_hash)
+
     print 'Preparing to generate md5 checksums...'
     print 'Common parent folder:', basedir
     print 'Files to hash:'
-    for each in files_to_hash:
+    for each in filelist:
         print ' ', each.replace(basedir, '')
     print 'Output file name:', md5file
 
@@ -54,7 +67,7 @@ if __name__ == '__main__':
 
     blocksize = 2**20
     with open(md5file, mode='w') as md5sums:
-        for each in files_to_hash:
+        for each in filelist:
             md5 = hashlib.md5()
             hashname = each.replace(basedir, '')
             with open(each, mode='rb') as srcfile:
