@@ -4393,7 +4393,7 @@ Sonic 3 azimuth
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Sonic 3 height
@@ -4443,7 +4443,7 @@ Sonic 3 height
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 WXT510 azimuth
@@ -4497,7 +4497,7 @@ WXT510 azimuth
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 WXT510 height
@@ -4547,7 +4547,7 @@ WXT510 height
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Flush tube length
@@ -4588,7 +4588,7 @@ Flush tube length
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 FIS calibration
@@ -4606,7 +4606,7 @@ FIS calibration
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Standard conc
@@ -4656,7 +4656,7 @@ Standard conc
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Cal.
@@ -4707,7 +4707,7 @@ Cal.
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Zero duration
@@ -4757,7 +4757,7 @@ Zero duration
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Z/S duration
@@ -4807,7 +4807,7 @@ Z/S duration
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Std duration
@@ -4857,7 +4857,7 @@ Std duration
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Start filter
@@ -4907,7 +4907,7 @@ Start filter
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 End filter
@@ -4948,7 +4948,7 @@ End filter
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Apply/cancel
@@ -4966,7 +4966,7 @@ Apply/cancel
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Save now?
@@ -4984,7 +4984,7 @@ Save now?
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Cancel
@@ -5002,7 +5002,7 @@ Cancel
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Cancel
@@ -5012,7 +5012,7 @@ Cancel
 
 , 
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Yes
@@ -5041,7 +5041,7 @@ Yes
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Discard?
@@ -5059,7 +5059,7 @@ Discard?
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Cancel
@@ -5077,7 +5077,7 @@ Cancel
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Cancel
@@ -5087,7 +5087,7 @@ Cancel
 
 , 
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Yes
@@ -5116,7 +5116,7 @@ Yes
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Set default?
@@ -5134,7 +5134,7 @@ Set default?
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Cancel
@@ -5152,7 +5152,7 @@ Cancel
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Cancel
@@ -5162,7 +5162,7 @@ Cancel
 
 , 
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Yes
@@ -8395,7 +8395,11 @@ W\! D=\arctan\!2(-U_{x},-U_{y})+90+azimuth
 \begin_layout Description
 sonic*_Ts Sonic temperature is generally a few degrees higher than ambient
  temperature because of water vapor effects on the speed of sound.
- The sonic temperature closely approximates the virtual temperature 
+ The sonic temperature 
+\begin_inset Formula $T_{s}$
+\end_inset
+
+ closely approximates the virtual temperature 
 \begin_inset Formula $T_{v}$
 \end_inset
 
@@ -8489,7 +8493,14 @@ key "manual-ec100"
 
 \begin_layout Description
 flush_* These values may be used in conjunction with the manufacturer-specified
- standard temperature and pressure available in the 
+ standard temperature and pressure 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "manual-tsi-model4043"
+
+\end_inset
+
+ available in the 
 \begin_inset Flex Code
 status open
 
@@ -10094,9 +10105,8 @@ Notes
 
 \begin_layout Description
 wxt_WD Wind direction is reported with respect to the sensor's coordinate
- system, which may not be aligned with geographic (True) north, and values
- are stored in this table with no adjustments for the sensor's orientation.
- If the azimuth recorded in the 
+ system, which may not be aligned with geographic (True) north If the azimuth
+ recorded in the 
 \begin_inset Flex Code
 status open
 
@@ -10129,6 +10139,45 @@ An azimuth value of
 
  indicates the sensor was properly aligned to True North.
  
+\begin_inset VSpace defskip
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+In program versions 1.1.2 and earlier, this value was 
+\begin_inset Flex Strong
+status collapsed
+
+\begin_layout Plain Layout
+not
+\end_layout
+
+\end_inset
+
+ adjusted to account for the orientation of the weather transmitter.
+ 
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Description
@@ -10618,8 +10667,47 @@ Average
 
 \end_inset
 
-) is a nonsense value.
+) produces nonsense values.
  
+\begin_inset VSpace defskip
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100line%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+Since version 1.1, the half-hour median value (
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+wxt_WD_Med
+\end_layout
+
+\end_inset
+
+) has been adjusted to account for the WXT510 azimuth, if specified.
+ 
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Description
@@ -10698,7 +10786,7 @@ sonic*_WD_rslt_Avg Wind directions are determined wr.t.
  the orientation of the sonic anemometer, then adjusted to geographic coordinate
 s by adding the azimuth or bearing of the sonic anemometer.
  Following standard meteorological convention, the wind direction is the
- compass bearing of the source of the wind.
+ bearing of the source of the wind.
 \end_layout
 
 \begin_layout Description
@@ -10777,7 +10865,7 @@ name "tab:schema-stats"
 \noindent
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="52" columns="4">
+<lyxtabular version="3" rows="50" columns="4">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="left" valignment="top">
@@ -12808,7 +12896,7 @@ resultant mean wind direction
 </cell>
 </row>
 <row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -12829,7 +12917,7 @@ rowcolor{band2}
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -12838,7 +12926,7 @@ sonic3_WD_csi_Std
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -12847,87 +12935,11 @@ degEofTN
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 standard deviation of wind direction
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-50
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-logger_voltage_Avg
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-volts
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-mean supply voltage to datalogger
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-51
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-logger_temp_Avg
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-degC
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-mean datalogger panel temperature
 \end_layout
 
 \end_inset
