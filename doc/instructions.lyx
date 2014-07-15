@@ -13445,6 +13445,60 @@ name "sec:Initial-Sensor-Configuration"
 \end_layout
 
 \begin_layout Subsection
+Datalogger (CR3000)
+\end_layout
+
+\begin_layout Standard
+The datalogger has minimal configuration requirements related to it's network
+ interface.
+ Using the manufacturer-provided configuration software (DevConfig):
+\end_layout
+
+\begin_layout Itemize
+Disable these network services: HTTP, FTP, telnet (do not disable ping)
+\end_layout
+
+\begin_layout Itemize
+Specify the static IP address, netmask, and DNS servers provided by UMBS.
+ The IP & netmask can be obtained from the on-site network administrator;
+ the DNS servers can be determined by connecting to the network with a DHCP
+ device (e.g.
+ a Windows laptop) and observing the resulting configuration (e.g.
+ `ipconfig`)
+\end_layout
+
+\begin_layout Itemize
+Add a level one security code to prevent inadvertent changes to the FIS
+ DAQ system.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+The IP address and level 1 security code of the datalogger, as well as the
+ IP address of the DAQ laptop, used during the 2014 PROPHET campaign are
+ on-file in a non-public location.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
 Combined sonic anemometer/IRGA (EC100/EC150/CSAT3A)
 \end_layout
 
@@ -13733,7 +13787,7 @@ After updating the unit address(es):
 \begin_layout Enumerate
 Enable the sensor(s) and update the corresponding address within the 
 \begin_inset Flex MenuItem
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Initial Setup
@@ -13741,22 +13795,36 @@ Initial Setup
 
 \end_inset
 
- menu.
+ menu (§
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:Initial-Setup"
+
+\end_inset
+
+).
  
 \end_layout
 
 \begin_layout Enumerate
 Specify the corresponding azimuth(s) and mounting height(s) within the 
 \begin_inset Flex MenuItem
-status open
+status collapsed
 
 \begin_layout Plain Layout
-FIS settings
+Settings
 \end_layout
 
 \end_inset
 
- menu.
+ menu (§
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:Program-Settings"
+
+\end_inset
+
+).
 \end_layout
 
 \begin_layout Subsection
@@ -13767,7 +13835,7 @@ Weather Transmitter (WXT510)
 The WXT510 has been previously configured to support measurements using
  the 
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 SDIRecorder
@@ -13795,8 +13863,8 @@ Flowmeter (Model 4043)
 
 \begin_layout Standard
 The flowmeter operates under factory-default settings with the sole exception
- of measurement rate, which is decreased from 10 ms to 100ms (100 Hz to
- 10 Hz).
+ of measurement frequency, which is decreased from 10 ms to 100ms (100 Hz
+ to 10 Hz).
  
 \end_layout
 
@@ -13847,7 +13915,7 @@ Sample Rate
 
 \begin_layout Plain Layout
 \begin_inset Flex Strikeout
-status open
+status collapsed
 
 \begin_layout Plain Layout
 10ms
@@ -14475,7 +14543,16 @@ P
 
  command, the numeric argument must be sent as a single byte.
  Since “10” is actually two bytes, the command will fail; to be successful,
- send the number in hexadecimal format.
+ send the number in hexadecimal format (e.g.
+ 
+\begin_inset Quotes eld
+\end_inset
+
+A
+\begin_inset Quotes erd
+\end_inset
+
+ for the number 10).
  
 \end_layout
 
@@ -14803,10 +14880,6 @@ ASCII queries
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
@@ -14848,19 +14921,31 @@ Binary queries
 \end_layout
 
 \begin_layout Plain Layout
-\begin_inset ERT
-status open
+
+\begin_inset Caption Standard
 
 \begin_layout Plain Layout
 
+\begin_inset Argument 1
+status open
 
-\backslash
-caption[Typical Model 4043 RS-232 data]{Typical RS-232 records from TSI
- Model 4043 flowmeter.
- Queries are shown in green and reponses in yellow.
- 
-\backslash
-label{fig:TSI-RS232-records}}
+\begin_layout Plain Layout
+Typical Model 4043 RS-232 data
+\end_layout
+
+\end_inset
+
+
+\lang english
+Typical RS-232 records from TSI Model 4043 flowmeter.
+ Queries are shown in green and reponses in yellow
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:TSI-RS232-records"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -15521,21 +15606,32 @@ Estimate zero-plane displacement and/or roughness length using the wind
 \end_layout
 
 \begin_layout Itemize
-Do real-time sensitivity application:
+Do real-time isoprene calculation:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Sensitivity factor:
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
 Read-back records created during last calibration from data table; apply
- exclusions based on flags; and calculate mean of remaining records, then
- calculate sensitivity to apply
+ exclusions based on flags; calculate mean of remaining records, then calculate
+ sensitivity 
 \end_layout
 
 \begin_layout Itemize
 OR create new event-driven data table (possibly openinterval?) to calculate
- filterered mean sensitivity
+ mean sensitivity and use exclusion flag to filter
 \end_layout
 
+\end_deeper
+\begin_layout Itemize
+Application of:
+\end_layout
+
+\begin_deeper
 \begin_layout Itemize
 Add new column to 30min table based on mean counts * sensitivity
 \end_layout
@@ -15546,10 +15642,10 @@ OR add new 10Hz variable of counts * sensitivity, then calculate average
 \end_layout
 
 \end_deeper
+\end_deeper
 \begin_layout Itemize
-Add solid-state relay between ozonizer and power source, controlled by datalogge
-r so if short-term running mean of ozone flow is close enough to zero, the
- ozonizer relay is shut off
+Add relay between ozonizer and power source so datalogger can shut off ozonizer
+ if ozone flow is near-zero
 \end_layout
 
 \begin_layout Standard
@@ -15571,9 +15667,9 @@ name "sec:Program-Source-Code"
 \end_layout
 
 \begin_layout Standard
-The complete source code of the program operated by the datalogger is roughly
- 1000 lines long but a full 85% is declarations.
- The actual program occupies the last approximately 150 lines.
+The complete source code of the program operated by the datalogger is almost
+ 1200 lines long but the first 80% is setup: the actual program occupies
+ roughly 200 lines.
  If you're still reading this, you're capable of understanding it so go
  ahead, peruse.
 \end_layout
