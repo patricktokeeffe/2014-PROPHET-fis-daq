@@ -5,6 +5,9 @@ Next Version
   IEEE4 (4 byte).
 - Redundant columns `LoggerSN` and `OSVersion` removed from `info` table; TOA5
   header contains that info.
+- Adjust time-series (15-sec) values from WXT510 (ts_wxt/wxt_WD) for azimuth
+  prior to storage; began adjusting half-hour values in v1.1. For PROPHET 2014,
+  makes no difference since device was aligned to True North.
 
 
 Version 1.1.2

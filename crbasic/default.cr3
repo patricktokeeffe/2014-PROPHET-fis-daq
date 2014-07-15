@@ -1156,7 +1156,7 @@ BeginProg
     CallTable(gps_daily)
 
     SDI12Recorder(wxt(1),WXT_COM,WXT_ADDR,WXT_CMD,wxt_scaling(),0)
-    'XXX despite `wxt_azimuth` setting, DO NOT correct WD values
+    wxt_WD = (wxt_WD + IIF(wxt_azimuth < 0, 0, wxt_azimuth)) MOD 360
     CallTable(ts_wxt)
 
     just_had_wxt_scan = True
