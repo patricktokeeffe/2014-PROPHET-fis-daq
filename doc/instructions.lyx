@@ -8884,7 +8884,7 @@ status open
 \backslash
 multirow{-2}{1
 \backslash
-linewidth}{Signal strength values nominally 0-1; typically >0.95 under good
+linewidth}{signal strength values nominally 0-1; typically >0.95 under good
  conditions}
 \end_layout
 
@@ -14913,6 +14913,92 @@ checksum
 
  instruction with 'CSI signature' option the same signature algorithm described
  in EC150 manual (pg 19)? 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Future Work
+\end_layout
+
+\begin_layout Standard
+Some specific improvements for future versions:
+\end_layout
+
+\begin_layout Itemize
+Additional half-hour values:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+CO2 eddy covariance (EC
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+symbol "EC"
+description "eddy-covariance, popular micrometeorological technique for evaluating trace gas fluxes"
+
+\end_inset
+
+) flux (sonic/IRGA level only)
+\end_layout
+
+\begin_layout Itemize
+Latent heat flux (sonic/IRGA level only)
+\end_layout
+
+\begin_layout Itemize
+Sensible heat flux (all anemometer levels)
+\end_layout
+
+\begin_layout Itemize
+Obukhov length and/or stability parameter (all anemometer levels)
+\end_layout
+
+\begin_layout Itemize
+Friction velocity (all anemometer levels)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Estimate zero-plane displacement and/or roughness length using the wind
+ speed vertical profile
+\end_layout
+
+\begin_layout Itemize
+Do real-time sensitivity application:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Read-back records created during last calibration from data table; apply
+ exclusions based on flags; and calculate mean of remaining records, then
+ calculate sensitivity to apply
+\end_layout
+
+\begin_layout Itemize
+OR create new event-driven data table (possibly openinterval?) to calculate
+ filterered mean sensitivity
+\end_layout
+
+\begin_layout Itemize
+Add new column to 30min table based on mean counts * sensitivity
+\end_layout
+
+\begin_layout Itemize
+OR add new 10Hz variable of counts * sensitivity, then calculate average
+ of new variable in 30min table
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Add solid-state relay between ozonizer and power source, controlled by datalogge
+r so if short-term running mean of ozone flow is close enough to zero, the
+ ozonizer relay is shut off
 \end_layout
 
 \begin_layout Standard
