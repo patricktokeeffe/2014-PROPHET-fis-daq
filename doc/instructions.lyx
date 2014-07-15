@@ -573,10 +573,55 @@ Hills Scientific (FIS-97; WSU asset tag 367158)
 \begin_inset Newline newline
 \end_inset
 
-Provides high-frequency measurements of relative concentrations of alkenes
- (e.g.
- isoprene).
+Provides high-frequency measurements of relative concentrations of isoprene.
+ The number of photons produced in reaction with excess ozone is measured
+ at high-frequency and by regular comparison to a known standard, the concentrat
+ion of alkenes is deduced; in forest environments, the alkene profile is
+ predominantly isoprene
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+[citation
+\begin_inset space \space{}
+\end_inset
+
+needed]
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Shelley's thesis?
+\end_layout
+
+\end_inset
+
+ so the instrument effectively measures ambient isoprene concentation.
  
+\begin_inset VSpace defskip
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Other important signals provided by the instrument include total mass flow
+ (sLpm) of gas through the instrument, total mass flow (sLpm) of oxygen
+ sent to the ozonizer, mass flow (sccm) of alkene
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+find the standard notes
+\end_layout
+
+\end_inset
+
+ standard and status of instrument (normal/zero/calibration).
 \end_layout
 
 \begin_layout Itemize
@@ -645,12 +690,9 @@ Campbell Scientific (CSAT3A/EC150/EC100)
 
 Provides high-frequency measurements of three-dimensional wind speed, sonic
  temperature, and molar densities of carbon dioxide and water vapor.
- Additionally, an on-board thermistor (Model 107; Campbell Scientific) and
- digital barometer (
-\emph on
-unspecified
-\emph default
-) provide ambient temperature and pressure, respectively.
+ Additionally, an on-board thermistor (100K6A1A Thermistor; BetaTherm) and
+ digital barometer (EC100 basic barometer; Campbell Scientific) provide
+ ambient temperature and pressure, respectively.
  
 \end_layout
 
@@ -700,7 +742,7 @@ TSI (Model 4043)
 
 Provides high-frequency measurements of the mass flow rate, temperature
  and absolute pressure within the high-flow-rate flush line which draws
- sample to the FIS from the sonic/IRGA location.
+ gas sample to the FIS from the sonic/IRGA location.
  
 \end_layout
 
@@ -792,9 +834,18 @@ Ground level
 \end_layout
 
 \begin_layout Standard
-The datalogger, FIS system, flowmeter, GPS receiver and sampling pump are
- located at ground level in a permanent shelter adjacent to the tower.
- Both the FIS photomultiplier tube (PMT
+The datalogger, FIS system, flowmeter, GPS receiver and sampling pump
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+WHICH ONE?
+\end_layout
+
+\end_inset
+
+ are located at ground level in a permanent shelter adjacent to the tower.
+ Both FIS photomultiplier tube (PMT
 \begin_inset CommandInset nomenclature
 LatexCommand nomenclature
 prefix "PMT"
@@ -803,8 +854,24 @@ description "photomultipler tube; refer to the FIS user manual for details"
 
 \end_inset
 
-) and flow meter are connected to conventional 9-pin dongles mounted in
- the datalogger enclosure using straight-through serial cables.
+) and flush line
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+prefix "flush line"
+symbol "flush line"
+description "refers to the large diameter tubing through which air is drawn from the sonic/IRGA location to the FIS location at high flow rates"
+
+\end_inset
+
+ flow meter data cables are connected to labeled 9-pin dongles mounted in
+ the datalogger enclosure [9, 10; 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Enclosure-for-datalogger"
+
+\end_inset
+
+].
  Remaining FIS data ports (analog voltage output, TTL
 \begin_inset CommandInset nomenclature
 LatexCommand nomenclature
@@ -815,31 +882,60 @@ description "an acronym for transistor-transistor logic; in the context of this 
 \end_inset
 
  output & TTL input) are connected to the datalogger using coaxial cable
- with BNC fittings on one end and bare wires on the other.
- The GPS receiver, mounted outside the shelter, provides bare wires for
- connection to the datalogger.
- The pump inlet is connected to the flowmeter with a short section of 1/2
-\begin_inset Quotes erd
-\end_inset
-
- I.D.
- (5/8
-\begin_inset Quotes erd
-\end_inset
-
- O.D.) tubing and the outlet vents directly to the atmosphere.
- A high-flow HEPA filter is located directly upstream of the flowmeter but
- downstream of the subsampling tee from which the FIS draws flushed gas
-\begin_inset CommandInset nomenclature
-LatexCommand nomenclature
-prefix "flush line"
-symbol "flush line"
-description "refers to the large diameter tubing through which air is drawn from the sonic/IRGA location to the FIS location at high flow rates"
-
-\end_inset
-
-.
+ with BNC fittings on one end (for the FIS, bare wires for the datalogger).
+ The GPS receiver, affixed to the metal roof of the shelter, has bare wires
+ for connection to the datalogger.
+ A wiring diagram is supplied for bare end wires.
  
+\end_layout
+
+\begin_layout Standard
+The sampling pump is situated in an enclosed, ventilated space
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Ambient air is drawn through a door into this space and exhausted several
+ tens of yards away.
+\end_layout
+
+\end_inset
+
+ and draws gas through the flowmeter, situated near the FIS, with a length
+ (20-30') of 3/8
+\begin_inset Quotes erd
+\end_inset
+
+ O.D.
+ (1/4
+\begin_inset Quotes erd
+\end_inset
+
+ I.D.) vinyl tubing.
+ A high-flow HEPA filter (HEPA Capsule, Pall Life Sciences; VWR Catalog
+ #28145-145) is located directly upstream of the flowmeter.
+ The FIS draws sample through several feet (5-7) of 1/4
+\begin_inset Quotes erd
+\end_inset
+
+ O.D.
+ (? I.D.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Find ID
+\end_layout
+
+\end_inset
+
+) teflon tube from a tee located upstream of the HEPA filter.
+ A long (3-4') section of 1/2
+\begin_inset Quotes erd
+\end_inset
+
+ teflon tubing is situated upstream of the subsampling tees to act as a
+ water trap.
 \end_layout
 
 \begin_layout Paragraph
@@ -858,20 +954,38 @@ At the top of the tower, the sonic/IRGA unit and weather transmitter are
 \begin_inset Quotes erd
 \end_inset
 
- O.D.) tube of unidentified material
+ O.D.) tube of unidentified plastic
 \begin_inset Foot
 status open
 
 \begin_layout Plain Layout
-seriously, we don't know -- sorry
+Most likely PFA, FEP or PE but can't be known for sure.
+ It was rinsed with deionized water prior to this experiment.
+ 
 \end_layout
 
 \end_inset
 
- and a 150' outdoor-rated CAT6 ethernet cable run to the top of the tower
- from the ground level enclosure.
+ and a 150' outdoor-rated CAT6 ethernet cable (BlackBox
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TO VERIFY
+\end_layout
+
+\end_inset
+
+) run to the top of the tower from the ground level enclosure.
  Power is provided to the sensors at the upper level by a 12Vdc transformer
- housed in a plastic container.
+ housed in a plastic container (figure 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:Enclosure-for-sonic/IRGA"
+
+\end_inset
+
+).
  A short length of CAT5e patch
 \begin_inset Foot
 status open
@@ -888,7 +1002,15 @@ e.g.
  is connected to the sonic/IRGA data terminals and the weather transmitter
  cable.
  Another (uncut) CAT5e patch cable connects the lower end of the CAT6 cable
- to an industrial surge protection unit mounted in the datalogger enclosure.
+ to an industrial surge protection unit mounted in the datalogger enclosure
+ [8; 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Enclosure-for-datalogger"
+
+\end_inset
+
+].
  
 \end_layout
 
@@ -897,15 +1019,26 @@ Optional sonics
 \end_layout
 
 \begin_layout Standard
-If used, the sonic anemometer units are mounted at whatever height is determined
- appropriate and cables are run down the tower to the datalogger enclosure
- in the permanent shelter.
+If used, the second and third sonic anemometer units are mounted at whatever
+ height is determined appropriate (typically lower than sonic/IRGA) and
+ cables are run down the tower to the datalogger enclosure in the permanent
+ shelter.
  One euro-style terminal strip provides power from a 13.8Vdc power supply
- and another provides access to the datalogger's SDM interface.
- An armored ethernet cable is available to extend the anemometer(s) existing
- data cable(s).
- The behavior of the SDM interface is such that cables can be daisy-chained,
- reducing the total length required.
+ (2; 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Enclosure-for-datalogger"
+
+\end_inset
+
+) and another provides access to the datalogger's SDM interface [7; 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Enclosure-for-datalogger"
+
+\end_inset
+
+].
  
 \end_layout
 
@@ -993,6 +1126,15 @@ FIS photomultiplier tube (PMT)
 
 \begin_layout Plain Layout
 RS-232
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+prefix "RS-232"
+symbol "RS-232"
+description "traditional \"serial\" data interface; typically 9-pin D-sub connector but only requires transmit (Tx), receive (Rx) and signal ground (G)"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1175,7 +1317,7 @@ Weather transmitter
 \begin_inset Text
 
 \begin_layout Plain Layout
-SDI-12
+SDI-12 v1.3, public domain
 \end_layout
 
 \end_inset
@@ -1191,6 +1333,391 @@ SDI-12
 </cell>
 </row>
 </lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Datalogger enclosure labeled parts
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Datalogger-enclosure-labeled"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="12" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+#
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Description
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Master power suppy switch of datalogger enclosure, additional sonic anemometers
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Power terminals (13.8Vdc) for instruments
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Memory card module (CompactFlash)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Memory card ejection button
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Datalogger display and interface keypad
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Local area network (LAN) switch
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+SDM data interface terminals for 2nd, 3rd sonic anemometers
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Ethernet surge protection switch connected to data cable from sonic/IRGA
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+9
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Data cable connector for FIS PMT
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+10
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Data cable connector for TSI flowmeter
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+11
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+(Not used) RS-232 to RS-485 converter
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/logger_enclosure_diagram.png
+	lyxscale 50
+	width 100line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Enclosure for datalogger
+\end_layout
+
+\end_inset
+
+Datalogger enclosure (refer to table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Enclosure-for-datalogger"
+
+\end_inset
+
+ for parts labels)
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Enclosure-for-datalogger"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/sonic-IRGA_power.png
+	lyxscale 50
+	width 75line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Enclosure for sonic/IRGA power source
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Enclosure-for-sonic/IRGA"
 
 \end_inset
 
@@ -1344,6 +1871,47 @@ reference "sub:Program-Settings"
 
 \begin_layout Subsection
 Datalogger
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+Refer to 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:Datalogger-enclosure-labeled"
+
+\end_inset
+
+ and figure 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:Enclosure-for-datalogger"
+
+\end_inset
+
+ in conjunction with this section.
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -4806,6 +5374,47 @@ name "sub:Data-Retrieval"
 \end_layout
 
 \begin_layout Standard
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+Refer to 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:Datalogger-enclosure-labeled"
+
+\end_inset
+
+ and figure 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:Enclosure-for-datalogger"
+
+\end_inset
+
+ in conjunction with this section.
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 The most straightforward method of data retrieval is with CompactFlash media.
  When present, data is recorded to the external CompactFlash memory card.
  Retrieval is as simple as exchanging the used memory card with a blank
@@ -4818,15 +5427,30 @@ To
 \begin_inset space \space{}
 \end_inset
 
-remove: completely loosen the retaining thumb screw and open the cover,
- then press the large white button labeled 
+remove: completely loosen the retaining thumb screw and open the cover [3;
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Enclosure-for-datalogger"
+
+\end_inset
+
+], then press the large white button labeled 
 \begin_inset Quotes eld
 \end_inset
 
-Removal button.
+Removal button
 \begin_inset Quotes erd
 \end_inset
 
+ [4; 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Enclosure-for-datalogger"
+
+\end_inset
+
+].
  When the green light appears, press the small lever-button to eject the
  card.
 \end_layout
