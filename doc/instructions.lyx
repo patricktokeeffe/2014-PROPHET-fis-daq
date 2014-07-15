@@ -561,7 +561,7 @@ Fast Isoprene Sensor (FIS)
 
 
 \begin_inset Flex Emph
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Hills Scientific (FIS-97; WSU asset tag 367158)
@@ -676,7 +676,7 @@ description "InfraRed Gas Analyzer (for $CO_2$/$H_2O$ in the context of this doc
 
 
 \begin_inset Flex Emph
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Campbell Scientific (CSAT3A/EC150/EC100)
@@ -703,7 +703,7 @@ Weather Transmitter
 
 
 \begin_inset Flex Emph
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Vaisala (WXT510)
@@ -728,7 +728,7 @@ Flow meter
 
 
 \begin_inset Flex Emph
-status collapsed
+status open
 
 \begin_layout Plain Layout
 TSI (Model 4043)
@@ -753,7 +753,7 @@ GPS Receiver
 
 
 \begin_inset Flex Emph
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Garmin (GPS16x-HVS)
@@ -792,7 +792,7 @@ Standalone sonic anemometer
 
 
 \begin_inset Flex Emph
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Campbell Scientific (CSAT3)
@@ -2023,7 +2023,7 @@ status open
 Be sure to modify at least one of the sonic's SDM addresses and update the
  program accordingly using 
 \begin_inset Flex MenuItem
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Initial Setup
@@ -2068,6 +2068,39 @@ power cable to 13.8Vdc power supply, if not powered locally (e.g.
 Operation
 \end_layout
 
+\begin_layout Standard
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100line%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+This section assumes the FIS system has been started according to the manufactur
+er's directions 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "manual-fis"
+
+\end_inset
+
+ and the PMT is powered on.
+ The PMT does not have to be stopped to start the datalogger.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Start/Stop Procedure
 \end_layout
@@ -2080,7 +2113,7 @@ Starting the system
 Upon receiving power, the datalogger will turn on and compile the operating
  program.
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The program file is named 
@@ -2101,7 +2134,7 @@ default.cr3
 \begin_inset Quotes erd
 \end_inset
 
- so it is loaded in preference to any other programs in the logger's memory.
+ so it is loaded in preference to other programs in the logger's memory.
  
 \end_layout
 
@@ -2109,36 +2142,9 @@ default.cr3
 
  If a blank CompactFlash memory card is present, it will be formatted at
  compilation time.
- 
-\begin_inset VSpace defskip
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shadowbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-To minimize compilation time and prevent collecting useless data, do not
+ To minimize compilation time and prevent collecting useless data, do not
  insert external memory cards until the system is fully configured with
  the desired settings and operating desireably.
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -2162,27 +2168,20 @@ reference "sub:Program-Settings"
  If the last operating state of the program was satisfactory, then supplying
  power is generally enough to begin measurements.
  
-\begin_inset VSpace defskip
+\end_layout
+
+\begin_layout Paragraph
+Beginning PMT measurements
+\begin_inset CommandInset label
+LatexCommand label
+name "par:Beginning-PMT-measurements"
+
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-\begin_inset Box Shadowbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
 The datalogger will send a 
 \begin_inset Quotes eld
 \end_inset
@@ -2193,8 +2192,8 @@ begin continuous measurements
 
  command to the FIS PMT at the start of program operation to automatically
  start the PMT data stream.
- Should it be necessary to stop or (re)start the PMT, use the menu options
- 
+ Should it be necessary to manually stop/start/restart the PMT, use the
+ menu options 
 \begin_inset Flex MenuItem
 status collapsed
 
@@ -2208,7 +2207,8 @@ PMT
 \end_inset
 
 Control\SpecialChar \menuseparator
-Stop
+Stop\SpecialChar \menuseparator
+SendCommand
 \end_layout
 
 \end_inset
@@ -2227,7 +2227,8 @@ PMT
 \end_inset
 
 Control\SpecialChar \menuseparator
-(Re)start
+(Re)start\SpecialChar \menuseparator
+SendCommand
 \end_layout
 
 \end_inset
@@ -2236,60 +2237,37 @@ Control\SpecialChar \menuseparator
  
 \end_layout
 
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsubsection*
 Shutting down the system
 \end_layout
 
 \begin_layout Standard
 The datalogger continuously buffers recorded measurements to data tables
- so an explicit shutdown procedure is actually unnecessary.
+ so an explicit shutdown procedure is not strictly necessary.
  To shut down the system, remove power by turning the master power switch
- off.
-\begin_inset VSpace defskip
+ [1, 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Enclosure-for-datalogger"
+
 \end_inset
 
-
+] off.
 \end_layout
 
 \begin_layout Standard
-\begin_inset Box Shadowbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-Be aware the datalogger is programmed to send a shutdown signal to the FIS
- PMT when it's program is 
+The datalogger will send a 
 \begin_inset Quotes eld
 \end_inset
 
-shut down.
+stop measurement
 \begin_inset Quotes erd
 \end_inset
 
- This may not matter if the main power switch is simply shut off but if
- the user explicitly halts the program, the FIS may stop sending data.
- Of course, nothing would be listening to the data stream anymore so this
- warning may be superfluous.
- 
-\end_layout
-
-\end_inset
-
-
+ signal to the FIS PMT when the program is stopped.
+ This is irrelevant if the main power switch is simply shut off but if the
+ user explicitly halts the program, the FIS PMT should stop sending data.
+ Restarting the program resumes data output.
 \end_layout
 
 \begin_layout Subsection
@@ -2522,7 +2500,7 @@ sonic2
 addr SDM address of the first optional CSAT3; valid addresses range from
  0-14 (excluding 1
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 which is reserved for the sonic/IRGA unit
@@ -3484,7 +3462,7 @@ changes do not take effect until the user selects
 status collapsed
 
 \begin_layout Plain Layout
-Save changes\SpecialChar \menuseparator
+Apply/cancel\SpecialChar \menuseparator
 Save now?\SpecialChar \menuseparator
 Yes
 \end_layout
@@ -3867,21 +3845,11 @@ duration
 \end_layout
 
 \begin_layout Description
-Filtering\SpecialChar \menuseparator
-
-\end_layout
-
-\begin_deeper
-\begin_layout Description
 Start
 \begin_inset space \space{}
 \end_inset
 
-of
-\begin_inset space \space{}
-\end_inset
-
-cycle Specify how many 
+filter Specify how many 
 \begin_inset Flex Strong
 status collapsed
 
@@ -3899,55 +3867,7 @@ ignore
 \begin_inset Quotes erd
 \end_inset
 
- flag at the start of the zero-only step.
- 
-\end_layout
-
-\begin_layout Description
-Pre-transition Specify how many 
-\begin_inset Flex Strong
-status collapsed
-
-\begin_layout Plain Layout
-seconds
-\end_layout
-
-\end_inset
-
- of data will be marked with an 
-\begin_inset Quotes eld
-\end_inset
-
-ignore
-\begin_inset Quotes erd
-\end_inset
-
- flag prior to the transition from zero-only to zero/standard and from zero/stan
-dard to standard-only.
- 
-\end_layout
-
-\begin_layout Description
-Post-transition Specify how many 
-\begin_inset Flex Strong
-status collapsed
-
-\begin_layout Plain Layout
-seconds
-\end_layout
-
-\end_inset
-
- of data will be marked with an 
-\begin_inset Quotes eld
-\end_inset
-
-ignore
-\begin_inset Quotes erd
-\end_inset
-
- flag prior to the transition from zero-only to zero/standard and from zero/stan
-dard to standard-only.
+ flag at the start of each calibration step (zero, Z/S, std)
 \end_layout
 
 \begin_layout Description
@@ -3955,11 +3875,7 @@ End
 \begin_inset space \space{}
 \end_inset
 
-of
-\begin_inset space \space{}
-\end_inset
-
-cycle Specify how many 
+filter Specify how many 
 \begin_inset Flex Strong
 status collapsed
 
@@ -3977,17 +3893,12 @@ ignore
 \begin_inset Quotes erd
 \end_inset
 
- flag prior to the end of the standard-only step.
+ flag at the end of each calibration step (zero, Z/S, std)
 \end_layout
 
 \end_deeper
-\end_deeper
 \begin_layout Description
-Save
-\begin_inset space \space{}
-\end_inset
-
-changes\SpecialChar \menuseparator
+Apply/cancel\SpecialChar \menuseparator
 
 \end_layout
 
@@ -4161,7 +4072,7 @@ name "tab:menu-GradientSettings"
 \noindent
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="22" columns="4">
+<lyxtabular version="3" rows="20" columns="4">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="middle" width="0pt">
 <column alignment="left" valignment="top">
@@ -4482,7 +4393,7 @@ Sonic 3 azimuth
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Sonic 3 height
@@ -4532,7 +4443,7 @@ Sonic 3 height
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 WXT510 azimuth
@@ -4586,7 +4497,7 @@ WXT510 azimuth
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 WXT510 height
@@ -4636,7 +4547,7 @@ WXT510 height
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Flush tube length
@@ -4672,12 +4583,12 @@ Flush tube length
 </cell>
 </row>
 <row>
-<cell multirow="3" alignment="center" valignment="middle" topline="true" leftline="true" usebox="none">
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 FIS calibration
@@ -4695,7 +4606,7 @@ FIS calibration
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Standard conc
@@ -4745,7 +4656,7 @@ Standard conc
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Cal.
@@ -4796,7 +4707,7 @@ Cal.
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Zero duration
@@ -4846,7 +4757,7 @@ Zero duration
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Z/S duration
@@ -4896,7 +4807,7 @@ Z/S duration
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Std duration
@@ -4932,26 +4843,24 @@ Std duration
 </cell>
 </row>
 <row>
-<cell multirow="3" alignment="center" valignment="middle" topline="true" leftline="true" usebox="none">
+<cell multirow="4" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
-FIS calibration
-\end_layout
-
-\end_inset
-
-\SpecialChar \menuseparator
-
-\begin_inset Flex Code
-status collapsed
-
-\begin_layout Plain Layout
-Filtering
+Start filter
 \end_layout
 
 \end_inset
@@ -4965,25 +4874,7 @@ Filtering
 \begin_inset Text
 
 \begin_layout Plain Layout
-\begin_inset Flex Code
-status collapsed
-
-\begin_layout Plain Layout
-Start of cycle
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-120
+115
 \end_layout
 
 \end_inset
@@ -5016,110 +4907,10 @@ Start of cycle
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
-Pre-transition
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-5
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $0\leq X$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell multirow="4" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Flex Code
-status collapsed
-
-\begin_layout Plain Layout
-Post-transition
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-15
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Formula $0\leq X$
-\end_inset
-
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell multirow="4" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-\begin_inset Flex Code
-status collapsed
-
-\begin_layout Plain Layout
-End of cycle
+End filter
 \end_layout
 
 \end_inset
@@ -5157,7 +4948,7 @@ End of cycle
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Apply/cancel
@@ -5175,7 +4966,7 @@ Apply/cancel
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Save now?
@@ -5193,7 +4984,7 @@ Save now?
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Cancel
@@ -5211,7 +5002,7 @@ Cancel
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Cancel
@@ -5221,7 +5012,7 @@ Cancel
 
 , 
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Yes
@@ -5250,7 +5041,7 @@ Yes
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Discard?
@@ -5268,7 +5059,7 @@ Discard?
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Cancel
@@ -5286,7 +5077,7 @@ Cancel
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Cancel
@@ -5296,7 +5087,7 @@ Cancel
 
 , 
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Yes
@@ -5325,7 +5116,7 @@ Yes
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Set default?
@@ -5343,7 +5134,7 @@ Set default?
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Cancel
@@ -5361,7 +5152,7 @@ Cancel
 
 \begin_layout Plain Layout
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Cancel
@@ -5371,7 +5162,7 @@ Cancel
 
 , 
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Yes
@@ -5416,7 +5207,7 @@ has_inner_box 1
 inner_pos "t"
 use_parbox 0
 use_makebox 0
-width "100col%"
+width "100line%"
 special "none"
 height "1in"
 height_special "totalheight"
@@ -5440,10 +5231,6 @@ reference "fig:Enclosure-for-datalogger"
  in conjunction with this section.
 \end_layout
 
-\end_inset
-
-
-\begin_inset VSpace defskip
 \end_inset
 
 
@@ -5506,11 +5293,11 @@ Alternately, data tables can be retrieved from the datalogger via its serial
  (RS-232) or network (ethernet) interfaces using compatible software such
  as LoggerNet, PC400, PC200W
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Flex URL
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -5558,6 +5345,24 @@ FTP The datalogger offers access to its file systems via File Transfer Protocol.
 \end_layout
 
 \begin_layout Standard
+The ethernet switch [6, 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Enclosure-for-datalogger"
+
+\end_inset
+
+] in the datalogger enclosure is available for local network connections.
+ Because the datalogger is configured to exist on the UMBS network, a cross-over
+ ethernet cable cannot be used for direction connection to the datalogger.
+ 
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset Box Shadowbox
 position "t"
 hor_pos "c"
@@ -5565,11 +5370,11 @@ has_inner_box 1
 inner_pos "t"
 use_parbox 0
 use_makebox 0
-width "100col%"
+width "100line%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Collecting data while conducting measurements may interfere with processing
@@ -5594,8 +5399,59 @@ name "sub:Maintenance"
 
 \end_layout
 
-\begin_layout Standard
-TODO, IF ANY
+\begin_layout Subsubsection
+FIS
+\end_layout
+
+\begin_layout Itemize
+Is sufficient oxygen left?
+\end_layout
+
+\begin_layout Itemize
+Refer to the device's user manual for full details on the FIS maintenance
+ requirements
+\end_layout
+
+\begin_layout Subsubsection
+IRGA (EC150)
+\end_layout
+
+\begin_layout Itemize
+Periodic assessment of CO2/H2O calibration (last date: 
+\begin_inset Flex Strong
+status collapsed
+
+\begin_layout Plain Layout
+????
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+FIND LAST CAL DATE OF IRGA
+\end_layout
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+Annual replacement of CO2/H2O scrubber chemicals (replaced during FIS installati
+on period of 2014 PROPHET)
+\end_layout
+
+\begin_layout Subsubsection
+Misc
+\end_layout
+
+\begin_layout Itemize
+Inspect desiccant in sonic/IRGA power source enclosure frequently and replace
+ desiccant as needed
 \end_layout
 
 \begin_layout Subsection
@@ -5610,11 +5466,31 @@ name "sub:Troubleshooting"
 \end_layout
 
 \begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Troubleshooting
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="6" columns="2">
+<lyxtabular version="3" rows="6" columns="3">
 <features rotate="0" tabularvalignment="middle">
-<column alignment="left" valignment="top">
-<column alignment="left" valignment="top" width="40line%">
+<column alignment="left" valignment="top" width="20col%">
+<column alignment="left" valignment="top" width="40col%">
+<column alignment="left" valignment="top" width="40col%">
 <row>
 <cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -5625,7 +5501,7 @@ Condition
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -5634,8 +5510,121 @@ Possible explanation(s)
 
 \end_inset
 </cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Solution(s)
+\end_layout
+
+\end_inset
+</cell>
 </row>
 <row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+No data from sonic/IRGA or WXT510
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Loose data cable
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Ensure all cable connections, especially ethernet plugs, are firmly plugged
+ in
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+No data from FIS PMT
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+PMT has not been started/was stopped
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Send restart command: §
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "par:Beginning-PMT-measurements"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Mis-matched data cable
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Ensure data cable is connected to proper 9-pin connector in datalogger enclosure
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
 <cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
@@ -5656,7 +5645,7 @@ Possible explanation(s)
 </cell>
 </row>
 <row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -5665,57 +5654,6 @@ Possible explanation(s)
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
 <cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
@@ -5742,6 +5680,11 @@ Possible explanation(s)
 
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset Newpage clearpage
 \end_inset
@@ -5758,79 +5701,6 @@ name "sec:Data-Products"
 \end_inset
 
 
-\end_layout
-
-\begin_layout Subsection
-Intermediate processing
-\begin_inset CommandInset label
-LatexCommand label
-name "sub:Intermediate-processing"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-A variety of the data products included in logger-generated data files are
- based on the results of intermediate calculations.
- The following sections cover those intermediate values.
-\end_layout
-
-\begin_layout Subsubsection
-Latent heat of vaporization
-\end_layout
-
-\begin_layout Standard
-TODO?
-\end_layout
-
-\begin_layout Subsubsection
-Density of air
-\end_layout
-
-\begin_layout Standard
-TODO?
-\end_layout
-
-\begin_layout Subsubsection
-Friction velocity
-\end_layout
-
-\begin_layout Standard
-TODO?
-\end_layout
-
-\begin_layout Subsubsection
-Obukhov length
-\end_layout
-
-\begin_layout Standard
-TODO?
-\end_layout
-
-\begin_layout Subsubsection
-Latent heat flux
-\end_layout
-
-\begin_layout Standard
-TODO?
-\end_layout
-
-\begin_layout Subsubsection
-Sensible heat flux
-\end_layout
-
-\begin_layout Standard
-TODO?
-\end_layout
-
-\begin_layout Subsubsection
-Carbon dioxide flux
-\end_layout
-
-\begin_layout Standard
-TODO?
 \end_layout
 
 \begin_layout Subsection
@@ -5868,7 +5738,7 @@ description "proprietary binary format in which data table files generated by th
 ).
  A no-cost proprietary program (
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 CardConvert
@@ -5878,7 +5748,7 @@ CardConvert
 
 
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset CommandInset href
@@ -5921,11 +5791,11 @@ description "the only date and time representation that should ever be used to s
 
 
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Flex URL
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -5960,7 +5830,7 @@ Also, they are anchored at the end of intervals.
 Example: data recorded from 13:00:00.00 to 13:29:59.90 (inclusive) is processed.
  The timestamp value will be 
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Quotes eld
@@ -5998,7 +5868,7 @@ In all cases, null values (NAN) are excluded from the resultant value
 \begin_layout Itemize
 Null values are (generally) indicated by the double-quoted text string 
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Quotes eld
@@ -6015,7 +5885,7 @@ NAN
 
 
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 In some cases, sentinel values may be used but the author has made effort
@@ -6110,7 +5980,7 @@ Record
 \begin_layout Plain Layout
 Capacity (# records)
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 If not specified, table size is automatically allocated based on available
@@ -6159,7 +6029,7 @@ name
 \begin_layout Plain Layout
 interval 
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Anchored at midnight
@@ -6262,7 +6132,7 @@ info
 
 \begin_layout Plain Layout
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 At program start-up and whenever settings are modified
@@ -6683,12 +6553,12 @@ degEofN
 \begin_layout Plain Layout
 median magnetic variation
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 This value is 
 \begin_inset Flex Strong
-status collapsed
+status open
 
 \begin_layout Plain Layout
 not
@@ -6841,7 +6711,7 @@ m
 \begin_layout Plain Layout
 mean altitude in meters
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Included for comparative purposes only.
@@ -7487,7 +7357,7 @@ height of sonic/IRGA midpoint relative to the surface
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -7537,7 +7407,7 @@ orientation of first optional CSAT3
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -7587,7 +7457,7 @@ height of first optional CSAT3 midpoint relative to the surface
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -7637,7 +7507,7 @@ orientation of second optional CSAT3
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -7715,12 +7585,12 @@ degEofTN
 \begin_layout Plain Layout
 orientation of the weather transmitter
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 This value is 
 \begin_inset Flex Strong
-status collapsed
+status open
 
 \begin_layout Plain Layout
 not
@@ -7730,7 +7600,7 @@ not
 
  applied to wind measurements in the 
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 ts_wxt
@@ -8621,7 +8491,7 @@ key "manual-ec100"
 flush_* These values may be used in conjunction with the manufacturer-specified
  standard temperature and pressure available in the 
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 info
@@ -9561,7 +9431,7 @@ linewidth}{signal strength values nominally 0-1; typically >0.95 under good
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -9611,7 +9481,7 @@ m/s
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -9669,7 +9539,7 @@ orthogonal (right-handed) to
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -9719,7 +9589,7 @@ m/s
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -9770,7 +9640,7 @@ sonic temperature (approx.
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -9820,7 +9690,7 @@ diagnostic word
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -9870,7 +9740,7 @@ m/s
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -9928,7 +9798,7 @@ orthogonal (right-handed) to
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -9978,7 +9848,7 @@ m/s
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -10029,7 +9899,7 @@ sonic temperature (approx.
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -10228,7 +10098,7 @@ wxt_WD Wind direction is reported with respect to the sensor's coordinate
  are stored in this table with no adjustments for the sensor's orientation.
  If the azimuth recorded in the 
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 info
@@ -10725,7 +10595,7 @@ FIS_flow_std_Avg/Std These values exclude measurements taken while the standard
  is not flowing (e.g.
  
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 FIS_std_ON=0
@@ -10740,7 +10610,7 @@ FIS_std_ON=0
 wxt*_Med Both wind direction and relative humidity are summarized using
  the median value since the arithmetic mean (
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Average
@@ -10790,7 +10660,7 @@ flush_delay* These values are based on instantaneous flush delay, which
  tube volume.
  This volume is simply the 
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 flush_tube_length
@@ -10800,7 +10670,7 @@ flush_tube_length
 
  (specified under 
 \begin_inset Flex MenuItem
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Settings
@@ -12293,7 +12163,7 @@ mean signal quality for water vapor
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -12343,7 +12213,7 @@ mean sonic temperature
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -12393,7 +12263,7 @@ standard deviation of sonic temperature
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -12443,7 +12313,7 @@ standard deviation of vertical wind speed
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -12493,7 +12363,7 @@ mean horizontal scalar wind speed
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -12543,7 +12413,7 @@ mean horizontal vector wind speed
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -12593,7 +12463,7 @@ resultant mean wind direction
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -12643,7 +12513,7 @@ standard deviation of wind direction
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -12693,7 +12563,7 @@ mean sonic temperature
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -12743,7 +12613,7 @@ standard deviation of sonic temperature
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -12793,7 +12663,7 @@ standard deviation of vertical wind speed
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -12843,7 +12713,7 @@ mean horizontal scalar wind speed
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -12893,7 +12763,7 @@ mean horizontal vector wind speed
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -12943,7 +12813,7 @@ resultant mean wind direction
 
 \begin_layout Plain Layout
 \begin_inset ERT
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -13137,7 +13007,7 @@ CR3000 Measurement and Control System Operator's Manual
  Rev 5/13.
  Online: 
 \begin_inset Flex URL
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -13165,7 +13035,7 @@ CSAT3 Three Dimensional Sonic Anemometer Instruction Manual.
  Rev 11/07.
  Online: 
 \begin_inset Flex URL
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -13194,7 +13064,7 @@ EC150 CO2 and H2O Open-Path Gas Analyzer and EC100 Electronics with Optional
  Rev 3/11.
  Online: 
 \begin_inset Flex URL
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -13269,7 +13139,7 @@ GTProdMgr [Campbell Scientific Inc.].
  RE: How to receive Binary or Hex data? [Online forum].
  Retrieved 2014-03-27 from 
 \begin_inset Flex URL
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -13280,6 +13150,16 @@ http://campbellsci.com/forum/messages.cfm?threadid=8A4BA2C6-E916-4AED-1BAAD18506
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "manual-fis"
+
+\end_inset
+
+Hills Scientific.
 \end_layout
 
 \begin_layout Bibliography
@@ -13300,7 +13180,7 @@ General Purpose Thermal Mass Flowmeter Model 4040/4043/4045 Operation and
  September 2013.
  Online: 
 \begin_inset Flex URL
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -13331,7 +13211,7 @@ General Purpose Thermal Mass Flowmeters TSI Series 4000/4100 RS232 Serial
  October 2013.
  Online: 
 \begin_inset Flex URL
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -13362,7 +13242,7 @@ Standard Flow Rate vs.
  December 2001.
  Online: 
 \begin_inset Flex URL
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -13418,7 +13298,7 @@ Wikipedia, The Free Encyclopedia
  2014-05-07 10:35 UTC.
  Online: 
 \begin_inset Flex URL
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -13455,7 +13335,7 @@ Wikipedia, The Free Encyclopedia
  2014-05-13 19:43 UTC.
  Online: 
 \begin_inset Flex URL
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -13520,7 +13400,7 @@ Wikipedia, The Free Encyclopedia
  2014-05-14 04:13 UTC.
  Online: 
 \begin_inset Flex URL
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
@@ -13583,7 +13463,7 @@ key "manual-ec100"
 placement h
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -13841,7 +13721,7 @@ After updating the unit address(es):
 \begin_layout Enumerate
 Enable the sensor(s) and update the corresponding address within the 
 \begin_inset Flex MenuItem
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Initial Setup
@@ -13856,7 +13736,7 @@ Initial Setup
 \begin_layout Enumerate
 Specify the corresponding azimuth(s) and mounting height(s) within the 
 \begin_inset Flex MenuItem
-status collapsed
+status open
 
 \begin_layout Plain Layout
 FIS settings
@@ -13875,7 +13755,7 @@ Weather Transmitter (WXT510)
 The WXT510 has been previously configured to support measurements using
  the 
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 SDIRecorder
@@ -13912,7 +13792,7 @@ The flowmeter operates under factory-default settings with the sole exception
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -13955,7 +13835,7 @@ Sample Rate
 
 \begin_layout Plain Layout
 \begin_inset Flex Strikeout
-status collapsed
+status open
 
 \begin_layout Plain Layout
 10ms
@@ -14123,7 +14003,7 @@ reference "tab:default-settings-gps"
 \begin_inset Float table
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset Caption Standard
@@ -14493,7 +14373,7 @@ width "100col%"
 special "none"
 height "1in"
 height_special "totalheight"
-status collapsed
+status open
 
 \begin_layout Plain Layout
 For a complete listing of the program source code, refer to Appendix 
@@ -14573,7 +14453,7 @@ Other notes:
 The PMT is rather finicky about the commands it receives.
  For instance, when setting the integration time with the 
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 P
@@ -14596,7 +14476,7 @@ The PMT will not choke on the command to start continuous acquisition if
 \begin_layout Itemize
 The correct value for the format argument of the CRBasic 
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 SerialOpen
@@ -14606,7 +14486,7 @@ SerialOpen
 
  instruction is 
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 3
@@ -14621,7 +14501,7 @@ status collapsed
 
  the datalogger will not silently drop null (
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 0x00
@@ -14643,7 +14523,7 @@ nt bit is set to 1.
  To convert the received (string) data into a numeric value, the bytes are
  loaded into a variable of type Long using the 
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 MoveBytes
@@ -14739,7 +14619,7 @@ Because the ack is not reliably ahead of the data record it cannot be used
  as a beginning-of-record delimiter for use with the preferred CRBasic instructi
 on 
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 SerialInRecord
@@ -14763,7 +14643,7 @@ The data values are a variable number of characters in length.
 The flowmeter must therefore be queried for binary records, which have a
  consistent length and structure: a single null (
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 0x00
@@ -14773,7 +14653,7 @@ status collapsed
 
 ) byte, (3) 2-byte data values and a trailing delimiter of two bytes (
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 0xFFFF
@@ -14794,13 +14674,13 @@ status collapsed
 To convert each 2-byte data word to a decimal value, the bytes are loaded
  into a 4-byte Long variable (paying attention to endianness
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The CR3000 is big-endian so in practical terms, this means specifying an
  offset of 2-bytes into destination variables when using the 
 \begin_inset Flex Code
-status collapsed
+status open
 
 \begin_layout Plain Layout
 MoveBytes
@@ -14831,12 +14711,12 @@ key "forum-binary-serial,helpfile-movebytes"
 
 ) is added to the destination Long variable before scaling to decimal.
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 This is 
 \begin_inset Flex Emph
-status collapsed
+status open
 
 \begin_layout Plain Layout
 two's complement representation
@@ -14885,7 +14765,7 @@ status open
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -14924,7 +14804,7 @@ ASCII queries
 \begin_inset Float figure
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
@@ -15264,7 +15144,7 @@ Unit conversions
 \begin_layout Standard
 Units are
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Well, should be.
