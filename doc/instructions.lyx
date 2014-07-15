@@ -1762,22 +1762,13 @@ This device should be located as close as convenient to an access port (such
 \end_layout
 
 \begin_layout Itemize
-The PMT is rather sensitive to ambient temperature despite the above-ambient
- reaction cell temperature and 
-\begin_inset Quotes eld
-\end_inset
-
-engineered airflows
-\begin_inset Quotes erd
-\end_inset
-
- so the FIS must be located away from HVAC components, most especially air
- conditioners.
+The PMT sensitivity is dependent on ambient temperature so the FIS must
+ be located away from HVAC components, especially air conditioners.
 \end_layout
 
 \begin_layout Itemize
-External signals are provided by BNC fittings; the coaxial cables used have
- the convention red/signal (positive) and black/reference (ground).
+External signals are provided by BNC fittings; the provided coaxial cables
+ use the convention red/signal (positive) and black/reference (ground).
 \end_layout
 
 \begin_layout Subsection
@@ -1787,7 +1778,7 @@ Sonic/IRGA
 \begin_layout Standard
 It will not be possible to verify the sensors are adequately level once
  the boom is extended.
- Instead the sensors will be mounted to the boom as parallel as possible,
+ Instead the sensors will be mounted to the boom as orthogonal as possible,
  then the boom will be mounted as level as possible: 
 \end_layout
 
@@ -1797,7 +1788,7 @@ A unit.
 \end_layout
 
 \begin_layout Enumerate
-Attach the eyebolts for stabilizing cables to the boom.
+Attach the eyebolts and stabilizing cables to the boom.
 \end_layout
 
 \begin_layout Enumerate
@@ -1831,20 +1822,17 @@ height_special "totalheight"
 status open
 
 \begin_layout Plain Layout
-There is a known issue, confirmed with Campbell Scientific, which prevents
- the sonic/IRGA control unit (EC100) from completing it's power-up routine
- in moderately cold temperatures (
+There is a known, confirmed issue which prevents the sonic/IRGA control
+ unit (EC100) from completing it's power-up routine in moderately cold temperatu
+res (
 \begin_inset Formula $<\approx45\,^{\circ}F$
 \end_inset
 
 ).
  The unit will continue to operate should temperatures fall below the particular
- threshold but 
-\emph on
-it will not start cold
-\emph default
-.
- Keep the control unit indoors until ready to be powered on!
+ threshold but it will not start cold.
+ In cold weather, keep the control unit indoors until ready to be powered
+ on.
 \end_layout
 
 \end_inset
@@ -1857,9 +1845,8 @@ Sonics & weather transmitter
 \end_layout
 
 \begin_layout Standard
-It is not necessary to orient these devices with respect to True North so
- long as their azimuths are correctly recorded in the program settings (section
- 
+It is not necessary to orient these devices to True North so long as their
+ azimuths are correctly recorded in the program settings (section 
 \begin_inset CommandInset ref
 LatexCommand vref
 reference "sub:Program-Settings"
@@ -1867,6 +1854,53 @@ reference "sub:Program-Settings"
 \end_inset
 
 ).
+ Azimuths should be specified relative to True North since the program does
+ not make adjustments for magnetic declination.
+ If an azimuth is not specified, the info table will indicate 
+\begin_inset Formula $-1$
+\end_inset
+
+ and no real-time adjustments for the corresponding device are made.
+\end_layout
+
+\begin_layout Subsection
+Sonic/IRGA control box
+\end_layout
+
+\begin_layout Standard
+The data cable from the WXT510 is fed into the sonic/IRGA control box (EC100)
+ and the data is carried over an outdoor ethernet cable.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Feed these wires into enclosure through cable glands on bottom of unit:
+ power source (+12Vdc, G), CAT5e cable & WXT510 data cable
+\end_layout
+
+\begin_layout Enumerate
+Connect CAT5e wires to control box terminals according to wiring diagram
+\end_layout
+
+\begin_layout Enumerate
+Connect WXT510 power cables to corresponding control box terminals
+\end_layout
+
+\begin_layout Enumerate
+Connect CAT5e & WXT510 data wires using euro-terminals
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+GET A PICTURE!
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -1932,7 +1966,7 @@ FIS PMT
 \begin_inset Quotes erd
 \end_inset
 
-
+ using conventional (straight-through) serial cable
 \end_layout
 
 \begin_layout Enumerate
@@ -1944,7 +1978,7 @@ Flow meter
 \begin_inset Quotes erd
 \end_inset
 
-
+ using black labeled cable
 \end_layout
 
 \begin_layout Enumerate
@@ -1958,7 +1992,8 @@ Connect remaining FIS data/control lines to datalogger terminals as indicated
 \end_layout
 
 \begin_layout Enumerate
-Connect outdoor ethernet cable to industrial surge protection unit
+Connect outdoor ethernet cable to industrial surge protection unit using
+ patch cable
 \end_layout
 
 \begin_layout Enumerate
