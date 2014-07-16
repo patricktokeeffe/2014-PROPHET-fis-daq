@@ -17065,7 +17065,7 @@ Future Work
 \end_layout
 
 \begin_layout Standard
-Some specific improvements for future versions:
+Some specific improvements for future versions of the datalogger program:
 \end_layout
 
 \begin_layout Itemize
@@ -17146,8 +17146,23 @@ OR add new 10Hz variable of counts * sensitivity, then calculate average
 \end_deeper
 \end_deeper
 \begin_layout Itemize
+Provide access to the settings table via the public table.
+ Should expose variables tied to the menu and require users to change a
+ variable to trigger data validation/activation routine
+\end_layout
+
+\begin_layout Standard
+Other improvements include:
+\end_layout
+
+\begin_layout Itemize
 Add relay between ozonizer and power source so datalogger can shut off ozonizer
  if ozone flow is near-zero
+\end_layout
+
+\begin_layout Itemize
+position a usb webcam on the oxygen dewar so the gage can be seen by remote
+ personnel
 \end_layout
 
 \begin_layout Standard
