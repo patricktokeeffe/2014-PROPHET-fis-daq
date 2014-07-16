@@ -477,10 +477,25 @@ http://www.git-scm.org
 \end_inset
 
  repository.
- A bare, semi-public respository will be hosted on the WSU intranet at an
- address to-be-determined.
- (But we won't advertise the address to avoid invoking the wrath of network
- administrators -- contact the author if you desire access.) 
+ See 
+\emph on
+
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sub:Contributing"
+
+\end_inset
+
+
+\emph default
+ 
+\begin_inset CommandInset ref
+LatexCommand vpageref
+reference "sub:Contributing"
+
+\end_inset
+
+.
 \end_layout
 
 \end_inset
@@ -14750,6 +14765,199 @@ reference "sec:Program-Source-Code"
 \end_inset
 
 .
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Contributing
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Contributing"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Individuals are welcome to make contributions (and reuse materials).
+ The source files for the datalogger program, this file, and the various
+ data file processing scripts are maintained in a Git
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://git-scm.org
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ repository, hosted on the WSU
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+prefix "WSU"
+symbol "WSU"
+description "Washington State University"
+
+\end_inset
+
+ intranet.
+ 
+\end_layout
+
+\begin_layout Itemize
+Source: 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://lar-d216-share.cee.wsu.edu:8080/repos/git/pokeeffe/2014-prophet-fis-daq
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Data (read only): 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+ftp://lar-d216-share.cee.wsu.edu:1021/proj/2014_PROPHET/fis_data/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Both locations can be visited anonymously from on or off the WSU campus.
+ Visiting the source requires the 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+https
+\end_layout
+
+\end_inset
+
+ protocol and will likely trigger a security warning about the self-signed
+ certificate.
+ At most locations on-campus, the port numbers may be omitted.
+\end_layout
+
+\begin_layout Subsubsection*
+Software recommendations
+\end_layout
+
+\begin_layout Standard
+For working with the files in this repository, the following software is
+ recommended.
+ During field deployment, additional software is used for data management
+ (XXXX).
+\end_layout
+
+\begin_layout Description
+GitExtensions This is an excellent graphical Git interface and is recommended
+ for Windows users.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://code.google.com/p/gitextensions/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+CRBasic
+\begin_inset space \space{}
+\end_inset
+
+Editor For editing the datalogger program file.
+ Though not necessary, this program does provide syntax highlighting, a
+ pre-compiler and other niceties.
+ Only available through the PC400 or LoggerNet software packages.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://campbellsci.com/datalogger-software
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+Lyx Used to compose this document.
+ This program uses 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+LaTeX~
+\end_layout
+
+\end_inset
+
+as its back-end and is free, open source software.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.lyx.org
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+Python Data file processing scripts are written in Python, the highly-readable
+ scripting language.
+ The author recommends the WinPython package.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://winpython.sourceforge.net/
 \end_layout
 
 \end_inset
