@@ -13759,7 +13759,7 @@ A laptop computer is positioned adjacent to the FIS and datalogger enclosure.
 \end_layout
 
 \begin_layout Paragraph
-Software utilized
+Software
 \end_layout
 
 \begin_layout Description
@@ -14028,6 +14028,56 @@ Enable the built-in Windows firewall but leave holes for reasonable exceptions
 \begin_layout Itemize
 Under networking configuration, disable IPV6 (this may not be strictly necessary
  but might be useful depending on local network setup)
+\end_layout
+
+\begin_layout Paragraph
+Scheduled data collection
+\end_layout
+
+\begin_layout Standard
+LoggerNet is setup to automatically collect the latest data from 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+gps_daily
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+info
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+ts_wxt
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+stats
+\end_layout
+
+\end_inset
+
+ data tables and append it to existing files.
+ Files exist in the 'Scheduled collect data' folder on the desktop.
+ Collection occurs every half-hour at 0:11 and 0:41 after the hour.
 \end_layout
 
 \begin_layout Paragraph
@@ -14743,8 +14793,14 @@ Server (at WSU campus)
 \end_layout
 
 \begin_layout Standard
-A server located on the WSU campus provides an SFTP server to receive the
- binary data files
+A server located on the WSU campus provides an SFTP server, among other
+ services.
+ After transferring the binary data files from the latest CF memory card
+ to the laptop at the monitoring site, 
+\end_layout
+
+\begin_layout Paragraph
+Software
 \end_layout
 
 \begin_layout Description
@@ -14752,7 +14808,11 @@ TightVNC
 \begin_inset space \space{}
 \end_inset
 
-Viewer for remote access
+(Viewer) The viewer component of this package is used to remotely connect
+ to the laptop at the monitoring site.
+ After initial connection, the settings can be saved to file for distribution.
+ Such files should not be posted anywhere public such as FTP sites.
+ 
 \end_layout
 
 \begin_layout Description
@@ -14760,15 +14820,106 @@ SFTP
 \begin_inset space \space{}
 \end_inset
 
-server or equivalent service
+server Setup of the SFTP server is beyond the scope of this document.
+ Public key authentication is used instead of password-based login.
 \end_layout
 
 \begin_layout Description
-CardConvert binary to plain-text data conversion
+CardConvert This program is provided with all Campbell Scientific bundles
+ including the no-cost PC200W
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://campbellsci.com/pc200w
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ for converting files from binary (TOB3) format to readable comma-seperated
+ values (TOA5).
 \end_layout
 
 \begin_layout Description
-Python use WinPython
+Python Data processing scripts are written in Python.
+ The author recommends the WinPython package with Python 2.7.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://winpython.sourceforge.net/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+WinMD5 This no-cost program is used to verify file transfers.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://winmd5.com/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Configuration
+\end_layout
+
+\begin_layout Paragraph
+Scheduled data collection
+\end_layout
+
+\begin_layout Standard
+LoggerNet is setup to collect data every half-hour, staggered to occur at
+ 0:15 and 0:45 after the hour.
+ Files are stored in the default location and a script copies the updated
+ file to the 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+L0_telemetry
+\end_layout
+
+\end_inset
+
+ subfolder of the public data space.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO: how to activate a public key for SFTP server -- naming after user,
+ placing in specific folder
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
