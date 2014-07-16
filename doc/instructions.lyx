@@ -117,7 +117,7 @@ End
 \output_sync 0
 \bibtex_command default
 \index_command default
-\float_placement h
+\float_placement H
 \paperfontsize default
 \spacing single
 \use_hyperref true
@@ -3548,6 +3548,10 @@ info
  data provenance.
 \end_layout
 
+\begin_layout Subsubsection*
+Setting descriptions
+\end_layout
+
 \begin_layout Description
 Sonic
 \begin_inset space \space{}
@@ -5177,6 +5181,246 @@ Yes
 </cell>
 </row>
 </lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Calibration routine
+\end_layout
+
+\begin_layout Standard
+The FIS has an internal timer for scheduling periodic calibration events
+ but it was found advantageous to initiate these events using the datalogger
+ instead.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:Example-FIS-calibration"
+
+\end_inset
+
+ illustrates a calibration event with control signals (
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+FIS_std_ON
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+FIS_zero_ON
+\end_layout
+
+\end_inset
+
+) and filter flag (
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+FIS_cal_filter
+\end_layout
+
+\end_inset
+
+) overlaid on the signal from the FIS PMT (
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+FIS_pmt_counts
+\end_layout
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Standard
+The calibration has three sequential phases: (1) zero or baseline response;
+ (2) zero mode plus calibration standard; (3) sample plus calibration standard.
+ The length of each phase in 
+\begin_inset Flex Strong
+status collapsed
+
+\begin_layout Plain Layout
+minutes
+\end_layout
+
+\end_inset
+
+ is specified by 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Zero
+\backslash
+Z/S
+\backslash
+Std
+\begin_inset space \space{}
+\end_inset
+
+duration
+\end_layout
+
+\end_inset
+
+, respectfully, under the 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Gradient
+\begin_inset space \space{}
+\end_inset
+
+settings\SpecialChar \menuseparator
+FIS
+\begin_inset space \space{}
+\end_inset
+
+calibration
+\end_layout
+
+\end_inset
+
+ menu
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+For PROPHET 2014, there is no phase 3 (duration = 0).
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+At the beginning of each phase, the filter flag is enabled for the length
+ of time in 
+\begin_inset Flex Strong
+status collapsed
+
+\begin_layout Plain Layout
+seconds
+\end_layout
+
+\end_inset
+
+ specified by 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Gradient
+\begin_inset space \space{}
+\end_inset
+
+settings\SpecialChar \menuseparator
+FIS
+\begin_inset space \space{}
+\end_inset
+
+calibration\SpecialChar \menuseparator
+Start
+\begin_inset space \space{}
+\end_inset
+
+filter
+\end_layout
+
+\end_inset
+
+.
+ The filter flag is enabled again prior to the end of the phase for the
+ duration of time in 
+\begin_inset Flex Strong
+status collapsed
+
+\begin_layout Plain Layout
+seconds
+\end_layout
+
+\end_inset
+
+ specified by 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Gradient
+\begin_inset space \space{}
+\end_inset
+
+settings\SpecialChar \menuseparator
+FIS
+\begin_inset space \space{}
+\end_inset
+
+calibration\SpecialChar \menuseparator
+End
+\begin_inset space \space{}
+\end_inset
+
+filter
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/fis_cal_event.png
+	lyxscale 50
+	width 100line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Example FIS calibration event
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Example-FIS-calibration"
+
+\end_inset
+
+
+\end_layout
 
 \end_inset
 
@@ -14963,11 +15207,9 @@ Binary queries
 \end_layout
 
 \begin_layout Plain Layout
-
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
 \begin_inset Argument 1
 status open
 
@@ -14977,8 +15219,6 @@ Typical Model 4043 RS-232 data
 
 \end_inset
 
-
-\lang english
 Typical RS-232 records from TSI Model 4043 flowmeter.
  Queries are shown in green and reponses in yellow
 \begin_inset CommandInset label
