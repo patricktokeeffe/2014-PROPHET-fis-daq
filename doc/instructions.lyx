@@ -13735,7 +13735,7 @@ https://en.wikipedia.org/w/index.php?title=Viscosity&oldid=608493993
 
 \begin_layout Section
 \start_of_appendix
-Initial Sensor Configuration
+Configuration Reference
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:Initial-Sensor-Configuration"
@@ -13746,12 +13746,1050 @@ name "sec:Initial-Sensor-Configuration"
 \end_layout
 
 \begin_layout Subsection
+Laptop computer (at monitoring site)
+\end_layout
+
+\begin_layout Standard
+A laptop computer is positioned adjacent to the FIS and datalogger enclosure.
+ It provides on-site scheduled collection of non-high-frequency data tables
+ and facilitates transfer of the data off the memory card at the monitoring
+ site.
+ An electronic logbook is maintained on the laptop as well.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Software utilized
+\end_layout
+
+\begin_layout Description
+LoggerNet
+\begin_inset space \space{}
+\end_inset
+
+(4.1) This is the lowest-tier software provided by Campbell Scientific capable
+ of scheduled collections.
+ It is used to collect most data tables (not 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+ts_fast
+\end_layout
+
+\end_inset
+
+) many times each day.
+ 
+\end_layout
+
+\begin_layout Description
+TightVNC
+\begin_inset space \space{}
+\end_inset
+
+(Server) Remote access to the laptop is provided by this software (just
+ the server, installed as a service).
+ Requires access through firewall.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://tightvnc.com
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+PuTTY The PuTTY Pageant agent provides public key authentication for access
+ to the SFTP
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+prefix "SFTP"
+symbol "SFTP"
+description "secure file transfer protocol, entirely seperate from FTP (file transfer protocol); provides contemporary-grade encryption during login and transfer of files"
+
+\end_inset
+
+ server at WSU.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.putty.org
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+FileZilla
+\begin_inset space \space{}
+\end_inset
+
+Client This popular, open-source file transfer client is used to push data
+ files to the SFTP server at WSU.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://filezilla-project.org
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+AutoLogon/AutoRuns These are components of the SysinternalSuite.
+ AutoLogon is used to ensure the data acquisition user is logged in so software
+ which cannot run as a proper service (e.g.
+ LoggerNet) are automatically (re)started.
+ 
+AutoRuns is used to examine all the programs scheduled to run at start-up.
+ 
+\lang english
+
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://technet.microsoft.com/en-us/sysinternals/bb842062.aspx
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+TSI
+\begin_inset space \space{}
+\end_inset
+
+flowmeter
+\begin_inset space \space{}
+\end_inset
+
+(1.2) This portable program communicates with the TSI flow meter via RS-232
+ (serial) and aids setting configuration parameters.
+\end_layout
+
+\begin_layout Description
+hMailServer Emails from the datalogger and processing scripts
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+In trial runs, DeltaCopy was used to transfer some data files but it was
+ tremendously slow and it's email alerts did not work consistently.
+\end_layout
+
+\end_inset
+
+ are routed through this software to a Gmail address.
+ 
+Requires access through firewall.
+ 
+\lang english
+
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://hmailserver.com
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+WinMD5 This no-cost program is used to verify file transfers.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://winmd5.com/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Configuration
+\end_layout
+
+\begin_layout Itemize
+The field laptop is operated under a completely new user account with elevated
+ user rights.
+ AutoLogons is used to ensure the user remains logged in even if the machine
+ is restarted.
+ 
+\end_layout
+
+\begin_layout Itemize
+LoggerNet must be added to the start-up list by adding a shortcut in the
+ Startup folder.
+\end_layout
+
+\begin_layout Itemize
+Launch AutoRuns with elevated priveleges and disable services known to be
+ unnecessary (such as fax manager, support software for hardware which is
+ not present, sidebar gadgets if not used)
+\end_layout
+
+\begin_layout Itemize
+Disable clock adjustment for daylight-savings time so the laptop represents
+ the same UTC offset as the datalogger
+\end_layout
+
+\begin_layout Itemize
+Under the laptop BIOS\SpecialChar \menuseparator
+Settings\SpecialChar \menuseparator
+Power Management menu, set 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Wake
+\begin_inset space \space{}
+\end_inset
+
+on
+\begin_inset space \space{}
+\end_inset
+
+AC
+\end_layout
+
+\end_inset
+
+ to 
+\emph on
+Enabled
+\emph default
+ and 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Auto
+\begin_inset space \space{}
+\end_inset
+
+On
+\begin_inset space \space{}
+\end_inset
+
+Time
+\end_layout
+
+\end_inset
+
+ to 
+\emph on
+8:00 AM everyday
+\emph default
+.
+\end_layout
+
+\begin_layout Itemize
+Adjust the power settings to: not sleep while plugged in; never turn off
+ display; and disable screensaver.
+ 
+\end_layout
+
+\begin_layout Itemize
+Enable the built-in Windows firewall but leave holes for reasonable exceptions
+ (such as Core networking; TeamViewer; TightVNC; hMailServer, Antivirus
+ updater)
+\end_layout
+
+\begin_layout Itemize
+Under networking configuration, disable IPV6 (this may not be strictly necessary
+ but might be useful depending on local network setup)
+\end_layout
+
+\begin_layout Paragraph
+Setting up hMailServer
+\end_layout
+
+\begin_layout Enumerate
+Install following package defaults, then launch the administrative interface
+\end_layout
+
+\begin_layout Enumerate
+Under 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Getting started
+\end_layout
+
+\end_inset
+
+, press 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Add domain\SpecialChar \ldots{}
+
+\end_layout
+
+\end_inset
+
+, then set 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+General\SpecialChar \menuseparator
+Domain
+\end_layout
+
+\end_inset
+
+ to static, public IP address of local machine and 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Save
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+On 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Accounts
+\end_layout
+
+\end_inset
+
+ page, press 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Add\SpecialChar \ldots{}
+
+\end_layout
+
+\end_inset
+
+, then set 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Address
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Password
+\end_layout
+
+\end_inset
+
+ to credentials specified in datalogger program and 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Save
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Navigate to 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Settings\SpecialChar \menuseparator
+Protocols
+\end_layout
+
+\end_inset
+
+, then disable both 'POP3' and 'IMAP' and 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Save
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Navigate to 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Settings\SpecialChar \menuseparator
+Protocols\SpecialChar \menuseparator
+SMTP
+\end_layout
+
+\end_inset
+
+, then switch to 'Delivery of e-mail' tab
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Set 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Local
+\begin_inset space \space{}
+\end_inset
+
+host
+\end_layout
+
+\end_inset
+
+ name to static, public IP address of local machine
+\end_layout
+
+\begin_layout Enumerate
+Set 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Remote
+\begin_inset space \space{}
+\end_inset
+
+host
+\begin_inset space \space{}
+\end_inset
+
+name
+\end_layout
+
+\end_inset
+
+ & 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Remote
+\begin_inset space \space{}
+\end_inset
+
+TCP/IP
+\end_layout
+
+\end_inset
+
+ port to match relay settings 
+\end_layout
+
+\begin_layout Enumerate
+Enable 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Server requires authentication
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Set 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+User
+\begin_inset space \space{}
+\end_inset
+
+name
+\end_layout
+
+\end_inset
+
+ & 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Password
+\end_layout
+
+\end_inset
+
+ to valid relay account credentials; often, user name includes the domain
+ portion (e.g.
+ example@gmail.com)
+\end_layout
+
+\begin_layout Enumerate
+Enable 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Use
+\begin_inset space \space{}
+\end_inset
+
+SSL
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Save
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Navigate to 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Settings\SpecialChar \menuseparator
+Logging
+\end_layout
+
+\end_inset
+
+, then enable 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Enabled
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Application
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+SMTP
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Save
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Navigate to 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Settings\SpecialChar \menuseparator
+Advanced\SpecialChar \menuseparator
+IP
+\begin_inset space \space{}
+\end_inset
+
+Ranges
+\end_layout
+
+\end_inset
+
+, then press 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Add\SpecialChar \ldots{}
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Set 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Name
+\end_layout
+
+\end_inset
+
+ to 
+\begin_inset Quotes eld
+\end_inset
+
+Datalogger
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Set 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Priority
+\end_layout
+
+\end_inset
+
+ to 15
+\end_layout
+
+\begin_layout Enumerate
+Set both 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Lower IP
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Upper IP
+\end_layout
+
+\end_inset
+
+ to the static IP address of datalogger
+\end_layout
+
+\begin_layout Enumerate
+Disable 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+POP3
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+IMAP
+\end_layout
+
+\end_inset
+
+ under 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Allowed connections
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Save
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Navigate to 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Settings\SpecialChar \menuseparator
+Advanced\SpecialChar \menuseparator
+IP
+\begin_inset space \space{}
+\end_inset
+
+Ranges\SpecialChar \menuseparator
+Internet
+\end_layout
+
+\end_inset
+
+, then disable 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+SMTP
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+POP3
+\end_layout
+
+\end_inset
+
+, and 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+IMAP
+\end_layout
+
+\end_inset
+
+ under 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Allowed connections
+\end_layout
+
+\end_inset
+
+, and 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Save
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Navigate to 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Settings\SpecialChar \menuseparator
+Advanced\SpecialChar \menuseparator
+IP
+\begin_inset space \space{}
+\end_inset
+
+Ranges\SpecialChar \menuseparator
+My computer
+\end_layout
+
+\end_inset
+
+, then disable 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+SMTP
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+POP3
+\end_layout
+
+\end_inset
+
+, and 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+IMAP
+\end_layout
+
+\end_inset
+
+ under 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Allowed connections
+\end_layout
+
+\end_inset
+
+, and 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Save
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Navigate to 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Settings\SpecialChar \menuseparator
+Advanced\SpecialChar \menuseparator
+TCP/IP ports\SpecialChar \menuseparator
+0.0.0.0/25/SMTP
+\end_layout
+
+\end_inset
+
+, then modify the TCP/IP port from it's default value and 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Save
+\end_layout
+
+\end_inset
+
+.
+ Agree to restart the server.
+\end_layout
+
+\begin_layout Enumerate
+Exit the hMailServer administrative interface.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Add a Windows Firewall exception for 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+<INSTALL DIR>
+\backslash
+Bin
+\backslash
+hmailserver.exe
+\end_layout
+
+\end_inset
+
+ and restrict it's scope to localhost and the IP address of the datalogger.
+\end_layout
+
+\begin_layout Paragraph
+SFTP credentials
+\end_layout
+
+\begin_layout Standard
+Public key authentication
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://en.wikipedia.org/wiki/Public-key_cryptography
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ is used to gain write-access to the SFTP server on the WSU campus.
+ After creating a public-private key pair (below) and placing a copy of
+ the public key on the SFTP server, the login is handled silently by the
+ PuTTY Pageant agent.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Server (at WSU campus)
+\end_layout
+
+\begin_layout Standard
+A server located on the WSU campus provides an SFTP server to receive the
+ binary data files
+\end_layout
+
+\begin_layout Description
+TightVNC
+\begin_inset space \space{}
+\end_inset
+
+Viewer for remote access
+\end_layout
+
+\begin_layout Description
+SFTP
+\begin_inset space \space{}
+\end_inset
+
+server or equivalent service
+\end_layout
+
+\begin_layout Description
+CardConvert binary to plain-text data conversion
+\end_layout
+
+\begin_layout Description
+Python use WinPython
+\end_layout
+
+\begin_layout Subsection
 Datalogger (CR3000)
 \end_layout
 
 \begin_layout Standard
 The datalogger has minimal configuration requirements related to it's network
- interface.
+ interface
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+The configuration used during the 2014 PROPHET campaign is on-file with
+ the author.
+ 
+\end_layout
+
+\end_inset
+
+.
  Using the manufacturer-provided configuration software (DevConfig):
 \end_layout
 
@@ -13771,32 +14809,6 @@ Specify the static IP address, netmask, and DNS servers provided by UMBS.
 \begin_layout Itemize
 Add a level one security code to prevent inadvertent changes to the FIS
  DAQ system.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Box Shadowbox
-position "t"
-hor_pos "c"
-has_inner_box 1
-inner_pos "t"
-use_parbox 0
-use_makebox 0
-width "100col%"
-special "none"
-height "1in"
-height_special "totalheight"
-status open
-
-\begin_layout Plain Layout
-The IP address and level 1 security code of the datalogger, as well as the
- IP address of the DAQ laptop, used during the 2014 PROPHET campaign are
- on-file in a non-public location.
- 
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Subsection
