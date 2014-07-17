@@ -1039,14 +1039,14 @@ If used, the second and third sonic anemometer units are mounted at whatever
  cables are run down the tower to the datalogger enclosure in the permanent
  shelter.
  One euro-style terminal strip provides power from a 13.8Vdc power supply
- (2; 
+ [2; 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Enclosure-for-datalogger"
 
 \end_inset
 
-) and another provides access to the datalogger's SDM interface [7; 
+] and another provides access to the datalogger's SDM interface [7; 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:Enclosure-for-datalogger"
@@ -1911,6 +1911,91 @@ status open
 
 \begin_layout Plain Layout
 GET A PICTURE!
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Optional anemometers
+\end_layout
+
+\begin_layout Standard
+If one or both optional sonic anemometers are used, they should be mounted
+ first, then cables routed accordingly.
+ Both data and power cables are fed to the datalogger enclosure.
+\end_layout
+
+\begin_layout Enumerate
+Securely mount sonic anemometers in measurement location; route both data
+ and power cables to datalogger enclosure
+\end_layout
+
+\begin_layout Enumerate
+Connect power cables to 13.8Vdc power supply terminals [2; figure 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "fig:Enclosure-for-datalogger"
+
+\end_inset
+
+]
+\end_layout
+
+\begin_layout Enumerate
+Connect data cables to SDM terminal break-out (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:SDM-terminal-break-out"
+
+\end_inset
+
+) [7; 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Enclosure-for-datalogger"
+
+\end_inset
+
+]
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/sdm_breakout.jpg
+	lyxscale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+SDM terminal break-out for optional anemometers
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:SDM-terminal-break-out"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -13864,11 +13949,8 @@ AutoLogon/AutoRuns These are components of the SysinternalSuite.
  AutoLogon is used to ensure the data acquisition user is logged in so software
  which cannot run as a proper service (e.g.
  LoggerNet) are automatically (re)started.
+ AutoRuns is used to examine all the programs scheduled to run at start-up.
  
-AutoRuns is used to examine all the programs scheduled to run at start-up.
- 
-\lang english
-
 \begin_inset Flex URL
 status collapsed
 
@@ -13908,11 +13990,8 @@ In trial runs, DeltaCopy was used to transfer some data files but it was
 \end_inset
 
  are routed through this software to a Gmail address.
+ Requires access through firewall.
  
-Requires access through firewall.
- 
-\lang english
-
 \begin_inset Flex URL
 status collapsed
 
