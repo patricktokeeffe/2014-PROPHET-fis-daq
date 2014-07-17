@@ -17590,10 +17590,78 @@ position a usb webcam on the oxygen dewar so the gage can be seen by remote
 \end_layout
 
 \begin_layout Section
+Program Change Log
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Program-Change-Log"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This section reflects the contents of 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+../crbasic/CHANGELOG
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand verbatiminput
+filename "../crbasic/CHANGELOG"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
 Program Source Code
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:Program-Source-Code"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+In draft releases of this document, the source code in this appendix reflects
+ the current development version which may or may not be the version currently
+ running on the datalogger! 
+\end_layout
 
 \end_inset
 
