@@ -17318,6 +17318,12 @@ Add relay between ozonizer and power source so datalogger can shut off ozonizer
  if ozone flow is near-zero
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+Send an email alert as well when O2 runs out
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 position a usb webcam on the oxygen dewar so the gage can be seen by remote
  personnel
