@@ -1,26 +1,36 @@
 Next Version
 ============
 
-- Data type of `FIS_pmt_counts` in `ts_fast` table changes from FP2 (2 byte) to
-  IEEE4 (4 byte).
-- Redundant columns `LoggerSN` and `OSVersion` removed from `info` table; TOA5
-  header contains that info.
+### Issues fixed
+
 - Adjust time-series (15-sec) values from WXT510 (ts_wxt/wxt_WD) for azimuth
   prior to storage; began adjusting half-hour values in v1.1. For PROPHET 2014,
   makes no difference since device was aligned to True North.
+- Discard entire record from sonic/IRGA when signature error is indicated.
+  When signature error (Ux=-99999) was encountered, sonic disable flag was set
+  and Ux value stored as NAN; new behavior stores NAN for all values in marked
+  record.
+
+### Changes to data tables
+
+- Redundant columns `LoggerSN` and `OSVersion` removed from `info` table; TOA5
+  header contains that info.
+
+### Other changes
+
+- Data type of `FIS_pmt_counts` in `ts_fast` table changes from FP2 (2 byte) to
+  IEEE4 (4 byte).
 
 
 Version 1.1.2
 =============
 
-Hot fixes
----------
+### Hot fixes
 
 - Only increment calibration event counter once per event. 
 - Retain calibration event count across power cycles.
 
-Enhancements
-------------
+### Enhancements
 
 - Send email alert after program compilation with useful info: compile results,
   card status, program error count and watchdog error count
@@ -29,8 +39,7 @@ Enhancements
 Version 1.1.1
 =============
 
-Hot fixes
----------
+### Hot fixes
 
 - Remove duplicate variable declaration; not causing any apparent issues but
   still not correct.
@@ -42,8 +51,7 @@ Hot fixes
 Version 1.1
 ===========
 
-Issues resolved
----------------
+### Issues resolved
 
 - Flush tube delay time estimate calculation was corrected.
 - Reduced number of significant figures retained in mean barometric pressure
@@ -62,8 +70,7 @@ Issues resolved
 - Replace instances of -99999 with null value (NAN) in the case of `sonic1_Ux`.
 
 
-Enhancements
-------------
+### Enhancements
 
 - Adjust the half-hour WD values from weather transmitter (stats/wxt_WD_Med)
   to account for the device's orientation.
@@ -133,8 +140,7 @@ deleted from DAQ monitoring laptop prior to departure. Measurements were set
 in the program settings the morning of 2014-05-23 then program was restarted
 and began officially operating. 
 
-Known issues
-------------
+### Known issues
 
 - Flush tube delay time estimate calculation is inverted: divide 1 by value
   recorded in table (stats/flush_delay_Avg) to obtain correct delay estimate.

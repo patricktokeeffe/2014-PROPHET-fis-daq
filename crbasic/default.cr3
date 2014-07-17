@@ -995,17 +995,19 @@ BeginProg
     ExciteCAO(FIS_CTRL_STD_CAO,FIS_ctrl_std,True)
 
     EC100(sonic_irga(1),EC100_ADDR,EC100_CMD)
-    disable_sonic1 = sonic1_diag > 0
-    If (sonic1_Ux = -99999) Then 'HACK see changelog for v1.0.5, 1.1
+    If (sonic1_Ux = -99999) Then 'data signature error
       disable_sonic1 = True
-      sonic1_Ux = NAN
-    EndIf
-    disable_irga1 = irga1_diag > 0
-    If (irga1_CO2=NAN OR irga1_H2O=NAN) Then
       disable_irga1 = True
+      Move(sonic_irga(1),12,NAN,1)
     Else
-      irga1_CO2 /= MW_CO2 'mg/m^3 --> mmol/m^3
-      irga1_H2O *= (1000/MW_H2O) 'g/m^3 --> mmol/m^3
+      disable_sonic1 = sonic1_diag > 0
+      disable_irga1 = irga1_diag > 0
+      If (irga1_CO2=NAN OR irga1_H2O=NAN) Then
+        disable_irga1 = True
+      Else
+        irga1_CO2 /= MW_CO2 'mg/m^3 --> mmol/m^3
+        irga1_H2O *= (1000/MW_H2O) 'g/m^3 --> mmol/m^3
+      EndIf
     EndIf
 
     #If (SONIC2_ENABLED) Then

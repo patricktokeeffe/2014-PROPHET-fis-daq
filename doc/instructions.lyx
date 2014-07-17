@@ -16974,6 +16974,180 @@ EndProg
 \end_layout
 
 \begin_layout Subsection
+Design decisions
+\end_layout
+
+\begin_layout Standard
+In some cases, the design choices made may seem abritrary or confusing.
+ Indeed, they may be, but often there is a justification.
+ This (non-comprehensive) appendix reviews such choices.
+\end_layout
+
+\begin_layout Paragraph
+Ux = -99999 
+\end_layout
+
+\begin_layout Standard
+Shortly after deployment of the system, the half-hour wind statistics from
+ the sonic/IRGA were frequently seen to be null values (NAN) despite the
+ absence of diagnostic flags.
+ The cause was traced back to instances of 
+\begin_inset Formula $U_{x}=-99999$
+\end_inset
+
+ in the time-series data.
+ According to the manufacturer, 
+\begin_inset Formula $-99999$
+\end_inset
+
+ will be stored in the first destination variable (U
+\begin_inset script subscript
+
+\begin_layout Plain Layout
+x
+\end_layout
+
+\end_inset
+
+) if a data signature error occurs 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "manual-ec100"
+
+\end_inset
+
+.
+ In this case, other values may be present in the record but their integrity
+ is suspect.
+\end_layout
+
+\begin_layout Standard
+While such errors do not occur frequently, the sentinel value is sufficiently
+ large to skew results (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:bad-sonic-data"
+
+\end_inset
+
+).
+ The selected resolution is a simple value check which disables sonic/IRGA
+ data processing and sets the data record to NANs when detected (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lis:Handling-SDM-signature"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/sonic1_Ux_issue.png
+	lyxscale 50
+	width 85line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+-99999 values in anemometer data
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:bad-sonic-data"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language={[CR]Basic},numbers=none"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+Handling SDM signature errors from sonic/IRGA unit
+\begin_inset CommandInset label
+LatexCommand label
+name "lis:Handling-SDM-signature"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+    If (sonic1_Ux = -99999) Then 'data signature error
+\end_layout
+
+\begin_layout Plain Layout
+
+      disable_sonic1 = True
+\end_layout
+
+\begin_layout Plain Layout
+
+      disable_irga1 = True
+\end_layout
+
+\begin_layout Plain Layout
+
+      Move(sonic_irga(1),12,NAN,1)
+\end_layout
+
+\begin_layout Plain Layout
+
+    Else
+\end_layout
+
+\begin_layout Plain Layout
+
+      ...
+ 'continue with regular processing
+\end_layout
+
+\begin_layout Plain Layout
+
+    EndIf
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
 Unit conversions
 \end_layout
 
