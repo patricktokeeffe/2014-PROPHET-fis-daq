@@ -6292,7 +6292,7 @@ Summary of logger-generated data files
 \begin_layout Plain Layout
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="7" columns="5">
+<lyxtabular version="3" rows="8" columns="5">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="bottom" width="0pt">
 <column alignment="center" valignment="top" width="0pt">
@@ -6324,7 +6324,7 @@ Record
 \begin_layout Plain Layout
 Capacity (# records)
 \begin_inset Foot
-status open
+status collapsed
 
 \begin_layout Plain Layout
 If not specified, table size is automatically allocated based on available
@@ -6373,7 +6373,7 @@ name
 \begin_layout Plain Layout
 interval 
 \begin_inset Foot
-status open
+status collapsed
 
 \begin_layout Plain Layout
 Anchored at midnight
@@ -6476,7 +6476,7 @@ info
 
 \begin_layout Plain Layout
 \begin_inset Foot
-status open
+status collapsed
 
 \begin_layout Plain Layout
 At program start-up and whenever settings are modified
@@ -8686,6 +8686,565 @@ Signature of the current running program file including comments
 \end_layout
 
 \begin_layout Subsubsection
+just_cals
+\end_layout
+
+\begin_layout Standard
+This data file (table 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "tab:schema-just_cals"
+
+\end_inset
+
+) exists to facilitate evaluation of the FIS sensitivity before time-series
+ data on the memory card is available.
+ Data can be collected via telemetry several times daily and used for preliminar
+y analysis.
+ Later, after data is retrieved from the memory card, a more precise calculation
+ can be done.
+ 
+\end_layout
+
+\begin_layout Standard
+This table only contains those columns relevant to calculating the FIS response
+ and only has enough capacity for thirty minutes of 10 Hz data (approximately
+ 3 events for PROPHET 2014).
+ Data is retained in low-resolution formats (two-byte floating-point, two-byte
+ unsigned integer) to minimize record size.
+ Only calibration events are recorded.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Notes
+\end_layout
+
+\begin_layout Description
+FIS_flow_tot/std These are instantaneous values -- do not confuse with statistic
+al values, which have capitalized suffixes.
+\end_layout
+
+\begin_layout Description
+FIS_cal_filter A true (non-zero) value suggests the current PMT data should
+ be discarded because the current measurement falls within the filtered
+ time periods at the start and end of each calibration step (zero, both,
+ standard-only).
+ Refer to 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Start/End
+\begin_inset space \space{}
+\end_inset
+
+filter
+\end_layout
+
+\end_inset
+
+ under 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Settings\SpecialChar \menuseparator
+FIS
+\begin_inset space \space{}
+\end_inset
+
+Calibration
+\end_layout
+
+\end_inset
+
+ (§
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:Program-Settings"
+
+\end_inset
+
+) for more details.
+\end_layout
+
+\begin_layout Description
+FIS_cal_event The value in this column will increase sequentially after
+ each calibration event.
+ Filtering on this column is an efficient means of filtering by events.
+ 
+\begin_inset VSpace defskip
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100line%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Strong
+status collapsed
+
+\begin_layout Plain Layout
+Caveat for 2014 PROPHET:
+\end_layout
+
+\end_inset
+
+ prior to v1.1.2, a bug existed which caused this column to be incremented
+ multiple times during the first second of a calibration event.
+ After discarding data where 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+FIS_cal_filter
+\end_layout
+
+\end_inset
+
+ is true, events will still have unique values but values will not be monotonic.
+ 
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+After the bug was fixed (2014-06-13 20:24 EST) the event counter was reset
+ so when examining data straddling this point in time, beware of duplicates
+ in this column.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Data table schema: just_cals
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:schema-just_cals"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="9" columns="4">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Column name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Description
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+FIS_pmt_counts
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+counts
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+photon counts
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+FIS_flow_tot
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+sLpm
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+total flow through instrument
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+FIS_flow_O2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+sLpm
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+total O2 flow sent to ozonizer
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+FIS_flow_std
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+sLpm
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+amount of standard added to sample flow
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+FIS_zero_ON
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+activation status of FIS zero channel
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+FIS_std_ON
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+activation status of FIS standard channel
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+FIS_cal_filter
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+flag indicating suboptimal PMT data
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+8
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+FIS_cal_event
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+sequential event flag
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
 ts_fast 
 \end_layout
 
@@ -8710,9 +9269,8 @@ Notes
 \end_layout
 
 \begin_layout Description
-FIS_flow_tot/std Do not confuse the suffixes of these two columns with statistic
-al indicators, which will always be capitalized (Tot: total, Std: standard
- deviation).
+FIS_flow_tot/std These are instantaneous values -- do not confuse with statistic
+al values, which have capitalized suffixes.
  
 \end_layout
 
@@ -8729,6 +9287,10 @@ FIS_flow_std When no standard is flowing, this value may drift upwards from
 sccm) due to the effects of self-heating within the mass flow controller.
  Activating standard flow will correct the drift fairly rapidly (on the
  order of tens of seconds to minutes).
+\end_layout
+
+\begin_layout Description
+FIS_cal_filter See caveat under Notes in previous section.
 \end_layout
 
 \begin_layout Description
