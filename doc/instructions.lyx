@@ -1786,6 +1786,89 @@ External signals are provided by BNC fittings; the provided coaxial cables
  use the convention red/signal (positive) and black/reference (ground).
 \end_layout
 
+\begin_layout Paragraph
+Ozone generator
+\end_layout
+
+\begin_layout Standard
+The power cord for the ozone generator is plugged into a remotely-switched
+ AC outlet (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:switched-outlet"
+
+\end_inset
+
+) so the datalogger is able to shut off the device if low oxygen flow is
+ detected.
+\end_layout
+
+\begin_layout Enumerate
+Plug the ozone generator into the switched outlet [2]
+\end_layout
+
+\begin_layout Enumerate
+Connect the input signal cable [1] to the datalogger according to the wiring
+ diagram
+\end_layout
+
+\begin_layout Enumerate
+Plug the switched outlet into conventional line power (~110Vac)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/switched_outlet.jpg
+	lyxscale 50
+	width 50line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+Switched outlet for datalogger control of ozone generator
+\end_layout
+
+\end_inset
+
+Switched outlet for datalogger control of ozone generator: (1) control signal,
+ 3-32 Vdc; (2) switched outlet; (3) AC power supply; (4) local shutoff switch;
+ (5) fuse, 10A 250V
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:switched-outlet"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsection
 Sonic/IRGA
 \end_layout
@@ -2550,6 +2633,35 @@ zone Select the correct UTC offset for the time zone of the deployment location.
 \end_layout
 
 \begin_layout Description
+O2
+\begin_inset space \space{}
+\end_inset
+
+run
+\begin_inset space \space{}
+\end_inset
+
+mean Specify the duration in 
+\begin_inset Flex Strong
+status collapsed
+
+\begin_layout Plain Layout
+seconds
+\end_layout
+
+\end_inset
+
+ of the running mean of oxygen flow used to detect low flow conditions (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sub:Ozonizer-protection"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Description
 Use
 \begin_inset space \space{}
 \end_inset
@@ -2746,7 +2858,7 @@ name "tab:menu-InitialSetup"
 \begin_layout Plain Layout
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="7" columns="3">
+<lyxtabular version="3" rows="8" columns="3">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="left" valignment="top">
 <column alignment="center" valignment="top">
@@ -2822,6 +2934,112 @@ status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Formula $-8\leq X\leq-4$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+O2 run mean
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+15
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+5
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+10
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+15
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+30
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+60
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+120
+\end_layout
+
 \end_inset
 
 
@@ -3797,6 +4015,36 @@ feet
 \end_layout
 
 \begin_layout Description
+Min
+\begin_inset space \space{}
+\end_inset
+
+O2
+\begin_inset space \space{}
+\end_inset
+
+flow Select the threshold in 
+\begin_inset Flex Strong
+status collapsed
+
+\begin_layout Plain Layout
+sLpm
+\end_layout
+
+\end_inset
+
+ for low oxygen flow alerts/response (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "sub:Ozonizer-protection"
+
+\end_inset
+
+).
+ 
+\end_layout
+
+\begin_layout Description
 FIS
 \begin_inset space \space{}
 \end_inset
@@ -4176,7 +4424,7 @@ name "tab:menu-GradientSettings"
 \noindent
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="20" columns="4">
+<lyxtabular version="3" rows="21" columns="4">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="middle" width="0pt">
 <column alignment="left" valignment="top">
@@ -4221,7 +4469,7 @@ Possible options
 </cell>
 </row>
 <row>
-<cell multirow="3" alignment="center" valignment="middle" topline="true" leftline="true" usebox="none">
+<cell multirow="3" alignment="left" valignment="middle" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -4681,6 +4929,53 @@ Flush tube length
 \end_inset
 
 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+Min O2 flow
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7
 \end_layout
 
 \end_inset
@@ -5530,6 +5825,90 @@ name "fig:Example-FIS-calibration"
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsubsection
+Ozonizer protection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Ozonizer-protection"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To prevent irreparable damage to the ozone genenerator, the system detects
+ and responds to low oxygen flow conditions.
+ If the running mean of measured O2 flow rate falls below the threshold
+ specified by the 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Settings\SpecialChar \menuseparator
+Min
+\begin_inset space \space{}
+\end_inset
+
+O2
+\begin_inset space \space{}
+\end_inset
+
+flow
+\end_layout
+
+\end_inset
+
+ option, an email alert is sent out and the ozone generator is powered off.
+ The event detection sensitivity can be modified by changing the duration
+ of running mean using the 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Initial
+\begin_inset space \space{}
+\end_inset
+
+setup\SpecialChar \menuseparator
+O2
+\begin_inset space \space{}
+\end_inset
+
+run
+\begin_inset space \space{}
+\end_inset
+
+mean
+\end_layout
+
+\end_inset
+
+ option; default is 15 seconds.
+\end_layout
+
+\begin_layout Paragraph
+Notes
+\end_layout
+
+\begin_layout Itemize
+The alert email will include running mean flow rate at time of event triggering,
+ which may or may not be useful.
+ 
+\end_layout
+
+\begin_layout Itemize
+A hysterisis is employed so that after dropping below the minimum threshold,
+ the ozonizer will not be re-enabled until the flow exceeds the theshold
+ by 0.05 sLpm or greater.
+ This feature is intended to prevent rapid power cycling when flow is close
+ to the threshold.
+\end_layout
+
+\begin_layout Itemize
+No email alert is sent when power is restored to the ozonizer.
 \end_layout
 
 \begin_layout Subsection
@@ -7336,7 +7715,7 @@ name "tab:schema-info"
 \noindent
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="31" columns="4">
+<lyxtabular version="3" rows="30" columns="4">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="left" valignment="top">
@@ -8249,7 +8628,7 @@ Duration of pre-transition data exclusion filter during FIS calibrations
 \begin_inset Text
 
 \begin_layout Plain Layout
-FIS_cal_AT_filter
+min_O2_flow
 \end_layout
 
 \end_inset
@@ -8258,7 +8637,7 @@ FIS_cal_AT_filter
 \begin_inset Text
 
 \begin_layout Plain Layout
-sec
+sLpm
 \end_layout
 
 \end_inset
@@ -8267,7 +8646,7 @@ sec
 \begin_inset Text
 
 \begin_layout Plain Layout
-Duration of post(after)-transition data exclusion filter during FIS calibrations
+Reaction threshold for oxygen flow monitoring
 \end_layout
 
 \end_inset
@@ -8279,44 +8658,6 @@ Duration of post(after)-transition data exclusion filter during FIS calibrations
 
 \begin_layout Plain Layout
 22
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-FIS_cal_EE_filter
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-sec
-\end_layout
-
-\end_inset
-</cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-Duration of end-of-event data exclusion filter during FIS calibrations
-\end_layout
-
-\end_inset
-</cell>
-</row>
-<row>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
-\begin_inset Text
-
-\begin_layout Plain Layout
-23
 \end_layout
 
 \end_inset
@@ -8354,7 +8695,7 @@ length of flush line from gas inlet to FIS subsampling tee
 \begin_inset Text
 
 \begin_layout Plain Layout
-24
+23
 \end_layout
 
 \end_inset
@@ -8504,7 +8845,7 @@ Version of the datalogger operating system
 \begin_inset Text
 
 \begin_layout Plain Layout
-25
+24
 \end_layout
 
 \end_inset
@@ -8542,7 +8883,7 @@ Indicates errors generated by compilation or during runtime
 \begin_inset Text
 
 \begin_layout Plain Layout
-26
+25
 \end_layout
 
 \end_inset
@@ -8596,7 +8937,7 @@ No Card Present
 \begin_inset Text
 
 \begin_layout Plain Layout
-27
+26
 \end_layout
 
 \end_inset
@@ -8635,7 +8976,7 @@ Signature of the compiled binary data structure for the current program;
 \begin_inset Text
 
 \begin_layout Plain Layout
-28
+27
 \end_layout
 
 \end_inset
@@ -18129,15 +18470,58 @@ Other improvements include:
 \end_layout
 
 \begin_layout Itemize
+\begin_inset Flex Strikeout
+status collapsed
+
+\begin_layout Plain Layout
 Add relay between ozonizer and power source so datalogger can shut off ozonizer
  if ozone flow is near-zero
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_deeper
 \begin_layout Itemize
+\begin_inset Flex Strikeout
+status collapsed
+
+\begin_layout Plain Layout
 Send an email alert as well when O2 runs out
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Allow user to specify hysterisis value
+\end_layout
+
+\begin_layout Itemize
+Send email notice when ozonizer is powered back on
+\end_layout
+
+\begin_layout Itemize
+Possibly use a 'latching' response whereby user must manually re-enable
+ ozonizer
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Would require implementing access to at least some menu functions through
+ public table
+\end_layout
+
+\begin_layout Itemize
+This could be combined with 'shield flow' paradigm used by REA so ozonizer
+ could be any of LastState/AlwaysOff/AlwaysOn at power-up
+\end_layout
+
+\end_deeper
 \end_deeper
 \begin_layout Itemize
 position a usb webcam on the oxygen dewar so the gage can be seen by remote

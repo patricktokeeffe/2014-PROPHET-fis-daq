@@ -3,8 +3,11 @@ Next Version
 
 ### Enhancements
 
-- Send email alert when oxygen flow drops below specific threshold for some
-  minimum duration.
+- New safety features related to oxygen flow. User specifies a minimum flow
+  threshold for action and duration of running mean of flow rate to compare
+  against threshold. If running mean flow rate falls below min. threshold:
+    * Email alert is sent announcing the event
+    * Ozonizer is shut off 
 
 ### Issues fixed
 
@@ -22,6 +25,7 @@ Next Version
 
 ### Changes to data tables
 
+- New column `min_O2_flow` added to `info` table
 - Redundant columns `LoggerSN` and `OSVersion` removed from `info` table; TOA5
   header contains that info.
 

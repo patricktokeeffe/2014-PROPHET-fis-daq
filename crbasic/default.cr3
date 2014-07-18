@@ -25,6 +25,7 @@ ConstTable
   Const FLUSH_TUBE_ID = 0.5 'I.D. of flush line, inches
   Const SDM_SPEED = 30 'usec; 8-3000
 
+  Const DUR_O2_RMEAN = 15 'sec; duration of O2 flow rate running mean
   Const UTC_OFFSET = -5 'Eastern Standard Time
   Const SONIC2_ENABLED = True  
   Const SONIC2_ADDR = 3 'default SDM address
@@ -43,6 +44,8 @@ Const FIS_STATE_STD_SE = 27 'single-ended analog inputs
 Const FIS_STATE_ZERO_SE = 28
 Const FIS_CTRL_STD_CAO = 1 'continuous analog outputs
 Const FIS_CTRL_ZERO_CAO = 2
+
+Const O3GEN_SW12 = 9 'switched 12V #1
 
 Const TSI_COM = Com2 'C3/C4  TSI flowmeter
 
@@ -329,9 +332,8 @@ Units irga1_H2O_Avg = mmol/m^3
 Units irga1_amb_tmpr_Avg = degC
 Units irga1_amb_press_Avg = kPa
 
-Const MIN_O2_FLOW = 0.2 'sLpm, alert threshold
-Const DUR_O2_FLOW = 10 'sec, duration of running mean
-Dim mean_o2_flow 'sLpm, running mean value
+Dim mean_O2_flow 'sLpm, running mean value
+Dim o2_enabled As Boolean
 
 
 '========================= SETTINGS RETENTION ================================
@@ -339,7 +341,7 @@ Dim filehandle As Long
 Const CALSTUFF_FILE = "CPU:fis_calstuff.dat"
 Const SETTINGS_FILE = "CPU:fis_settings.dat"
 Const NUM_CALSTUFF = {2}
-Const NUM_SETTINGS = {16}
+Const NUM_SETTINGS = {17}
 Const WRITEFILE = 0
 Const READFILE = 1
 
@@ -364,6 +366,7 @@ Const DEF_FIS_CAL_BOTH_DUR = 4 'min
 Const DEF_FIS_CAL_STD_DUR = 0 'min
 Const DEF_FIS_CAL_SFILT = 60+55 'sec
 Const DEF_FIS_CAL_EFILT = 5 'sec
+Const DEF_MIN_O2_FLOW = 0.2 'sLpm (typ. 0.8)
 
 Dim settings(NUM_SETTINGS)
 Alias settings(1)  = sonic1_azimuth
@@ -382,6 +385,7 @@ Alias settings(13) = fis_cal_both_dur
 Alias settings(14) = fis_cal_std_dur
 Alias settings(15) = fis_cal_Sfilt
 Alias settings(16) = fis_cal_Efilt
+Alias settings(17) = min_O2_flow
 Units sonic1_azimuth = degEofTN
 Units sonic2_azimuth = degEofTN
 Units sonic3_azimuth = degEofTN
@@ -398,6 +402,7 @@ Units fis_cal_both_dur = min
 Units fis_cal_std_dur = min
 Units fis_cal_Sfilt = sec
 Units fis_cal_Efilt = sec
+Units min_O2_flow = sLpm
 
 Dim choice(NUM_SETTINGS)
 Alias choice(1)  = ch_sonic1_azimuth
@@ -416,6 +421,7 @@ Alias choice(13) = ch_fis_cal_both_dur
 Alias choice(14) = ch_fis_cal_std_dur
 Alias choice(15) = ch_fis_cal_Sfilt
 Alias choice(16) = ch_fis_cal_Efilt
+Alias choice(17) = ch_min_O2_flow
 
 
 '============================= DATA TABLES ===================================
@@ -644,6 +650,7 @@ DataTable(info,True,100)
     FieldNames("FIS_calstart_filter")
   Sample(1,fis_cal_Efilt,FP2)
     FieldNames("FIS_calend_filter")
+  Sample(1,min_O2_flow,FP2)
   Sample(1,flush_tube_length,FP2)
   Sample(1,FLUSH_TUBE_ID,FP2)
     FieldNames("flush_tube_ID")
@@ -664,8 +671,10 @@ EndTable
 '========================== CUSTOM MENUS =====================================
 Const Yes = True
 Const SendCommand = True
+Const Enable = True
 Const No = False
 Const Cancel = False
+Const Disable = False
 Const A = 10
 Const B = 11
 Const C = 12
@@ -703,6 +712,8 @@ DisplayMenu("FIS DAQ", -1)
     MenuItem("WXT510 azimuth", ch_wxt_azimuth)
     MenuItem("WXT510 height", ch_wxt_height)
     MenuItem("Flush tube length", ch_flush_tube_length)
+    MenuItem("Min O2 flow", ch_min_O2_flow)
+      MenuPick(0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7)
     SubMenu("FIS Calibration")
       MenuItem("Standard conc", ch_fis_std_conc)
       MenuItem("Cal. interval", ch_fis_cal_interval)
@@ -735,6 +746,8 @@ DisplayMenu("FIS DAQ", -1)
     '     datalogger is too dumb to accept arbitrary input via custom menus
     MenuItem("Time zone", UTC_OFFSET)
       MenuPick(UTC_OFFSET,-8,-7,-6,-5,-4)
+    MenuItem("O2 run mean", DUR_O2_RMEAN)
+      MenuPick(DUR_O2_RMEAN,5,10,15,30,60,120)
     MenuItem("Use sonic2?", SONIC2_ENABLED)
       MenuPick(SONIC2_ENABLED, No, Yes)
     MenuItem("sonic2 addr", SONIC2_ADDR)
@@ -772,9 +785,12 @@ EndSub
 Sub send_low_o2_alert()
   Dim subject As String * 78, msg As String * 512
   subject = "Low O2 flow alert from FIS DAQ"
-  msg = ("This is the FIS DAQ datalogger. The low oxygen flow thresholds" & _
-    "have been met: " & CRLF & CRLF)
-  msg &= "10-sec running mean of flow"
+  msg = ("This is the FIS DAQ datalogger. A low oxygen flow event has " & _
+    "been detected: " & FormatFloat(DUR_O2_RMEAN,"%G") & "-sec running " & _
+    "mean of O2 flow is " & FormatFloat(mean_O2_flow,"%G") & " sLpm." & _
+    CRLF & CRLF & "The ozonizer has been powered off but as soon as O2 " & _
+    "flow resumes, power will be restored. You will *not* receive a " & _
+    "notice when this occurs.")
   EmailSend(SMTP,TO_ADDR,FROM_ADDR,subject,msg,"",USER,PASSWORD,response)
 EndSub
 
@@ -821,6 +837,7 @@ Sub set_default_choices()
   ch_fis_cal_std_dur = DEF_FIS_CAL_STD_DUR
   ch_fis_cal_Sfilt = DEF_FIS_CAL_SFILT
   ch_fis_cal_Efilt = DEF_FIS_CAL_EFILT
+  ch_min_O2_flow = DEF_MIN_O2_FLOW
 EndSub
 
 Sub populate_choices()
@@ -906,13 +923,15 @@ EndSub
 ' - user-specified low flow detection threshold (0.1 sLpm?)
 ' - user-specified low flow duration (10 sec?) --> changes running mean dur?
 Sub check_o2_flow()
-  AvgRun(mean_o2_flow,1,FIS_flow_O2,DUR_O2_FLOW*(1000/FAST_INTV))
-  If (mean_o2_flow < MIN_O2_FLOW) Then
+  AvgRun(mean_O2_flow,1,FIS_flow_O2,DUR_O2_RMEAN*(1000/FAST_INTV))
+  If (mean_O2_flow < min_O2_flow) Then
     send_low_o2_alert()
-    'TODO turn off ozonizer
-  Else
-    'TODO re-enable ozonizer
+    o2_enabled = False
+  'To avoid potential for cycling around threshold, add small hysterisis
+  ElseIf (mean_O2_flow > min_O2_flow + 0.05) Then
+    o2_enabled = True
   EndIf
+  PortSet(O3GEN_SW12, o2_enabled)
 EndSub
 
 
