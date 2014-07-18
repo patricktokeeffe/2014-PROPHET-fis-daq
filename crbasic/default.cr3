@@ -329,6 +329,10 @@ Units irga1_H2O_Avg = mmol/m^3
 Units irga1_amb_tmpr_Avg = degC
 Units irga1_amb_press_Avg = kPa
 
+Const MIN_O2_FLOW = 0.2 'sLpm, alert threshold
+Const DUR_O2_FLOW = 10 'sec, duration of running mean
+Dim mean_o2_flow 'sLpm, running mean value
+
 
 '========================= SETTINGS RETENTION ================================
 Dim filehandle As Long
@@ -748,22 +752,30 @@ EndMenu
 '================================= EMAIL =====================================
 Include "CPU:email.cr3"  'contains non-public settings
 Const CRLF = CHR(13) & CHR(10)
-Const SUBJECT = "Start-up notification from FIS DAQ"
-Const MESSAGE = ("This is the FIS DAQ datalogger. I've just finished my " & _
-  "start-up routine and would like to share this important information "& _
-  "with you: " & CRLF & CRLF)
 Public response As String * 80
 
 Sub send_startup_email()
-  Dim msg As String * 512
-  msg = MESSAGE
+  Dim subject As String * 78, msg As String * 512
+  subject = "Start-up notification from FIS DAQ"
+  msg = ("This is the FIS DAQ datalogger. I've just finished my " & _
+    "start-up routine and would like to share this important information "& _
+    "with you: " & CRLF & CRLF)
   'HINT both CompileResults and CardStatus come with a trailing <CR><LF> but 
   'CardStatus has a CRLF pair in the middle which must be stripped out
   msg &= "Compile results: " & RTrim(Status.CompileResults(1))
   msg &= "Card status: " & RTrim(Replace(Status.CardStatus(1), CRLF, " "))
   msg &= CRLF & "Program error count: " & Status.ProgErrors & CRLF
   msg &= "Watchdog error count: " & Status.WatchdogErrors & CRLF
-  EmailSend(SMTP,TO_ADDR,FROM_ADDR,SUBJECT,msg,"",USER,PASSWORD,response)
+  EmailSend(SMTP,TO_ADDR,FROM_ADDR,subject,msg,"",USER,PASSWORD,response)
+EndSub
+
+Sub send_low_o2_alert()
+  Dim subject As String * 78, msg As String * 512
+  subject = "Low O2 flow alert from FIS DAQ"
+  msg = ("This is the FIS DAQ datalogger. The low oxygen flow thresholds" & _
+    "have been met: " & CRLF & CRLF)
+  msg &= "10-sec running mean of flow"
+  EmailSend(SMTP,TO_ADDR,FROM_ADDR,subject,msg,"",USER,PASSWORD,response)
 EndSub
 
 
@@ -887,6 +899,20 @@ Sub setup()
   SerialOpen(FIS_PMT_COM,PMT_BAUD,PMT_FORMAT,0,PMT_BUFF)
   start_pmt()
   SDMSpeed(SDM_SPEED)
+EndSub
+
+'TODO
+' - min time delay between emails OR only send 1 alert per low flow event
+' - user-specified low flow detection threshold (0.1 sLpm?)
+' - user-specified low flow duration (10 sec?) --> changes running mean dur?
+Sub check_o2_flow()
+  AvgRun(mean_o2_flow,1,FIS_flow_O2,DUR_O2_FLOW*(1000/FAST_INTV))
+  If (mean_o2_flow < MIN_O2_FLOW) Then
+    send_low_o2_alert()
+    'TODO turn off ozonizer
+  Else
+    'TODO re-enable ozonizer
+  EndIf
 EndSub
 
 
@@ -1044,6 +1070,7 @@ BeginProg
     VoltDiff(FIS_flow_std,1,mV5000,FIS_FLOW_STD_DF,True,0,INTEG, _
                                         FIS_FLOW_STD_MULT,FIS_FLOW_STD_OFFSET)
     FIS_flow_samp = FIS_flow_tot - FIS_flow_O2
+    check_o2_flow()
     
     'pretend SE 27, SE 28 are TTL inputs
     VoltSe(FIS_state_std,1,mV5000,FIS_STATE_STD_SE,False,0,INTEG,1,0)

@@ -1,6 +1,11 @@
 Next Version
 ============
 
+### Enhancements
+
+- Send email alert when oxygen flow drops below specific threshold for some
+  minimum duration.
+
 ### Issues fixed
 
 - Adjust time-series (15-sec) values from WXT510 (ts_wxt/wxt_WD) for azimuth
