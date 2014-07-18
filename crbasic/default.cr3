@@ -971,7 +971,7 @@ BeginProg
       FIS_ctrl_std = 5000
       FIS_cal_filter = True 'catches start of "both" seq. even if both_dur=0
       filter_off = turn_std_on + fis_cal_Sfilt
-      filter_on = turn_std_on + fis_cal_std_dur*60 - fis_cal_Efilt
+      filter_on = turn_std_on + fis_cal_both_dur*60 - fis_cal_Efilt
     EndIf
     If TimeIntoInterval(turn_zero_off,cal_int,Sec) Then
       FIS_ctrl_zero = 0 'set 0V (off)

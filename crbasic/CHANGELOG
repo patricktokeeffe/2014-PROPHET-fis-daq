@@ -10,6 +10,10 @@ Next Version
   When signature error (Ux=-99999) was encountered, sonic disable flag was set
   and Ux value stored as NAN; new behavior stores NAN for all values in marked
   record.
+- Fix bug where end filter flag of FIS cal. 'both' step is based on 'std only'
+  step duration. For PROPHET 2014, where no 'std only' step is used, this means
+  there is no trailing filter for the 'both' stage; manually discard the final
+  five seconds of each calibration event to achieve the intended effect.
 
 ### Changes to data tables
 
