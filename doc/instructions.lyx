@@ -6328,7 +6328,7 @@ Ensure data cable is connected to proper 9-pin connector in datalogger enclosure
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Significant decrease / inability to regulate total flow through FIS 
 \end_layout
 
 \end_inset
@@ -6337,7 +6337,8 @@ Ensure data cable is connected to proper 9-pin connector in datalogger enclosure
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Deteriorated pump diaphragm and flappers.
+ This is a normal consequence of the high level of ozone through the pump.
 \end_layout
 
 \end_inset
@@ -6346,7 +6347,7 @@ Ensure data cable is connected to proper 9-pin connector in datalogger enclosure
 \begin_inset Text
 
 \begin_layout Plain Layout
-
+Rebuild the pump using KNF kit #200439 ($51 each as of July 2014)
 \end_layout
 
 \end_inset
