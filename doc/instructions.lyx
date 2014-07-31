@@ -782,17 +782,6 @@ Garmin (GPS16x-HVS)
 
 Provides useful geolocation data and, more importantly, serves as a high-quality
  time source for the datalogger.
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-As this was printed, the time-synchronization function was dubious.
- It's difficult to get sufficient GPS satellites for proper operation while
- testing in the lab.
-\end_layout
-
-\end_inset
-
  
 \end_layout
 
