@@ -1,3 +1,11 @@
+Version 1.2.1
+=============
+
+### Hot fixes
+
+- Only send one email alert per low-O2 event. 
+
+
 Version 1.2
 ===========
 

@@ -334,6 +334,7 @@ Units irga1_amb_press_Avg = kPa
 
 Public mean_O2_flow 'sLpm, running mean value
 Public o2_enabled As Boolean
+Public not_o2_alerted As Boolean
 
 
 '========================= SETTINGS RETENTION ================================
@@ -916,20 +917,19 @@ Sub setup()
   SerialOpen(FIS_PMT_COM,PMT_BAUD,PMT_FORMAT,0,PMT_BUFF)
   start_pmt()
   SDMSpeed(SDM_SPEED)
+  not_o2_alerted = True
 EndSub
 
-'TODO
-' - min time delay between emails OR only send 1 alert per low flow event
-' - user-specified low flow detection threshold (0.1 sLpm?)
-' - user-specified low flow duration (10 sec?) --> changes running mean dur?
 Sub check_o2_flow()
   AvgRun(mean_O2_flow,1,FIS_flow_O2,DUR_O2_RMEAN*(1000/FAST_INTV))
   If (mean_O2_flow < min_O2_flow) Then
-    send_low_o2_alert()
+    If (not_o2_alerted) Then send_low_o2_alert()
     o2_enabled = False
+    not_o2_alerted = False
   'To avoid potential for cycling around threshold, add small hysterisis
   ElseIf (mean_O2_flow > min_O2_flow + 0.05) Then
     o2_enabled = True
+    not_o2_alerted = True
   EndIf
   PortSet(O3GEN_SW12, o2_enabled)
 EndSub
