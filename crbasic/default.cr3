@@ -332,8 +332,8 @@ Units irga1_H2O_Avg = mmol/m^3
 Units irga1_amb_tmpr_Avg = degC
 Units irga1_amb_press_Avg = kPa
 
-Dim mean_O2_flow 'sLpm, running mean value
-Dim o2_enabled As Boolean
+Public mean_O2_flow 'sLpm, running mean value
+Public o2_enabled As Boolean
 
 
 '========================= SETTINGS RETENTION ================================
