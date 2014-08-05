@@ -6112,6 +6112,14 @@ FIS
 \end_layout
 
 \begin_layout Itemize
+Inspect flow rate through instrument and rebuild internal FIS pump (KNF
+ part no.
+ PU1093-N815-9.99) as necessary -- typically every 2 months of continuous
+ use.
+ Use pump rebuild kit #200439.
+\end_layout
+
+\begin_layout Itemize
 Is sufficient oxygen left?
 \end_layout
 
@@ -6160,6 +6168,59 @@ Misc
 \begin_layout Itemize
 Inspect desiccant in sonic/IRGA power source enclosure frequently and replace
  desiccant as needed
+\end_layout
+
+\begin_layout Itemize
+Inspect water trap located upstream of flush line filter.
+ When necessary, empty trap by disconnecting the entire trap from the flush
+ line.
+ 
+\begin_inset VSpace defskip
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Strong
+status collapsed
+
+\begin_layout Plain Layout
+DO NOT REMOVE THE BOTTOM OF THE WATER TRAP
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Removing the bottom of the water trap while the pump is still running will
+ cause any water within the trap to be drawn through the filter and flow
+ meter and into the FIS.
+ ONLY remove the entire water trap from the flush line by disconnecting
+ AT the flush line tee.
+ 
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
