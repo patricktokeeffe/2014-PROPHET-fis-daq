@@ -2159,8 +2159,8 @@ GPS to datalogger terminals as indicated by wiring diagram
 
 \end_deeper
 \begin_layout Enumerate
-Connect remaining FIS data/control lines to datalogger terminals as indicated
- by the wiring diagram
+Connect remaining FIS data/control lines and ozonizer shut-off relay control
+ cable to datalogger terminals as indicated by the wiring diagram
 \end_layout
 
 \begin_layout Enumerate
@@ -4413,8 +4413,8 @@ name "tab:menu-GradientSettings"
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="middle" width="0pt">
 <column alignment="left" valignment="top">
-<column alignment="center" valignment="top">
-<column alignment="center" valignment="top" width="30text%">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="center" valignment="top" width="35line%">
 <row>
 <cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
@@ -5846,7 +5846,17 @@ flow
 
 \end_inset
 
- option, an email alert is sent out and the ozone generator is powered off.
+ option, an email alert is sent
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TO WHO?
+\end_layout
+
+\end_inset
+
+ and the ozone generator is powered off.
  The event detection sensitivity can be modified by changing the duration
  of running mean using the 
 \begin_inset Flex MenuItem
@@ -5894,6 +5904,11 @@ A hysterisis is employed so that after dropping below the minimum threshold,
 
 \begin_layout Itemize
 No email alert is sent when power is restored to the ozonizer.
+\end_layout
+
+\begin_layout Itemize
+Only one email alert is sent per low-flow event; normal flow must be restored
+ to reset the alert trigger.
 \end_layout
 
 \begin_layout Subsection
