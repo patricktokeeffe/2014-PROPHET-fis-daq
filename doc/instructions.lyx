@@ -14863,6 +14863,20 @@ http://tightvnc.com
 \end_layout
 
 \begin_layout Description
+\begin_inset Flex Strikeout
+status collapsed
+
+\begin_layout Plain Layout
+DeltaCopy
+\end_layout
+
+\end_inset
+
+ In trial runs, this program was uesd to transfer data files to the WSU
+ campus but it was tremendously slow and did not work reliably.
+\end_layout
+
+\begin_layout Description
 PuTTY The PuTTY Pageant agent provides public key authentication for access
  to the SFTP
 \begin_inset CommandInset nomenclature
@@ -14874,6 +14888,7 @@ description "secure file transfer protocol, entirely seperate from FTP (file tra
 \end_inset
 
  server at WSU.
+ The key pair is created using the PuttyGen utility.
  
 \begin_inset Flex URL
 status collapsed
@@ -14943,18 +14958,9 @@ flowmeter
 \end_layout
 
 \begin_layout Description
-hMailServer Emails from the datalogger and processing scripts
-\begin_inset Foot
-status collapsed
-
-\begin_layout Plain Layout
-In trial runs, DeltaCopy was used to transfer some data files but it was
- tremendously slow and it's email alerts did not work consistently.
-\end_layout
-
-\end_inset
-
- are routed through this software to a Gmail address.
+hMailServer Emails from the datalogger are routed through this software
+ to a Gmail address (which filters and forwards messages to their final
+ destination).
  Requires access through firewall.
  
 \begin_inset Flex URL
@@ -14979,6 +14985,22 @@ status collapsed
 \begin_layout Plain Layout
 
 http://winmd5.com/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+Pidgin A multi-protocol chat client used to converse with on-site personnel.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://pidgin.im
 \end_layout
 
 \end_inset
@@ -15133,6 +15155,45 @@ stats
 
 \begin_layout Paragraph
 Setting up hMailServer
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+Contact the author for configuration values specific to the 2014 measurement
+ campaign; they are not publicized here as a best-practice.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Enumerate
@@ -15820,18 +15881,213 @@ https://en.wikipedia.org/wiki/Public-key_cryptography
 \end_inset
 
  is used to gain write-access to the SFTP server on the WSU campus.
- After creating a public-private key pair (below) and placing a copy of
- the public key on the SFTP server, the login is handled silently by the
- PuTTY Pageant agent.
+ After creating a public-private key pair and placing a copy of the public
+ key on the SFTP server, the login is handled silently by the PuTTY Pageant
+ agent.
  
 \end_layout
 
-\begin_layout Standard
-\begin_inset Note Note
-status open
+\begin_layout Enumerate
+Create the key pair:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Launch the PuttyGen utility included with PuTTY.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Under 
+\begin_inset Flex Emph
+status collapsed
 
 \begin_layout Plain Layout
-TODO
+Parameters
+\end_layout
+
+\end_inset
+
+, select 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+SSH-2 RSA
+\end_layout
+
+\end_inset
+
+ with 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+2048
+\end_layout
+
+\end_inset
+
+ bits in the generated key.
+\end_layout
+
+\begin_layout Enumerate
+Press 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Generate
+\end_layout
+
+\end_inset
+
+ button to begin and follow the instructions for creating randomness with
+ the mouse pointer.
+\end_layout
+
+\begin_layout Enumerate
+After generation is complete, enter a passphrase in the 
+\begin_inset Flex Emph
+status collapsed
+
+\begin_layout Plain Layout
+Key passphrase
+\end_layout
+
+\end_inset
+
+ fields.
+\end_layout
+
+\begin_layout Enumerate
+Press 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+Save private key
+\end_layout
+
+\end_inset
+
+ button to save PuTTY-compatible private key in 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+.ppk
+\end_layout
+
+\end_inset
+
+ format.
+\end_layout
+
+\begin_layout Enumerate
+Copy text of public key from read-only field into a plain-text file named
+ after the SFTP user account (no extension).
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Load the private key on client computer:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Move private key file into subdirectory of Windows user profile (ex: 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+~/.ssh
+\end_layout
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Enumerate
+Run PuTTY Pageant utility.
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Right-click its tray icon to add key.
+\end_layout
+
+\begin_layout Enumerate
+Navigate to the private key file.
+\end_layout
+
+\begin_layout Enumerate
+Provide key passphrase, if any, when prompted.
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Enumerate
+Load the public key on SFTP server:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Place copy of public key file in the designated 'public key folder' of the
+ SFTP server (freeSSHd).
+\end_layout
+
+\begin_layout Enumerate
+Ensure public key file is named after the SFTP account (no file extension).
+\end_layout
+
+\begin_layout Enumerate
+Ensure SFTP account has SFTP access enabled and permissions to destination
+ folder.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Additional resources:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://wiki.filezilla-project.org/Howto
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://publib.boulder.ibm.com/infocenter/ieduasst/v1r1m0/topic/com.ibm.iea.wpi_v6/wa/6.
+2/FTP/WBPMv62_IEA_AdapterInstallConfigureSSHServerLab.pdf 
 \end_layout
 
 \end_inset
@@ -15867,11 +16123,7 @@ TightVNC
 \end_layout
 
 \begin_layout Description
-SFTP
-\begin_inset space \space{}
-\end_inset
-
-server Setup of the SFTP server is beyond the scope of this document.
+freeSSHd Setup of this SFTP server is beyond the scope of this document.
  Public key authentication is used instead of password-based login.
 \end_layout
 
