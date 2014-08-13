@@ -17258,7 +17258,7 @@ status open
 
 \begin_layout Plain Layout
 \begin_inset Flex URL
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -17272,27 +17272,38 @@ http://git-scm.org
 
 \end_inset
 
- repository, hosted on the WSU
-\begin_inset CommandInset nomenclature
-LatexCommand nomenclature
-prefix "WSU"
-symbol "WSU"
-description "Washington State University"
+ repository, hosted on BitBucket.org (
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://bitbucket.org
+\end_layout
 
 \end_inset
 
- intranet.
+
+\end_layout
+
+\end_inset
+
+).
  
 \end_layout
 
 \begin_layout Itemize
-Source: 
+Main repository: 
 \begin_inset Flex URL
 status collapsed
 
 \begin_layout Plain Layout
 
-https://lar-d216-share.cee.wsu.edu:8080/repos/git/pokeeffe/2014-prophet-fis-daq
+https://bitbucket.org/wsular/2014-prophet-fis-daq
 \end_layout
 
 \end_inset
@@ -17301,13 +17312,28 @@ https://lar-d216-share.cee.wsu.edu:8080/repos/git/pokeeffe/2014-prophet-fis-daq
 \end_layout
 
 \begin_layout Itemize
-Data (read only): 
+Private configuration repository: 
 \begin_inset Flex URL
 status collapsed
 
 \begin_layout Plain Layout
 
-ftp://lar-d216-share.cee.wsu.edu:1021/proj/2014_PROPHET/fis_data/
+https://bitbucket.org/wsular/2014-prophet-fis-secrets
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+File share (read-only): 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+ftp://lar-d216-share.cee.wsu.edu/proj/2014_PROPHET [port 1021 off WSU campus]
 \end_layout
 
 \end_inset
@@ -17316,20 +17342,20 @@ ftp://lar-d216-share.cee.wsu.edu:1021/proj/2014_PROPHET/fis_data/
 \end_layout
 
 \begin_layout Standard
-Both locations can be visited anonymously from on or off the WSU campus.
- Visiting the source requires the 
-\begin_inset Flex Code
+Both repositories are currently hosted in private mode -- you must sign
+ up for a BitBucket account and request permission to join the 
+\begin_inset Flex MenuItem
 status collapsed
 
 \begin_layout Plain Layout
-https
+wsular
 \end_layout
 
 \end_inset
 
- protocol and will likely trigger a security warning about the self-signed
- certificate.
- At most locations on-campus, the port numbers may be omitted.
+ team to gain read-only or read-write access.
+ Public access to the main repository is planned in the short-term future.
+ 
 \end_layout
 
 \begin_layout Subsubsection*
