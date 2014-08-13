@@ -47,3 +47,7 @@ Processing scripts are written in Python and therefore do not require compilatio
 
 This work is licensed under [The MIT License](http://opensource.org/licenses/mit-license.html).
 
+### Disclaimer
+
+This work is not affiliated with or endorsed by Campbell Scientific Inc., the
+maker of the datalogger or Hill Scientific, the maker of the FIS.
