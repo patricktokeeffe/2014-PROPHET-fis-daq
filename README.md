@@ -43,3 +43,7 @@ need to be pre-built to deploy to a datalogger.
 
 Processing scripts are written in Python and therefore do not require compilation.
 
+### License 
+
+This work is licensed under [The MIT License](http://opensource.org/licenses/mit-license.html).
+
