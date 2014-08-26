@@ -3,6 +3,7 @@
 Simple script for creating an md5sum file
 
 Created 2014-07-09 
+Updated 2014-08-25 to not prompt user
 
 Patrick O'Keeffe <pokeeffe@wsu.edu>
 
@@ -17,6 +18,7 @@ TODO:
 
 import os, os.path as osp
 import sys, hashlib
+from time import sleep
 
 def sort_by_directory(filelist):
     dirs = {}
@@ -60,28 +62,37 @@ if __name__ == '__main__':
         print ' ', each.replace(basedir, '')
     print 'Output file name:', md5file
 
-    ans = raw_input("Proceed? Enter 'y' to continue: ")
-    if ans.lower().strip() != 'y':
-        print 'Aborting!'
-        sys.exit(0)
+    if osp.isfile(md5file): 
+        print '  * Detected file "md5sums" already exists, renaming to "md5sums.bak"'
+        try:
+            os.rename(md5file, md5file+".bak")
+        except OSError as e:
+            raw_input('\nCould not move existing file! Press enter to '
+                      'continue (overwriting "md5sums") or Ctrl+C to exit.\n')
 
     blocksize = 2**20
-    with open(md5file, mode='w') as md5sums:
-        for each in filelist:
-            md5 = hashlib.md5()
-            hashname = each.replace(basedir, '')
-            try:
-                with open(each, mode='rb') as srcfile:
-                    block = srcfile.read(blocksize)
-                    while len(block) > 0:
-                        md5.update(block)
+    try:
+        with open(md5file, mode='w') as md5sums:
+            for each in filelist:
+                md5 = hashlib.md5()
+                hashname = each.replace(basedir, '')
+                try:
+                    with open(each, mode='rb') as srcfile:
                         block = srcfile.read(blocksize)
-            except IOError:
-                print 'Encountered IO error, skipping %s' % each
-                continue
-            hash = md5.hexdigest()
-            line = hash+'  '+hashname+'\n'
-            print line,
-            md5sums.write(line)
+                        while len(block) > 0:
+                            md5.update(block)
+                            block = srcfile.read(blocksize)
+                except IOError:
+                    print 'Encountered IO error, skipping %s' % each
+                    continue
+                hash = md5.hexdigest()
+                line = hash+'  '+hashname+'\n'
+                print line,
+                md5sums.write(line)
+    except Exception as e:
+        raw_input('\nAn unrecoverable exception occurred:\n' + str(e) + 
+                  '\n\nPress enter to exit.')
+        exit()
 
-    raw_input('Press enter to exit.')
+print '\nFinished successfully. Exiting in 3 seconds...'
+sleep(3)
