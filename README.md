@@ -27,7 +27,7 @@ There are three major components:
 A second private repository hosts sensitive information such as network 
 addresses and access credentials specific to the 2014 measurement campaign.
 
-- Main repository (private): https://bitbucket.org/wsular/2014-prophet-fis-daq
+- Main repository (public): https://bitbucket.org/wsular/2014-prophet-fis-daq
 - Private repository: https://bitbucket.org/wsular/2014-prophet-fis-secrets
 - Data host (read-only): ftp://lar-d216-share.cee.wsu.edu/proj/2014_PROPHET
   [port 1021 off WSU campus]

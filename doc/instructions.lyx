@@ -17252,7 +17252,7 @@ name "sub:Contributing"
 \begin_layout Standard
 Individuals are welcome to make contributions (and reuse materials).
  The source files for the datalogger program, this file, and the various
- data file processing scripts are maintained in a Git
+ data file processing scripts are maintained in Git
 \begin_inset Foot
 status open
 
@@ -17272,27 +17272,7 @@ http://git-scm.org
 
 \end_inset
 
- repository, hosted on BitBucket.org (
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-\begin_inset Flex URL
-status collapsed
-
-\begin_layout Plain Layout
-
-https://bitbucket.org
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-).
+ repositories.
  
 \end_layout
 
@@ -17303,7 +17283,7 @@ status collapsed
 
 \begin_layout Plain Layout
 
-https://bitbucket.org/wsular/2014-prophet-fis-daq
+https://bitbucket.org/wsular/2014-PROPHET-fis-daq
 \end_layout
 
 \end_inset
@@ -17342,8 +17322,8 @@ ftp://lar-d216-share.cee.wsu.edu/proj/2014_PROPHET [port 1021 off WSU campus]
 \end_layout
 
 \begin_layout Standard
-Both repositories are currently hosted in private mode -- you must sign
- up for a BitBucket account and request permission to join the 
+The main repository is publically accessible but the private repository
+ is only available to members of the 
 \begin_inset Flex MenuItem
 status collapsed
 
@@ -17353,8 +17333,7 @@ wsular
 
 \end_inset
 
- team to gain read-only or read-write access.
- Public access to the main repository is planned in the short-term future.
+ BitBucket team.
  
 \end_layout
 
