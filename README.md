@@ -6,7 +6,6 @@ Biogenic VOCs and Secondary Organic Aerosol at PROPHET - WSU 2014
 
 This main repository hosts the data acquisition system deployed to monitor the 
 Fast Isoprene Sensor (FIS) at the UMBS PROPHET tower lab during summer 2014.
-There are three major components:
 
 - **Datalogger program** :: A Campbell Scientific datalogger is used to monitor
   and control sensors, provide preliminary data reduction and provide 
@@ -20,16 +19,16 @@ There are three major components:
   cover operation of the FIS itself, nor any of its components -- refer to the
   FIS user manual for such information.
 
-- **Processing scripts** :: Scripts and programs written for use with this 
-  system are in the `processing` folder. Refer to the user manual for details
-  on software requirements and useful tips for processing routines.
+> **Processing scripts** have been moved to a 
+[separate repository](https://bitbucket.org/wsular/2014-prophet-fis-analysis)
 
 A second private repository hosts sensitive information such as network 
 addresses and access credentials specific to the 2014 measurement campaign.
 
-- Main repository (public): https://bitbucket.org/wsular/2014-prophet-fis-daq
-- Private repository: https://bitbucket.org/wsular/2014-prophet-fis-secrets
-- Data host (read-only): ftp://lar-d216-share.cee.wsu.edu/proj/2014_PROPHET
+- Main repository (public): <https://bitbucket.org/wsular/2014-prophet-fis-daq>
+- Analytical tools (public): <https://bitbucket.org/wsular/2014-prophet-fis-analysis>
+- Private repository: <https://bitbucket.org/wsular/2014-prophet-fis-secrets>
+- Data host (read-only): <ftp://lar-d216-share.cee.wsu.edu/proj/2014_PROPHET>
   [port 1021 off WSU campus]
 
 ### Building from source
