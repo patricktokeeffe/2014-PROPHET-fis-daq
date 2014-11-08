@@ -592,30 +592,8 @@ Provides high-frequency measurements of relative concentrations of isoprene.
  The number of photons produced in reaction with excess ozone is measured
  at high-frequency and by regular comparison to a known standard, the concentrat
 ion of alkenes is deduced; in forest environments, the alkene profile is
- predominantly isoprene
-\begin_inset script superscript
-
-\begin_layout Plain Layout
-[citation
-\begin_inset space \space{}
-\end_inset
-
-needed]
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Shelley's thesis?
-\end_layout
-
-\end_inset
-
- so the instrument effectively measures ambient isoprene concentation.
+ predominantly isoprene (Shelley Pressley, personal communication) so the
+ instrument effectively measures ambient isoprene concentation.
  
 \begin_inset VSpace defskip
 \end_inset
@@ -626,17 +604,8 @@ Shelley's thesis?
 
 Other important signals provided by the instrument include total mass flow
  (sLpm) of gas through the instrument, total mass flow (sLpm) of oxygen
- sent to the ozonizer, mass flow (sccm) of alkene
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-find the standard notes
-\end_layout
-
-\end_inset
-
- standard and status of instrument (normal/zero/calibration).
+ sent to the ozonizer, mass flow (sccm) of isoprene standard and status
+ of instrument (normal/zero/calibration).
 \end_layout
 
 \begin_layout Itemize
@@ -1094,17 +1063,10 @@ Ground level
 \end_layout
 
 \begin_layout Standard
-The datalogger, FIS system, flowmeter, GPS receiver and sampling pump
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-WHICH ONE?
-\end_layout
-
-\end_inset
-
- are located at ground level in a permanent shelter adjacent to the tower.
+The datalogger, FIS system, flowmeter, GPS receiver and sampling pump (Duty
+ Master A-C.
+ Motor, 1/4 HP; Reliance Electric Company, Cleveland, OH) are located at
+ ground level in a permanent structure adjacent to the tower.
  Both FIS photomultiplier tube (PMT
 \begin_inset CommandInset nomenclature
 LatexCommand nomenclature
@@ -1143,9 +1105,8 @@ description "an acronym for transistor-transistor logic; in the context of this 
 
  output & TTL input) are connected to the datalogger using coaxial cable
  with BNC fittings on one end (for the FIS, bare wires for the datalogger).
- The GPS receiver, affixed to the metal roof of the shelter, has bare wires
- for connection to the datalogger.
- A wiring diagram is supplied for bare end wires.
+ The GPS receiver, magnetically affixed to the lab's metal roof, has bare
+ wires for connection to the datalogger.
  
 \end_layout
 
@@ -1161,7 +1122,7 @@ Ambient air is drawn through a door into this space and exhausted several
 
 \end_inset
 
- and draws gas through the flowmeter, situated near the FIS, with a length
+ and draws gas through the flowmeter, situated near the FIS, and a length
  (20-30') of 3/8
 \begin_inset Quotes erd
 \end_inset
@@ -1174,28 +1135,22 @@ Ambient air is drawn through a door into this space and exhausted several
  I.D.) vinyl tubing.
  A high-flow HEPA filter (HEPA Capsule, Pall Life Sciences; VWR Catalog
  #28145-145) is located directly upstream of the flowmeter.
- The FIS draws sample through several feet (5-7) of 1/4
+ The FIS draws sample through several (~5) feet of 1/4
 \begin_inset Quotes erd
 \end_inset
 
  O.D.
- (? I.D.
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-Find ID
-\end_layout
-
+ (1/8
+\begin_inset Quotes erd
 \end_inset
 
-) teflon tube from a tee located upstream of the HEPA filter.
+ I.D.) teflon tube from a tee located upstream of the HEPA filter.
  A long (3-4') section of 1/2
 \begin_inset Quotes erd
 \end_inset
 
- teflon tubing is situated upstream of the subsampling tees to act as a
- water trap.
+ teflon tubing is situated upstream of the subsampling tees, oriented vertically
+ to act as a gravity water trap.
 \end_layout
 
 \begin_layout Paragraph
@@ -1219,24 +1174,42 @@ At the top of the tower, the sonic/IRGA unit and weather transmitter are
 status open
 
 \begin_layout Plain Layout
-Most likely PFA, FEP or PE but can't be known for sure.
+Most likely PFA
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+prefix "PFA"
+symbol "PFA"
+description "Fluoropolymer (perfluoroalkoxy alkane) with similar properties to PTFE (Teflon®) and FEP"
+
+\end_inset
+
+, FEP
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+prefix "FEP"
+symbol "FEP"
+description "Copolymer (fluorinated ethylene propylene ) with properties similar to PFA and PTFE (Teflon®)"
+
+\end_inset
+
+ or possibly PE
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+prefix "PE"
+symbol "PE"
+description "Polyethylene, the most common plastic; a cheaper alternative to PFA, PTFE (Teflon®) and FEP"
+
+\end_inset
+
+ but can't be known for sure.
  It was rinsed with deionized water prior to this experiment.
  
 \end_layout
 
 \end_inset
 
- and a 150' outdoor-rated CAT6 ethernet cable (BlackBox
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-TO VERIFY
-\end_layout
-
-\end_inset
-
-) run to the top of the tower from the ground level enclosure.
+ and a 150' outdoor-rated shielded CAT6 ethernet cable (BlackBox Corp.) run
+ to the top of the tower from the ground level enclosure.
  Power is provided to the sensors at the upper level by a 12Vdc transformer
  housed in a plastic container (figure 
 \begin_inset CommandInset ref
@@ -2199,7 +2172,17 @@ reference "sub:Program-Settings"
 ).
  Azimuths should be specified relative to True North since the program does
  not make adjustments for magnetic declination.
- If an azimuth is not specified, the info table will indicate 
+ If an azimuth is not specified, the 
+\begin_inset Flex MenuItem
+status collapsed
+
+\begin_layout Plain Layout
+info
+\end_layout
+
+\end_inset
+
+ table will indicate 
 \begin_inset Formula $-1$
 \end_inset
 
@@ -2234,11 +2217,40 @@ Connect CAT5e & WXT510 data wires using euro-terminals
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
+\begin_inset Float figure
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
-GET A PICTURE!
+\align center
+\begin_inset Graphics
+	filename images/sonic-irga_control_box.jpg
+	lyxscale 50
+	width 50line%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Sonic/IRGA control box with completed wiring connections
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Sonic/IRGA-control-box"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -2520,7 +2532,7 @@ key "manual-fis"
 \end_inset
 
  and the PMT is powered on.
- The PMT does not have to be stopped to start the datalogger.
+ The PMT data signal does not have to be stopped to start the datalogger.
  
 \end_layout
 
@@ -2892,9 +2904,10 @@ seconds
 
 \end_inset
 
- of the running mean of oxygen flow used to detect low flow conditions (
+ of the running mean of oxygen flow used to detect low flow conditions (section
+ 
 \begin_inset CommandInset ref
-LatexCommand formatted
+LatexCommand ref
 reference "sub:Ozonizer-protection"
 
 \end_inset
@@ -2951,7 +2964,7 @@ sonic2
 \end_inset
 
 addr SDM address of the first optional CSAT3; valid addresses range from
- 0-14 (excluding 1
+ 0-14 (excluding 1)
 \begin_inset Foot
 status open
 
@@ -2961,7 +2974,7 @@ which is reserved for the sonic/IRGA unit
 
 \end_inset
 
-) expressed in hexadecimal.
+ expressed in hexadecimal.
 \end_layout
 
 \begin_layout Description
@@ -3013,7 +3026,16 @@ sonic3
 \end_inset
 
 addr SDM address of the second option CSAT3; valid addresses range from
- 0-14 (excluding 1) expressed in hexadecimal 
+ 0-14 (excluding 1)
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+6
+\end_layout
+
+\end_inset
+
+ expressed in hexadecimal 
 \begin_inset Flex Strong
 status collapsed
 
@@ -4006,7 +4028,7 @@ Settings
  These options, summarized in table 
 \begin_inset CommandInset ref
 LatexCommand vref
-reference "tab:menu-GradientSettings"
+reference "tab:menu-Settings"
 
 \end_inset
 
@@ -4274,9 +4296,9 @@ sLpm
 
 \end_inset
 
- for low oxygen flow alerts/response (
+ for low oxygen flow alerts/response (section 
 \begin_inset CommandInset ref
-LatexCommand formatted
+LatexCommand ref
 reference "sub:Ozonizer-protection"
 
 \end_inset
@@ -4319,8 +4341,8 @@ Cal.
 \begin_inset space \space{}
 \end_inset
 
-interval Specify the interval between the start of calibration routines
- in 
+interval Specify the interval between the start of calibration events in
+ 
 \begin_inset Flex Strong
 status collapsed
 
@@ -4331,7 +4353,18 @@ hours
 \end_inset
 
 .
- This number is ideally a factor of 24.
+ This number is ideally a factor of 24 because each day the schedule is
+ advanced one hour to ensure no 
+\begin_inset Quotes eld
+\end_inset
+
+holes
+\begin_inset Quotes erd
+\end_inset
+
+ result from the calibration schedule; non-factor values are acceptable
+ but complicate this schedule.
+ 
 \end_layout
 
 \begin_layout Description
@@ -4640,16 +4673,12 @@ status open
 \begin_layout Plain Layout
 Options under 
 \family sans
-Gradient
-\begin_inset space \space{}
-\end_inset
-
-settings
+Settings
 \family default
  menu
 \begin_inset CommandInset label
 LatexCommand label
-name "tab:menu-GradientSettings"
+name "tab:menu-Settings"
 
 \end_inset
 
@@ -4665,9 +4694,10 @@ name "tab:menu-GradientSettings"
 \noindent
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="21" columns="4">
+<lyxtabular version="3" rows="21" columns="5">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="middle" width="0pt">
+<column alignment="left" valignment="top">
 <column alignment="left" valignment="top">
 <column alignment="center" valignment="top" width="0pt">
 <column alignment="center" valignment="top" width="35line%">
@@ -4686,6 +4716,15 @@ Submenu
 
 \begin_layout Plain Layout
 Option name
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Units
 \end_layout
 
 \end_inset
@@ -4733,6 +4772,15 @@ Sonic 1 azimuth
 \end_inset
 
 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+degEofTN
 \end_layout
 
 \end_inset
@@ -4795,6 +4843,15 @@ Sonic 1 height
 \begin_inset Text
 
 \begin_layout Plain Layout
+ft
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 0
 \end_layout
 
@@ -4837,6 +4894,15 @@ Sonic 2 azimuth
 \end_inset
 
 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+degEofTN
 \end_layout
 
 \end_inset
@@ -4899,6 +4965,15 @@ Sonic 2 height
 \begin_inset Text
 
 \begin_layout Plain Layout
+ft
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 0
 \end_layout
 
@@ -4941,6 +5016,15 @@ Sonic 3 azimuth
 \end_inset
 
 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+degEofTN
 \end_layout
 
 \end_inset
@@ -5003,6 +5087,15 @@ Sonic 3 height
 \begin_inset Text
 
 \begin_layout Plain Layout
+ft
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 0
 \end_layout
 
@@ -5045,6 +5138,15 @@ WXT510 azimuth
 \end_inset
 
 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+degEofTN
 \end_layout
 
 \end_inset
@@ -5107,6 +5209,15 @@ WXT510 height
 \begin_inset Text
 
 \begin_layout Plain Layout
+ft
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 0
 \end_layout
 
@@ -5157,6 +5268,15 @@ Flush tube length
 \begin_inset Text
 
 \begin_layout Plain Layout
+ft
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 0
 \end_layout
 
@@ -5199,6 +5319,15 @@ Min O2 flow
 \end_inset
 
 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+sLpm
 \end_layout
 
 \end_inset
@@ -5263,6 +5392,15 @@ Standard conc
 \begin_inset Text
 
 \begin_layout Plain Layout
+ppm
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 0
 \end_layout
 
@@ -5306,6 +5444,15 @@ Cal.
 \end_inset
 
 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+hr
 \end_layout
 
 \end_inset
@@ -5364,6 +5511,15 @@ Zero duration
 \begin_inset Text
 
 \begin_layout Plain Layout
+min
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 4
 \end_layout
 
@@ -5406,6 +5562,15 @@ Z/S duration
 \end_inset
 
 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+min
 \end_layout
 
 \end_inset
@@ -5464,6 +5629,15 @@ Std duration
 \begin_inset Text
 
 \begin_layout Plain Layout
+min
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 0
 \end_layout
 
@@ -5506,6 +5680,15 @@ Start filter
 \end_inset
 
 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+sec
 \end_layout
 
 \end_inset
@@ -5564,6 +5747,15 @@ End filter
 \begin_inset Text
 
 \begin_layout Plain Layout
+sec
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 5
 \end_layout
 
@@ -5601,7 +5793,7 @@ Apply/cancel
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell multicolumn="1" alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -5619,6 +5811,15 @@ Save now?
 
 \end_inset
 </cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
@@ -5676,7 +5877,7 @@ Yes
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+<cell multicolumn="1" alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -5694,6 +5895,15 @@ Discard?
 
 \end_inset
 </cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
 <cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
 \begin_inset Text
 
@@ -5751,7 +5961,7 @@ Yes
 
 \end_inset
 </cell>
-<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+<cell multicolumn="1" alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -5764,6 +5974,15 @@ Set default?
 
 \end_inset
 
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 
 \end_layout
 
@@ -6103,11 +6322,12 @@ flow
 \end_inset
 
  option, an email alert is sent
-\begin_inset Note Note
+\begin_inset Foot
 status open
 
 \begin_layout Plain Layout
-TO WHO?
+to Patrick O'Keeffe and Shelley Pressley during 2014 PROPHET study (customizable
+)
 \end_layout
 
 \end_inset
@@ -6294,14 +6514,15 @@ https://www.campbellsci.com/pc200w
  This is the only method to access data recorded to datalogger internal
  memory.
  Data recorded to external memory cards can also be accessed without removing
- the card using this method.
+ the card using this method; however, it is not practical to retrieve high-frequ
+ency time series data using the serial connection.
  
 \end_layout
 
 \begin_layout Labeling
 \labelwidthstring 00.00.0000
 LoggerNet This proprietary program supports serial and network connections.
- If scheduled retrieval is desired, this is the only convenient option.
+ If scheduled (automatic) retrieval is desired, this is the only option.
  
 \end_layout
 
@@ -6320,6 +6541,16 @@ PC200W This no-cost program supports serial connections only.
 \labelwidthstring 00.00.0000
 FTP The datalogger offers access to its file systems via File Transfer Protocol.
  By default, anonymous access is allowed and the standard port (21) is used.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+However, since the datalogger has a direct internet connection, FTP has
+ been disabled for the 2014 PROPHET campaign.
+\end_layout
+
+\end_inset
+
  
 \end_layout
 
@@ -6333,7 +6564,7 @@ reference "fig:Enclosure-for-datalogger"
 
 ] in the datalogger enclosure is available for local network connections.
  Because the datalogger is configured to exist on the UMBS network, a cross-over
- ethernet cable cannot be used for direction connection to the datalogger.
+ ethernet cable cannot be used for direct connection to the datalogger.
  
 \begin_inset VSpace defskip
 \end_inset
@@ -6358,8 +6589,8 @@ status open
 \begin_layout Plain Layout
 Collecting data while conducting measurements may interfere with processing
  tasks.
- Do not collect tables of real-time measurements (ts_fast, ts_slow) if external
- media is present.
+ Do not collect tables of real-time measurements (ts_fast, ts_slow) -- use
+ a CompactFlash memory card instead.
 \end_layout
 
 \end_inset
@@ -6409,17 +6640,7 @@ Periodic assessment of CO2/H2O calibration (last date:
 status collapsed
 
 \begin_layout Plain Layout
-????
-\end_layout
-
-\end_inset
-
-
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-FIND LAST CAL DATE OF IRGA
+TODO POST-CAMPAIGN
 \end_layout
 
 \end_inset
@@ -6429,7 +6650,7 @@ FIND LAST CAL DATE OF IRGA
 
 \begin_layout Itemize
 Annual replacement of CO2/H2O scrubber chemicals (replaced during FIS installati
-on period of 2014 PROPHET)
+on process in May 2014)
 \end_layout
 
 \begin_layout Subsubsection
@@ -6989,7 +7210,7 @@ Summary of logger-generated data files
 \begin_layout Plain Layout
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="8" columns="5">
+<lyxtabular version="3" rows="7" columns="5">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="bottom" width="0pt">
 <column alignment="center" valignment="top" width="0pt">
@@ -7967,16 +8188,28 @@ Notes
 sonic*_azimuth
 \family default
  values are set, they are used to orient half-hour wind direction values
- relative to True North for their respective sensors; 
+ relative to True North for their respective sensors; as of program version
+ 1.1, 
 \family sans
 wxt_azimuth
 \family default
- is not used this way.
+ is used analogously for wind direction from the weather transmitter.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+During the 2014 PROPHET campaign, the WXT510 was aligned to True North so
+ no correction was actually necessary.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Description
-SerialNumber/OSVersion In versions 1.1.2 and earlier, these columns tracked
- the serial number and O/S version of the datalogger.
+SerialNumber/OSVersion Prior to version 1.2, these columns tracked the serial
+ number and O/S version of the datalogger.
  They were removed because this information is in the TOA5 file header.
 \end_layout
 
@@ -8637,7 +8870,7 @@ status open
 \begin_layout Plain Layout
 This value is 
 \begin_inset Flex Strong
-status open
+status collapsed
 
 \begin_layout Plain Layout
 not
@@ -8647,7 +8880,7 @@ not
 
  applied to wind measurements in the 
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 ts_wxt
@@ -8655,7 +8888,7 @@ ts_wxt
 
 \end_inset
 
- table.
+ table prior to version 1.2.
 \end_layout
 
 \end_inset
@@ -9476,7 +9709,7 @@ FIS_cal_filter
 
 \end_inset
 
- is true, events will still have unique values but values will not be monotonic.
+ is true, events will still be unique and monotonic but not consecutive.
  
 \begin_inset VSpace defskip
 \end_inset
@@ -9488,7 +9721,9 @@ FIS_cal_filter
 After the bug was fixed (2014-06-13 20:24 EST) the event counter was reset
  so when examining data straddling this point in time, beware of duplicates
  in this column.
- 
+ One simple solution to eliminate duplicate values in this column is to
+ add a large offset (say, 1000) to values collected after this point in
+ time.
 \end_layout
 
 \end_inset
@@ -9936,7 +10171,7 @@ al values, which have capitalized suffixes.
 \begin_layout Description
 FIS_flow_std When no standard is flowing, this value may drift upwards from
  zero (
-\begin_inset Formula $\approx0.1$
+\begin_inset Formula $\approx0.19$
 \end_inset
 
 
@@ -9944,8 +10179,9 @@ FIS_flow_std When no standard is flowing, this value may drift upwards from
 \end_inset
 
 sccm) due to the effects of self-heating within the mass flow controller.
- Activating standard flow will correct the drift fairly rapidly (on the
- order of tens of seconds to minutes).
+ Activating standard flow will eventually correct this offset (on the order
+ of tens of seconds to minutes); for short durations of active flow, it
+ may be necessary to subtract the offset from reported flow.
 \end_layout
 
 \begin_layout Description
@@ -10052,8 +10288,462 @@ key "manual-ec100,manual-csat3"
 
 \end_inset
 
- for interpretation details.
+ for complete documentation.
  
+\begin_inset VSpace smallskip
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Flex Strong
+status collapsed
+
+\begin_layout Plain Layout
+CSAT3A
+\end_layout
+
+\end_inset
+
+ A diagnostic flag exists for any non-zero value.
+ Since the diagnostic word carries a lot of information, the user is referred
+ to the anemometer user manual 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "manual-ec100"
+
+\end_inset
+
+.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Flex Strong
+status collapsed
+
+\begin_layout Plain Layout
+CSAT3
+\end_layout
+
+\end_inset
+
+ The six least significant bits are used as a sequential cyclic counter
+ (0-63) and the diagnostic flags are stored in the four most significant
+ bits (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:Diagnostic-flags-(CSAT3)"
+
+\end_inset
+
+).
+ A few special values are used to represent some common conditions (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "tab:Specific-conditions-csat3"
+
+\end_inset
+
+).
+ The middle bits indicate analog output scaling and are all 0 by default;
+ they are generally ignored.
+ A naive check for diagnostic flags can be done by checking for values 
+\begin_inset Formula $X>4095=2^{12}-1$
+\end_inset
+
+.
+ 
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Diagnostic flags (CSAT3)
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Diagnostic-flags-(CSAT3)"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="3">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="left" valignment="top" width="25col%">
+<column alignment="left" valignment="top" width="40col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Bit
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+When true, indicates
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Comments 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "manual-csat3"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+b15
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+difference in speed of sound between transducer pairs exceeds factory threshold
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Quotes eld
+\end_inset
+
+The anemometer path length may have been altered or the anemometer head
+ is broken.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+b14
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+poor signal lock
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Quotes eld
+\end_inset
+
+There may be an obstruction in the anemometer path or on the transducer
+ face.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+b13
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+sonic signal amplitude too high
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Quotes eld
+\end_inset
+
+An obstruction, in the anemometer path or on the transducer face, was removed.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+b12
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+sonic signal amplitude too low
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Quotes eld
+\end_inset
+
+There may be an obstruction in the anemometer path or on the transducer
+ face.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Specific diagnostic conditions (CSAT3)
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Specific-conditions-csat3"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="6" columns="2">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top" width="20col%">
+<column alignment="left" valignment="top" width="60col%">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Diagnostic value
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Description
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+NaN or -99999
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+No response: datalogger did not receive or could not understand response
+ from anemometer
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+61440
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Lost Trigger: occurs if anemometer is disconnected from data bus
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+61503
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+No new data: may occur if execution parameter is less than datalogger operating
+ frequency
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+61441
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+SDM comm error: datalogger was unable to effectively communicate
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+61442
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Wrong firmware: this should not ever be encountered
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Description
@@ -10140,7 +10830,7 @@ Data table schema: ts_fast
 
 \end_inset
 
-Data table schema: ts_fast
+Data table schema: ts_fast (shading indicates conditional inclusion)
 \begin_inset CommandInset label
 LatexCommand label
 name "tab:schema-ts_fast"
@@ -10577,7 +11267,7 @@ m/s
 \begin_inset Text
 
 \begin_layout Plain Layout
-(+) = into sonic array along boom axis
+(+) = into sonic array from transducers towards mounting bolt
 \end_layout
 
 \end_inset
@@ -11087,7 +11777,7 @@ m/s
 \begin_inset Text
 
 \begin_layout Plain Layout
-(+) = into sonic array along boom axis
+(+) = into sonic array from transducers towards mounting bolt
 \end_layout
 
 \end_inset
@@ -11346,7 +12036,7 @@ m/s
 \begin_inset Text
 
 \begin_layout Plain Layout
-(+) = into sonic array along boom axis
+(+) = into sonic array from transducers towards mounting bolt
 \end_layout
 
 \end_inset
@@ -11712,10 +12402,10 @@ Notes
 
 \begin_layout Description
 wxt_WD Wind direction is reported with respect to the sensor's coordinate
- system, which may not be aligned with geographic (True) north If the azimuth
- recorded in the 
+ system, which may not be aligned with geographic (True) north.
+ If the azimuth recorded in the 
 \begin_inset Flex Code
-status open
+status collapsed
 
 \begin_layout Plain Layout
 info
@@ -11727,8 +12417,16 @@ info
 \begin_inset Formula $-1$
 \end_inset
 
- (and it shouldn't be if the program was setup correctly), then a simple
- addition will result in wind direction in geographic coordinates:
+ (sentinel for 
+\begin_inset Quotes eld
+\end_inset
+
+unspecified
+\begin_inset Quotes erd
+\end_inset
+
+), then a simple addition will result in wind direction in geographic coordinate
+s:
 \begin_inset Formula 
 \[
 WD_{\textrm{geo}}=WD_{\textrm{WXT}}+Azimuth_{\textrm{WXT}}
@@ -11761,14 +12459,14 @@ has_inner_box 1
 inner_pos "t"
 use_parbox 0
 use_makebox 0
-width "100col%"
+width "100line%"
 special "none"
 height "1in"
 height_special "totalheight"
 status open
 
 \begin_layout Plain Layout
-In program versions 1.1.2 and earlier, this value was 
+Prior to version 1.2, this value was 
 \begin_inset Flex Strong
 status collapsed
 
@@ -11779,7 +12477,8 @@ not
 \end_inset
 
  adjusted to account for the orientation of the weather transmitter.
- 
+ For the 2014 PROPHET study, this is irrelevant since the device was aligned
+ to true north (azimuth=0).
 \end_layout
 
 \end_inset
@@ -11795,7 +12494,7 @@ key "manual-wxt510"
 
 \end_inset
 
- for more details about what these values even mean.
+ for more details about these values.
 \end_layout
 
 \begin_layout Standard
@@ -12309,7 +13008,8 @@ wxt_WD_Med
 \end_inset
 
 ) has been adjusted to account for the WXT510 azimuth, if specified.
- 
+ For the 2014 PROPHET study, this is irrelevant since the device was aligned
+ to true north (azimuth=0).
 \end_layout
 
 \end_inset
@@ -16113,6 +16813,13 @@ hmailserver.exe
 
 \begin_layout Paragraph
 SFTP credentials
+\begin_inset CommandInset label
+LatexCommand label
+name "par:SFTP-credentials"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -16351,6 +17058,36 @@ http://publib.boulder.ibm.com/infocenter/ieduasst/v1r1m0/topic/com.ibm.iea.wpi_v
 
 \end_layout
 
+\begin_layout Paragraph
+Setting up IRC chat
+\end_layout
+
+\begin_layout Standard
+Since the laptop in the UMBS lab is intended to operate 24/7, it will be
+ the 'host' chat user.
+ Simply connect to the channel 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+#wsular
+\end_layout
+
+\end_inset
+
+ on the IRC server 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+chat.freenode.net
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Subsection
 Server (at WSU campus)
 \end_layout
@@ -16358,8 +17095,7 @@ Server (at WSU campus)
 \begin_layout Standard
 A server located on the WSU campus provides an SFTP server, among other
  services.
- After transferring the binary data files from the latest CF memory card
- to the laptop at the monitoring site, 
+ 
 \end_layout
 
 \begin_layout Paragraph
@@ -16442,6 +17178,42 @@ http://winmd5.com/
 
 \end_layout
 
+\begin_layout Description
+LoggerNet Suite of tools for managing Campbell Scientific dataloggers; used
+ to remotely collect most recent data directly from datalogger.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://campbellsci.com/loggernet
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+\begin_inset Flex Emph
+status collapsed
+
+\begin_layout Plain Layout
+IRC
+\begin_inset space ~
+\end_inset
+
+Client
+\end_layout
+
+\end_inset
+
+ This author used the built-in chat capabilities of his email client, Thunderbir
+d, but any IRC-capable chat client is acceptable.
+ 
+\end_layout
+
 \begin_layout Subsubsection
 Configuration
 \end_layout
@@ -16467,18 +17239,65 @@ L0_telemetry
  subfolder of the public data space.
 \end_layout
 
+\begin_layout Paragraph
+Enabling key-based SFTP access
+\end_layout
+
 \begin_layout Standard
-\begin_inset Note Note
-status open
+To enable key-based SFTP login access for a particular user:
+\end_layout
+
+\begin_layout Enumerate
+Receive the user's public key (for creation, see pg 
+\begin_inset CommandInset ref
+LatexCommand pageref
+reference "par:SFTP-credentials"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Enumerate
+Rename the keyfile with the user's login name, no file extension.
+\end_layout
+
+\begin_layout Enumerate
+Place the keyfile into the specific folder indicated by the server's settings.
+\end_layout
+
+\begin_layout Standard
+Refer to the server documentation for more details.
+\end_layout
+
+\begin_layout Paragraph
+Connecting to IRC chat
+\end_layout
+
+\begin_layout Standard
+The chat client running on the laptop in the UMBS lab should be connected
+ all the time.
+ To connect, simply log into the channel 
+\begin_inset Flex Code
+status collapsed
 
 \begin_layout Plain Layout
-TODO: how to activate a public key for SFTP server -- naming after user,
- placing in specific folder
+#wsular
 \end_layout
 
 \end_inset
 
+ on the server 
+\begin_inset Flex Code
+status collapsed
 
+\begin_layout Plain Layout
+chat.freenode.net
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -16855,8 +17674,7 @@ Weather Transmitter (WXT510)
 \end_layout
 
 \begin_layout Standard
-The WXT510 has been previously configured to support measurements using
- the 
+The WXT510 was already configured to support measurements using the 
 \begin_inset Flex Code
 status collapsed
 
@@ -16866,18 +17684,152 @@ SDIRecorder
 
 \end_inset
 
- instruction but the precise configuration values will have to be looked
- up.
- If this paragraph has snuck into an 
-\begin_inset Quotes eld
+ instruction.
+ Refer to figures 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:WXT510-Device-Settings"
+
 \end_inset
 
-official
-\begin_inset Quotes erd
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:WXT510-Sensor-Settings"
+
 \end_inset
 
- version, please do not hesitate to send an irate message to the author(s).
- 
+, and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:WXT510-Message-Settings"
+
+\end_inset
+
+ for complete device settings.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/wxt510_settings_device.png
+	lyxscale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+WXT510 Device Settings
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:WXT510-Device-Settings"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/wxt510_settings_sensors.png
+	lyxscale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+WXT510 Sensor Settings
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:WXT510-Sensor-Settings"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename images/wxt510_settings_messages.png
+	lyxscale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+WXT510 Message Settings
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:WXT510-Message-Settings"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection
@@ -18573,7 +19525,6 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-
 Handling SDM signature errors from sonic/IRGA unit
 \begin_inset CommandInset label
 LatexCommand label
@@ -18659,7 +19610,7 @@ has_inner_box 1
 inner_pos "t"
 use_parbox 0
 use_makebox 0
-width "100col%"
+width "100line%"
 special "none"
 height "1in"
 height_special "totalheight"

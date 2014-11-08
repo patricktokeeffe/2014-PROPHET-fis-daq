@@ -7,6 +7,17 @@ Next release
   (15s scan)" (2014-05-13): extra early closing parentheses appears after 
   destination variable but is apparently effectively ignored by compiler
 
+### Other changes
+
+- UPDATE DOCUMENTATION: for possibly the first time, the user manual aka
+  instructions document is believed to be as up-to-date as possible.
+    * Fill-in many missing details
+    * LOTS of editorial changes
+    * List unique identifiers (serial #s) of deployed instruments
+    * Add WXT510 configuration details
+    * Add section describing post-card transfer data management procedures
+
+
 Version 1.2.1
 =============
 
