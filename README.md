@@ -19,17 +19,23 @@ Fast Isoprene Sensor (FIS) at the UMBS PROPHET tower lab during summer 2014.
   cover operation of the FIS itself, nor any of its components -- refer to the
   FIS user manual for such information.
 
+### Links
+
 > **Processing scripts** have been moved to a 
 [separate repository](https://bitbucket.org/wsular/2014-prophet-fis-analysis)
 
 A second private repository hosts sensitive information such as network 
 addresses and access credentials specific to the 2014 measurement campaign.
+Data is hosted on a semi-public FTP server. Logbooks are on the FTP server and
+in this repository's download section.
 
 - Main repository (public): <https://bitbucket.org/wsular/2014-prophet-fis-daq>
 - Analytical tools (public): <https://bitbucket.org/wsular/2014-prophet-fis-analysis>
 - Private repository: <https://bitbucket.org/wsular/2014-prophet-fis-secrets>
 - Data host (read-only): <ftp://lar-d216-share.cee.wsu.edu/proj/2014_PROPHET>
   [port 1021 off WSU campus]
+- Logbooks: [scanned physical logbook](https://bitbucket.org/wsular/2014-prophet-fis-daq/downloads/FIS%20DAQ%20(physical)%20Logbook.pdf)
+  and [electronic logbook](https://bitbucket.org/wsular/2014-prophet-fis-daq/downloads/FIS%20DAQ%20(electronic)%20Logbook.pdf)
 
 ### Building from source
 
