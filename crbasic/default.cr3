@@ -530,6 +530,7 @@ EndTable
 DataTable(stats,True,4)
   DataInterval(0,STATS_INTV,Min,10)
   CardOut(STOPRING,-1)
+  Average(1,FIS_pmt_counts,FP2,FIS_pmt_counts=NAN)
   Average(1,FIS_flow_tot,FP2,FIS_flow_tot=NAN)
   StdDev (1,FIS_flow_tot,FP2,FIS_flow_tot=NAN)
   Average(1,FIS_flow_samp,FP2,FIS_flow_samp=NAN)

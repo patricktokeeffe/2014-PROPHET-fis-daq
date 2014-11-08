@@ -12933,6 +12933,12 @@ Notes
 \end_layout
 
 \begin_layout Description
+FIS_pmt_counts_Avg Interpretation is limited without sensitivity value but
+ maybe useful in evaluating general conditions; added in v1.2.2 (post-2014
+ campaign).
+\end_layout
+
+\begin_layout Description
 FIS_flow_samp_Avg/Std These values are based on the instantaneous sample
  flow, which is determined in realtime as: 
 \begin_inset Formula 
@@ -13172,7 +13178,7 @@ name "tab:schema-stats"
 \noindent
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="50" columns="4">
+<lyxtabular version="3" rows="51" columns="4">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="left" valignment="top">
@@ -13230,6 +13236,44 @@ Description
 \begin_inset Text
 
 \begin_layout Plain Layout
+FIS_pmt_counts_Avg
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+counts
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mean counts per scan; multiply by 10 for counts/sec
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 FIS_flow_tot_Avg
 \end_layout
 
@@ -13244,7 +13288,7 @@ sLpm
 
 \end_inset
 </cell>
-<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
 \begin_inset Text
 
 \begin_layout Plain Layout
@@ -13259,7 +13303,7 @@ mean total flow through FIS
 \begin_inset Text
 
 \begin_layout Plain Layout
-2
+3
 \end_layout
 
 \end_inset
@@ -13297,7 +13341,7 @@ standard deviation of total flow through FIS
 \begin_inset Text
 
 \begin_layout Plain Layout
-3
+4
 \end_layout
 
 \end_inset
@@ -13335,7 +13379,7 @@ mean sample flow through FIS
 \begin_inset Text
 
 \begin_layout Plain Layout
-4
+5
 \end_layout
 
 \end_inset
@@ -13373,7 +13417,7 @@ standard deviation of sample flow through FIS
 \begin_inset Text
 
 \begin_layout Plain Layout
-5
+6
 \end_layout
 
 \end_inset
@@ -13411,7 +13455,7 @@ mean oxygen flow through FIS
 \begin_inset Text
 
 \begin_layout Plain Layout
-6
+7
 \end_layout
 
 \end_inset
@@ -13449,7 +13493,7 @@ standard deviation of oxygen flow through FIS
 \begin_inset Text
 
 \begin_layout Plain Layout
-7
+8
 \end_layout
 
 \end_inset
@@ -13487,7 +13531,7 @@ mean standard flow through FIS
 \begin_inset Text
 
 \begin_layout Plain Layout
-8
+9
 \end_layout
 
 \end_inset
@@ -13525,7 +13569,7 @@ standard deviation of standard flow through FIS
 \begin_inset Text
 
 \begin_layout Plain Layout
-9
+10
 \end_layout
 
 \end_inset
@@ -13563,7 +13607,7 @@ median wind direction from WXT510
 \begin_inset Text
 
 \begin_layout Plain Layout
-10
+11
 \end_layout
 
 \end_inset
@@ -13601,7 +13645,7 @@ mean wind speed from WXT510
 \begin_inset Text
 
 \begin_layout Plain Layout
-11
+12
 \end_layout
 
 \end_inset
@@ -13639,7 +13683,7 @@ mean ambient temperature from WXT510
 \begin_inset Text
 
 \begin_layout Plain Layout
-12
+13
 \end_layout
 
 \end_inset
@@ -13677,7 +13721,7 @@ median relative humidity from WXT510
 \begin_inset Text
 
 \begin_layout Plain Layout
-13
+14
 \end_layout
 
 \end_inset
@@ -13715,7 +13759,7 @@ mean ambient pressure from WXT510
 \begin_inset Text
 
 \begin_layout Plain Layout
-14
+15
 \end_layout
 
 \end_inset
@@ -13753,7 +13797,7 @@ mean mass flow rate through flush line
 \begin_inset Text
 
 \begin_layout Plain Layout
-15
+16
 \end_layout
 
 \end_inset
@@ -13793,7 +13837,7 @@ std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-16
+17
 \end_layout
 
 \end_inset
@@ -13831,7 +13875,7 @@ mean temperature within flush line
 \begin_inset Text
 
 \begin_layout Plain Layout
-17
+18
 \end_layout
 
 \end_inset
@@ -13869,7 +13913,7 @@ mean absolute pressure within flush line
 \begin_inset Text
 
 \begin_layout Plain Layout
-18
+19
 \end_layout
 
 \end_inset
@@ -13907,7 +13951,7 @@ mean volumetric flow rate through flush line
 \begin_inset Text
 
 \begin_layout Plain Layout
-19
+20
 \end_layout
 
 \end_inset
@@ -13947,7 +13991,7 @@ std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-20
+21
 \end_layout
 
 \end_inset
@@ -13985,7 +14029,7 @@ mean estimated delay time in flush line
 \begin_inset Text
 
 \begin_layout Plain Layout
-21
+22
 \end_layout
 
 \end_inset
@@ -14025,7 +14069,7 @@ std.
 \begin_inset Text
 
 \begin_layout Plain Layout
-22
+23
 \end_layout
 
 \end_inset
@@ -14063,7 +14107,7 @@ mean Reynolds number within flush line
 \begin_inset Text
 
 \begin_layout Plain Layout
-23
+24
 \end_layout
 
 \end_inset
@@ -14101,7 +14145,7 @@ mean sonic temperature
 \begin_inset Text
 
 \begin_layout Plain Layout
-24
+25
 \end_layout
 
 \end_inset
@@ -14139,7 +14183,7 @@ standard deviation of sonic temperature
 \begin_inset Text
 
 \begin_layout Plain Layout
-25
+26
 \end_layout
 
 \end_inset
@@ -14177,7 +14221,7 @@ standard deviation of vertical wind speed
 \begin_inset Text
 
 \begin_layout Plain Layout
-26
+27
 \end_layout
 
 \end_inset
@@ -14215,7 +14259,7 @@ mean horizontal scalar wind speed
 \begin_inset Text
 
 \begin_layout Plain Layout
-27
+28
 \end_layout
 
 \end_inset
@@ -14253,7 +14297,7 @@ mean horizontal vector wind speed
 \begin_inset Text
 
 \begin_layout Plain Layout
-28
+29
 \end_layout
 
 \end_inset
@@ -14291,7 +14335,7 @@ resultant mean wind direction
 \begin_inset Text
 
 \begin_layout Plain Layout
-29
+30
 \end_layout
 
 \end_inset
@@ -14329,7 +14373,7 @@ standard deviation of wind direction
 \begin_inset Text
 
 \begin_layout Plain Layout
-30
+31
 \end_layout
 
 \end_inset
@@ -14367,7 +14411,7 @@ mean molar density of carbon dioxide
 \begin_inset Text
 
 \begin_layout Plain Layout
-31
+32
 \end_layout
 
 \end_inset
@@ -14405,7 +14449,7 @@ mean molar density of water vapor
 \begin_inset Text
 
 \begin_layout Plain Layout
-32
+33
 \end_layout
 
 \end_inset
@@ -14443,7 +14487,7 @@ mean ambient temperature from IRGA
 \begin_inset Text
 
 \begin_layout Plain Layout
-33
+34
 \end_layout
 
 \end_inset
@@ -14481,7 +14525,7 @@ mean ambient pressure from IRGA
 \begin_inset Text
 
 \begin_layout Plain Layout
-34
+35
 \end_layout
 
 \end_inset
@@ -14519,7 +14563,7 @@ mean signal quality for carbon dioxide
 \begin_inset Text
 
 \begin_layout Plain Layout
-35
+36
 \end_layout
 
 \end_inset
@@ -14569,7 +14613,7 @@ rowcolor{band1}
 
 \end_inset
 
-36
+37
 \end_layout
 
 \end_inset
@@ -14619,7 +14663,7 @@ rowcolor{band1}
 
 \end_inset
 
-37
+38
 \end_layout
 
 \end_inset
@@ -14669,7 +14713,7 @@ rowcolor{band1}
 
 \end_inset
 
-38
+39
 \end_layout
 
 \end_inset
@@ -14719,7 +14763,7 @@ rowcolor{band1}
 
 \end_inset
 
-39
+40
 \end_layout
 
 \end_inset
@@ -14769,7 +14813,7 @@ rowcolor{band1}
 
 \end_inset
 
-40
+41
 \end_layout
 
 \end_inset
@@ -14819,7 +14863,7 @@ rowcolor{band1}
 
 \end_inset
 
-41
+42
 \end_layout
 
 \end_inset
@@ -14869,7 +14913,7 @@ rowcolor{band1}
 
 \end_inset
 
-42
+43
 \end_layout
 
 \end_inset
@@ -14919,7 +14963,7 @@ rowcolor{band2}
 
 \end_inset
 
-43
+44
 \end_layout
 
 \end_inset
@@ -14969,7 +15013,7 @@ rowcolor{band2}
 
 \end_inset
 
-44
+45
 \end_layout
 
 \end_inset
@@ -15019,7 +15063,7 @@ rowcolor{band2}
 
 \end_inset
 
-45
+46
 \end_layout
 
 \end_inset
@@ -15069,7 +15113,7 @@ rowcolor{band2}
 
 \end_inset
 
-46
+47
 \end_layout
 
 \end_inset
@@ -15119,7 +15163,7 @@ rowcolor{band2}
 
 \end_inset
 
-47
+48
 \end_layout
 
 \end_inset
@@ -15169,7 +15213,7 @@ rowcolor{band2}
 
 \end_inset
 
-48
+49
 \end_layout
 
 \end_inset
@@ -15219,7 +15263,7 @@ rowcolor{band2}
 
 \end_inset
 
-49
+50
 \end_layout
 
 \end_inset

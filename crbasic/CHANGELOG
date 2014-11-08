@@ -7,6 +7,16 @@ Next release
   (15s scan)" (2014-05-13): extra early closing parentheses appears after 
   destination variable but is apparently effectively ignored by compiler
 
+### Enhancements
+
+- Track mean counts so even without specific sensitivity known, general trends
+  can be observed
+
+### Changes to data tables
+
+- New additions to `stats`:
+    * Mean photon counts `FIS_pmt_counts_Avg` from PMT in first column
+
 ### Other changes
 
 - UPDATE DOCUMENTATION: for possibly the first time, the user manual aka
