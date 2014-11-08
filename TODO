@@ -1,0 +1,19 @@
+
+Program
+-------
+- separate FIS_flow_std half-hour values into 'cal event' and 'non-cal event'
+  then subtract the mean during non-events from mean during cal events to
+  remove the MFC response to zero flow ----> this is important because the
+  isoprene conc is determined by ratio of flow_std to flow_samp (total-O2)
+- if PMT data stops, attempt to restart and if that fails, send an email alert
+- save watchdog and program error count to file so previous values can also be
+  noted in emails (allows users to easily see if/which counter increased); will
+  require checking for counter=0 to reset saved counter;
+
+Documentation
+-------------
+- clarify serial data handling of TSI mis-aligned byte problem solutions?
+- include wiring diagram(s) as appendix?
+- create 'specifications' section 
+  * power consumption of devices
+  * list of fuses (fis, ozonizer, switched outlet, ??)
