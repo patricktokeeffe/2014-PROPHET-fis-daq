@@ -11,11 +11,15 @@ Next release
 
 - Track mean counts so even without specific sensitivity known, general trends
   can be observed
+- Track datalogger panel temp (e.g. inside lab temperature) so ambient temp of
+  FIS can be considered in analysis
 
 ### Changes to data tables
 
 - New additions to `stats`:
     * Mean photon counts `FIS_pmt_counts_Avg` from PMT in first column
+    * Mean datalogger panel temperature `logger_tmpr_Avg` after 'flush_' values
+      and before sonic1 values
 
 ### Other changes
 

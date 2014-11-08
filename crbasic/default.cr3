@@ -289,6 +289,9 @@ Units since_gprmc = s
 Units max_clock_change = ms
 Units num_clock_change = occurrences
 
+Public logger_tmpr
+Units logger_tmpr = degC
+
 Dim i
 Dim just_had_wxt_scan As Boolean
 Dim inbetween_wxt_scan As Boolean
@@ -555,6 +558,8 @@ DataTable(stats,True,4)
   Average(1,flush_delay,FP2,flush_delay=NAN)
   StdDev (1,flush_delay,FP2,flush_delay=NAN)
   Sample (1,flush_Re_Avg,IEEE4)
+
+  Average(1,logger_tmpr,FP2,logger_tmpr=NAN OR inbetween_wxt_scan)
 
   Average(1,sonic1_Ts,FP2,sonic1_Ts=NAN)
   StdDev (1,sonic1_Ts,FP2,sonic1_Ts=NAN)
@@ -1207,6 +1212,8 @@ BeginProg
     SDI12Recorder(wxt(1),WXT_COM,WXT_ADDR,WXT_CMD,wxt_scaling(),0)
     wxt_WD = (wxt_WD + IIF(wxt_azimuth < 0, 0, wxt_azimuth)) MOD 360
     CallTable(ts_wxt)
+
+    PanelTemp(logger_tmpr,250)
 
     just_had_wxt_scan = True
   NextScan

@@ -13178,7 +13178,7 @@ name "tab:schema-stats"
 \noindent
 \align center
 \begin_inset Tabular
-<lyxtabular version="3" rows="51" columns="4">
+<lyxtabular version="3" rows="52" columns="4">
 <features rotate="0" tabularvalignment="middle">
 <column alignment="center" valignment="top">
 <column alignment="left" valignment="top">
@@ -14116,6 +14116,45 @@ mean Reynolds number within flush line
 \begin_inset Text
 
 \begin_layout Plain Layout
+logger_tmpr_Avg
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+degC
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+mean temperature of datalogger (i.e.
+ inside lab)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+25
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 sonic1_Ts_Avg
 \end_layout
 
@@ -14145,7 +14184,7 @@ mean sonic temperature
 \begin_inset Text
 
 \begin_layout Plain Layout
-25
+26
 \end_layout
 
 \end_inset
@@ -14183,7 +14222,7 @@ standard deviation of sonic temperature
 \begin_inset Text
 
 \begin_layout Plain Layout
-26
+27
 \end_layout
 
 \end_inset
@@ -14221,7 +14260,7 @@ standard deviation of vertical wind speed
 \begin_inset Text
 
 \begin_layout Plain Layout
-27
+28
 \end_layout
 
 \end_inset
@@ -14259,7 +14298,7 @@ mean horizontal scalar wind speed
 \begin_inset Text
 
 \begin_layout Plain Layout
-28
+29
 \end_layout
 
 \end_inset
@@ -14297,7 +14336,7 @@ mean horizontal vector wind speed
 \begin_inset Text
 
 \begin_layout Plain Layout
-29
+30
 \end_layout
 
 \end_inset
@@ -14335,7 +14374,7 @@ resultant mean wind direction
 \begin_inset Text
 
 \begin_layout Plain Layout
-30
+31
 \end_layout
 
 \end_inset
@@ -14373,7 +14412,7 @@ standard deviation of wind direction
 \begin_inset Text
 
 \begin_layout Plain Layout
-31
+32
 \end_layout
 
 \end_inset
@@ -14411,7 +14450,7 @@ mean molar density of carbon dioxide
 \begin_inset Text
 
 \begin_layout Plain Layout
-32
+33
 \end_layout
 
 \end_inset
@@ -14449,7 +14488,7 @@ mean molar density of water vapor
 \begin_inset Text
 
 \begin_layout Plain Layout
-33
+34
 \end_layout
 
 \end_inset
@@ -14487,7 +14526,7 @@ mean ambient temperature from IRGA
 \begin_inset Text
 
 \begin_layout Plain Layout
-34
+35
 \end_layout
 
 \end_inset
@@ -14525,7 +14564,7 @@ mean ambient pressure from IRGA
 \begin_inset Text
 
 \begin_layout Plain Layout
-35
+36
 \end_layout
 
 \end_inset
@@ -14563,7 +14602,7 @@ mean signal quality for carbon dioxide
 \begin_inset Text
 
 \begin_layout Plain Layout
-36
+37
 \end_layout
 
 \end_inset
@@ -14613,7 +14652,7 @@ rowcolor{band1}
 
 \end_inset
 
-37
+38
 \end_layout
 
 \end_inset
@@ -14663,7 +14702,7 @@ rowcolor{band1}
 
 \end_inset
 
-38
+39
 \end_layout
 
 \end_inset
@@ -14713,7 +14752,7 @@ rowcolor{band1}
 
 \end_inset
 
-39
+40
 \end_layout
 
 \end_inset
@@ -14763,7 +14802,7 @@ rowcolor{band1}
 
 \end_inset
 
-40
+41
 \end_layout
 
 \end_inset
@@ -14813,7 +14852,7 @@ rowcolor{band1}
 
 \end_inset
 
-41
+42
 \end_layout
 
 \end_inset
@@ -14863,7 +14902,7 @@ rowcolor{band1}
 
 \end_inset
 
-42
+43
 \end_layout
 
 \end_inset
@@ -14913,7 +14952,7 @@ rowcolor{band1}
 
 \end_inset
 
-43
+44
 \end_layout
 
 \end_inset
@@ -14963,7 +15002,7 @@ rowcolor{band2}
 
 \end_inset
 
-44
+45
 \end_layout
 
 \end_inset
@@ -15013,7 +15052,7 @@ rowcolor{band2}
 
 \end_inset
 
-45
+46
 \end_layout
 
 \end_inset
@@ -15063,7 +15102,7 @@ rowcolor{band2}
 
 \end_inset
 
-46
+47
 \end_layout
 
 \end_inset
@@ -15113,7 +15152,7 @@ rowcolor{band2}
 
 \end_inset
 
-47
+48
 \end_layout
 
 \end_inset
@@ -15163,7 +15202,7 @@ rowcolor{band2}
 
 \end_inset
 
-48
+49
 \end_layout
 
 \end_inset
@@ -15213,7 +15252,7 @@ rowcolor{band2}
 
 \end_inset
 
-49
+50
 \end_layout
 
 \end_inset
@@ -15258,12 +15297,12 @@ status open
 
 
 \backslash
-rowcolor{band2}
+rowcolor{band1}
 \end_layout
 
 \end_inset
 
-50
+51
 \end_layout
 
 \end_inset
