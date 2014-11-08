@@ -15352,6 +15352,490 @@ standard deviation of wind direction
 
 \end_layout
 
+\begin_layout Subsection
+Files Management
+\end_layout
+
+\begin_layout Subsubsection
+Collection
+\end_layout
+
+\begin_layout Standard
+Data was collected by several redundant methods:
+\end_layout
+
+\begin_layout Itemize
+Retrieval of all tables except 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+tsdata
+\end_layout
+
+\end_inset
+
+ several times daily, with new data continuously appended to existing files
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Performed by both the laptop adjacent to the FIS DAQ (locally) and the file
+ storage server at WSU (remotely)
+\end_layout
+
+\begin_layout Itemize
+Stored under 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+L0_telemetry
+\end_layout
+
+\end_inset
+
+ directory on WSU file storage server
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Manual exchange of the CompactFlash (CF) card, at intervals of 20-30 days,
+ depending on program version
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Personnel at the PROPHET lab exchange the card
+\end_layout
+
+\begin_layout Itemize
+Personnel at WSU login to the laptop and transfer files to the WSU server
+\end_layout
+
+\begin_layout Itemize
+Copies of data files remain on laptop
+\end_layout
+
+\end_deeper
+\begin_layout Paragraph
+Telemetry
+\end_layout
+
+\begin_layout Standard
+Scheduled collection was performed by LoggerNet; (a few) configuration details
+ are covered in section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "par:Scheduled-data-collection"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph
+CF Cards
+\end_layout
+
+\begin_layout Standard
+Two distinct steps exist in the collection of data from CF cards: 
+\end_layout
+
+\begin_layout Enumerate
+Physical exchange of CF card currently in datalogger with CF currently in
+ laptop card reader
+\end_layout
+
+\begin_layout Enumerate
+Verifiable transfer of gigabyte-sized data files
+\end_layout
+
+\begin_layout Standard
+The former is covered in detail in section 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:Data-Retrieval"
+
+\end_inset
+
+, the latter is addressed here.
+ Once the CF card with new data has been placed in the laptop card reader,
+ WSU personnel can begin the transfer.
+ Generally, a successful transfer looks like:
+\end_layout
+
+\begin_layout Enumerate
+Login to laptop at UMBS using VNC client (TightVNC)
+\end_layout
+
+\begin_layout Enumerate
+Use script `generate_md5sums.py` to create MD5 checksums of data files on
+ CF card
+\end_layout
+
+\begin_layout Enumerate
+Copy data files to laptop
+\end_layout
+
+\begin_layout Enumerate
+Create checksums of new copies & compare (yes, a little overkill)
+\end_layout
+
+\begin_layout Enumerate
+Launch SFTP client (FileZilla) & connect to WSU server 
+\end_layout
+
+\begin_layout Enumerate
+Create new subdirectory 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+2014_PROPHET
+\backslash
+L0_raw_ascii
+\backslash
+collection_XX
+\end_layout
+
+\end_inset
+
+ where XX is an incremental counter
+\end_layout
+
+\begin_layout Enumerate
+Transfer data files & file of checksums to newly created directory
+\end_layout
+
+\begin_layout Enumerate
+Create checksums of transferred files & compare 
+\end_layout
+
+\begin_layout Subsubsection
+Storage
+\end_layout
+
+\begin_layout Standard
+Preparing files for long-term storage proceeds in four steps.
+ Specific software is listed in appendix 
+\begin_inset CommandInset ref
+LatexCommand vref
+reference "sub:Server-at-WSU-config"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Conversion
+\end_layout
+
+\begin_layout Standard
+Transferred data files are in the binary, proprietary 
+\begin_inset Quotes eld
+\end_inset
+
+TOB3
+\begin_inset Quotes erd
+\end_inset
+
+ format, which is not conducive to long-term storage.
+ As a first step, data files are converted to human-readable CSV
+\begin_inset CommandInset nomenclature
+LatexCommand nomenclature
+prefix "CSV"
+symbol "CSV"
+description "comma separated values"
+
+\end_inset
+
+ files (
+\begin_inset Quotes eld
+\end_inset
+
+TOA5
+\begin_inset Quotes erd
+\end_inset
+
+ format) using the freeware utility CardConvert, included with most all
+ Campbell Scientific software packages.
+ One file is created for each data table so the time-series table's file
+ is generally very large (>1Gb).
+\end_layout
+
+\begin_layout Paragraph
+Validation
+\end_layout
+
+\begin_layout Standard
+To ensure the integrity of the TOA5-formatted data files can be validated
+ later, the MD5 checksum of each file is calculated and recorded in a text
+ file called 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+md5sums
+\end_layout
+
+\end_inset
+
+.
+ As a further precaution, data files may have had their 'read-only' attribute
+ set true.
+\end_layout
+
+\begin_layout Paragraph
+Archival
+\end_layout
+
+\begin_layout Standard
+The checksum file and associated TOA5-formatted data files are archived
+ into a compressed 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+.7z
+\end_layout
+
+\end_inset
+
+ file using the default method (LZMA).
+ This particular format was chosen for its high compression ratios, fast
+ decompression routine and unencumberance with licensing restrictions.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Pre-munging 
+\end_layout
+
+\begin_layout Standard
+Since most users find working with several-gigabyte-sized files somewhat
+ difficult, the time-series data file is split using the script 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+split_toa5.py
+\end_layout
+
+\end_inset
+
+ into files containing no more than one half-million data records.
+ Each resulting file contains the same header information and is roughly
+ 130 megabytes.
+\end_layout
+
+\begin_layout Subsubsection
+Availability
+\end_layout
+
+\begin_layout Standard
+A semi-public FTP server hosts the data.
+ Outside the WSU campus, it may be accessed via the non-standard port 1021:
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+ftp://lar-d216-share.cee.wsu.edu/proj/2014_PROPHET/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Under 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+/proj/2014_PROPHET/
+\end_layout
+
+\end_inset
+
+ there is:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+fis_data/bench_tests/
+\end_layout
+
+\end_inset
+
+ :: data sets created during various pre- & post-campaign tests
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+fis_data/L0_raw_ascii/
+\end_layout
+
+\end_inset
+
+ :: complete data sets collected every few weeks
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Directories 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+collection_XX
+\end_layout
+
+\end_inset
+
+ contain split-up data files; this may be optimal for retrieving a few files
+ but data is transferred uncompressed (read: slower)
+\end_layout
+
+\begin_layout Itemize
+Archive files 
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+collection_XX.7z
+\end_layout
+
+\end_inset
+
+ contain all the same data as in the corresponding directory but the time-series
+ file is not split up and the archive is transferred as compressed data
+ (read: faster)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+fis_data/L0_telemetry
+\end_layout
+
+\end_inset
+
+ :: continuous data set for the 2014 study but excludes time-series data
+ table
+\begin_inset VSpace defskip
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Box Shadowbox
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100line%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+The telemetry data set is the only data set where the 'just_cals' table
+ contains a useful number of records.
+ This was intentional since the 'just_cals' table includes a subset of the
+ data in the time-series table.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Flex Code
+status collapsed
+
+\begin_layout Plain Layout
+photos
+\end_layout
+
+\end_inset
+
+ :: contains photos taken during setup/measurements/take-down
+\end_layout
+
+\begin_layout Itemize
+logbooks, both physical (scanned) and electronic (printed to PDF)
+\end_layout
+
+\begin_layout Standard
+In addition to the data files, it may be useful to have access to the repositori
+es: 
+\end_layout
+
+\begin_layout Itemize
+Main repository: 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://bitbucket.org/wsular/2014-prophet-fis-daq
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Private configuration repository: 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+https://bitbucket.org/wsular/2014-prophet-fis-secrets
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Data management repository: 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://bitbucket.org/wsular/2014-prophet-fis-analysis
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Standard
 \begin_inset Newpage clearpage
 \end_inset
@@ -16144,6 +16628,13 @@ Under networking configuration, disable IPV6 (this may not be strictly necessary
 
 \begin_layout Paragraph
 Scheduled data collection
+\begin_inset CommandInset label
+LatexCommand label
+name "par:Scheduled-data-collection"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -17173,6 +17664,13 @@ chat.freenode.net
 
 \begin_layout Subsection
 Server (at WSU campus)
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Server-at-WSU-config"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -18570,11 +19068,11 @@ http://git-scm.org
 \begin_layout Itemize
 Main repository: 
 \begin_inset Flex URL
-status collapsed
+status open
 
 \begin_layout Plain Layout
 
-https://bitbucket.org/wsular/2014-PROPHET-fis-daq
+https://bitbucket.org/wsular/2014-prophet-fis-daq
 \end_layout
 
 \end_inset
@@ -18590,6 +19088,21 @@ status collapsed
 \begin_layout Plain Layout
 
 https://bitbucket.org/wsular/2014-prophet-fis-secrets
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Data management repository: 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://bitbucket.org/wsular/2014-prophet-fis-analysis
 \end_layout
 
 \end_inset
