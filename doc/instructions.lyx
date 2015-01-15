@@ -16531,6 +16531,27 @@ https://pidgin.im
 
 \end_layout
 
+\begin_layout Description
+Python
+\begin_inset space \space{}
+\end_inset
+
+2.7.7 Used for convenience scripts to check file integrity via MD5 checksums
+ and rewrite large files into manageable chunks.
+ 
+\begin_inset Flex URL
+status collapsed
+
+\begin_layout Plain Layout
+
+http://python.org
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Subsubsection
 Configuration
 \end_layout
@@ -17660,6 +17681,34 @@ chat.freenode.net
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Paragraph
+Decommissioning
+\end_layout
+
+\begin_layout Standard
+Check list for decommissioning:
+\end_layout
+
+\begin_layout Itemize
+Uninstall programs not originally present
+\end_layout
+
+\begin_layout Itemize
+Correct timezone and Daylight Savings Time settings
+\end_layout
+
+\begin_layout Itemize
+Disable BIOS wake schedule and wake-on-AC
+\end_layout
+
+\begin_layout Itemize
+Remove shortcuts from Startup folder
+\end_layout
+
+\begin_layout Itemize
+Disable autologon settings
 \end_layout
 
 \begin_layout Subsection
